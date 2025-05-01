@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ProductInterface } from 'src/products/product.interface';
+import { ProductInterface } from 'src/use-cases/dish/dish.interface';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductEntityInterface } from '../entities/product.interface';
 
