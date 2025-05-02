@@ -1,7 +1,7 @@
 import { EmployeeInterface } from "../employee/employee.interface";
 
 export interface CompanyInterface {
-    id: string;
+    id: number;
     name: string;
     description: string;
     address: string;

@@ -7,12 +7,12 @@ import { UpdateDishService } from './services/update-dish.service';
 import { DeleteDishService } from './services/delete-dish.service';
 import { Response } from 'express';
 import { ProductEntityInterface } from 'src/database/entities/product.interface';
-import { ListDishService } from './services/list-dish.service';
+import { ListDishesService } from './services/list-dishes.service';
 
 @Controller('Dish')
 export class DishController {
   constructor(
-    private listDishService: ListDishService,
+    private listDishesService: ListDishesService,
     private getDishByIdService: GetDishByIdService,
     private createDishService: CreateDishService,
     private updateDishService: UpdateDishService,
@@ -21,7 +21,7 @@ export class DishController {
 
   @Get()
   async list(): Promise<ProductEntityInterface[]> {
-    const productList = await this.listDishService.execute();
+    const productList = await this.listDishesService.execute();
 
     return productList;
   }
