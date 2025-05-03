@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EmployeeRepository } from 'src/database/repositories/Employee.repository';
+import { EmployeeRepository } from 'src/database/repositories/employee.repository';
 
 @Injectable()
 export class DeleteEmployeeService {
