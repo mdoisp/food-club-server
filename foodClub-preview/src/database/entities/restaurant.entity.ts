@@ -1,12 +1,12 @@
 // Arquivo: src/entities/restaurante.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, DataType } from 'sequelize-typescript';
-import { RestaurantePratoEntity } from './restaurante-prato.entity';
+import { RestaurantDishEntity } from './restaurant-dish.entity';
 
 @Table({
   tableName: 'Restaurante',
   timestamps: false,
 })
-export class RestauranteEntity extends Model {
+export class RestaurantEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -60,6 +60,6 @@ export class RestauranteEntity extends Model {
   })
   estado: string;
 
-  @HasMany(() => RestaurantePratoEntity)
-  pratos: RestaurantePratoEntity[];
+  @HasMany(() => RestaurantDishEntity)
+  pratos: RestaurantDishEntity[];
 }

@@ -1,13 +1,13 @@
 // Arquivo: src/entities/usuario.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasOne, DataType } from 'sequelize-typescript';
-import { FuncionarioUsuarioEntity } from './funcionario-usuario.entity';
-import { EmpresaUsuarioEntity } from './empresa-usuario.entity';
+import { EmployeeUserEntity } from './employee-user.entity';
+import { CompanyUserEntity } from './company-user.entity';
 
 @Table({
   tableName: 'Usuario',
   timestamps: false,
 })
-export class UsuarioEntity extends Model {
+export class UserEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -39,10 +39,10 @@ export class UsuarioEntity extends Model {
   })
   email: string;
 
-  @HasOne(() => FuncionarioUsuarioEntity)
-  funcionario: FuncionarioUsuarioEntity;
+  @HasOne(() => EmployeeUserEntity)
+  funcionario: EmployeeUserEntity;
 
-  @HasOne(() => EmpresaUsuarioEntity)
-  empresa: EmpresaUsuarioEntity;
+  @HasOne(() => CompanyUserEntity)
+  empresa: CompanyUserEntity;
 
 }

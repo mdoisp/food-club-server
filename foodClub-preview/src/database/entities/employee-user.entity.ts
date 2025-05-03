@@ -1,15 +1,15 @@
 // Arquivo: src/entities/funcionario-usuario.entity.ts
 import { Table, Column, Model, PrimaryKey, ForeignKey, DataType } from 'sequelize-typescript';
-import { FuncionarioEntity } from './funcionario.entity';
-import { UsuarioEntity } from './usuario.entity';
+import { EmployeeEntity as EmployeeEntity } from './employee.entity';
+import { UserEntity as UserEntity } from './user.entity';
 
 @Table({
   tableName: 'Funcionario_Usuario',
   timestamps: false,
 })
-export class FuncionarioUsuarioEntity extends Model {
+export class EmployeeUserEntity extends Model {
   @PrimaryKey
-  @ForeignKey(() => FuncionarioEntity)
+  @ForeignKey(() => EmployeeEntity)
   @Column({
     type: DataType.INTEGER,
     field: 'ID_Funcionario',
@@ -17,7 +17,7 @@ export class FuncionarioUsuarioEntity extends Model {
   funcionarioId: number;
 
   @PrimaryKey
-  @ForeignKey(() => UsuarioEntity)
+  @ForeignKey(() => UserEntity)
   @Column({
     type: DataType.INTEGER,
     field: 'ID_Usuario',

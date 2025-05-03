@@ -2,30 +2,28 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.createTable('Usuario', {
-      ID_Usuario: {
+    await queryInterface.createTable('Dish', {
+      ID_Prato: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      Tipo_Usuario: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-      },
-      Senha: {
+      Nome_Prato: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
-      Email: {
-        type: DataTypes.STRING(100),
-        unique: true,
+      Descricao_Prato: {
+        type: DataTypes.TEXT,
+      },
+      Preco: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Usuario');
+    await queryInterface.dropTable('Dish');
   },
 };

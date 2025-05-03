@@ -1,14 +1,14 @@
 // Arquivo: src/entities/prato.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, DataType } from 'sequelize-typescript';
-import { RestaurantePratoEntity } from './restaurante-prato.entity';
-import { PedidoFuncPratoEntity } from './pedido-func-prato.entity';
-import { PedidoEmpresaPratoEntity } from './pedido-empresa-prato.entity';
+import { RestaurantDishEntity as RestaurantDishEntity } from './restaurant-dish.entity';
+import { OrderEmployeeDishEntity as OrderEmployeeDishEntity } from './order-employee-dish.entity';
+import { OrderCompanyDishEntity as OrderCompanyDishEntity } from './order-company-dish.entity';
 
 @Table({
   tableName: 'Prato',
   timestamps: false,
 })
-export class PratoEntity extends Model {
+export class DishEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -38,12 +38,12 @@ export class PratoEntity extends Model {
   })
   preco: number;
 
-  @HasMany(() => RestaurantePratoEntity)
-  restaurantes: RestaurantePratoEntity[];
+  @HasMany(() => RestaurantDishEntity)
+  restaurantes: RestaurantDishEntity[];
 
-  @HasMany(() => PedidoFuncPratoEntity)
-  pedidosFuncionario: PedidoFuncPratoEntity[];
+  @HasMany(() => OrderEmployeeDishEntity)
+  pedidosFuncionario: OrderEmployeeDishEntity[];
 
-  @HasMany(() => PedidoEmpresaPratoEntity)
-  pedidosEmpresa: PedidoEmpresaPratoEntity[];
+  @HasMany(() => OrderCompanyDishEntity)
+  pedidosEmpresa: OrderCompanyDishEntity[];
 }

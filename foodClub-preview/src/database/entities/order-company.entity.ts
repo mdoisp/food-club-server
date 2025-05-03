@@ -1,13 +1,13 @@
 // Arquivo: src/entities/pedido-empresa.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, DataType } from 'sequelize-typescript';
-import { EmpresaEntity } from './empresa.entity';
-import { PedidoEmpresaPratoEntity } from './pedido-empresa-prato.entity';
+import { CompanyEntity } from './company.entity';
+import { OrderCompanyDishEntity } from './order-company-dish.entity';
 
 @Table({
   tableName: 'Pedido_Empresa',
   timestamps: false,
 })
-export class PedidoEmpresaEntity extends Model {
+export class OrderCompanyEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -24,7 +24,7 @@ export class PedidoEmpresaEntity extends Model {
   })
   numeroPedido: string;
 
-  @ForeignKey(() => EmpresaEntity)
+  @ForeignKey(() => CompanyEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -32,9 +32,9 @@ export class PedidoEmpresaEntity extends Model {
   })
   empresaId: number;
 
-  @BelongsTo(() => EmpresaEntity)
-  empresa: EmpresaEntity;
+  @BelongsTo(() => CompanyEntity)
+  empresa: CompanyEntity;
 
-  @HasMany(() => PedidoEmpresaPratoEntity)
-  pratos: PedidoEmpresaPratoEntity[];
+  @HasMany(() => OrderCompanyDishEntity)
+  pratos: OrderCompanyDishEntity[];
 }

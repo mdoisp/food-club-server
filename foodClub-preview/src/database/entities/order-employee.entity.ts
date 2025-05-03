@@ -1,13 +1,13 @@
 // Arquivo: src/entities/pedido-funcionario.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, DataType } from 'sequelize-typescript';
-import { FuncionarioEntity } from './funcionario.entity';
-import { PedidoFuncPratoEntity } from './pedido-func-prato.entity';
+import { EmployeeEntity } from './employee.entity';
+import { OrderEmployeeDishEntity } from './order-employee-dish.entity';
 
 @Table({
   tableName: 'Pedido_Funcionario',
   timestamps: false,
 })
-export class PedidoFuncionarioEntity extends Model {
+export class OrderEmployeeEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -24,7 +24,7 @@ export class PedidoFuncionarioEntity extends Model {
   })
   valorPedido: number;
 
-  @ForeignKey(() => FuncionarioEntity)
+  @ForeignKey(() => EmployeeEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -32,9 +32,9 @@ export class PedidoFuncionarioEntity extends Model {
   })
   funcionarioId: number;
 
-  @BelongsTo(() => FuncionarioEntity)
-  funcionario: FuncionarioEntity;
+  @BelongsTo(() => EmployeeEntity)
+  funcionario: EmployeeEntity;
 
-  @HasMany(() => PedidoFuncPratoEntity)
-  pratos: PedidoFuncPratoEntity[];
+  @HasMany(() => OrderEmployeeDishEntity)
+  pratos: OrderEmployeeDishEntity[];
 }

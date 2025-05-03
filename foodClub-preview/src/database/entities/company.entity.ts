@@ -1,14 +1,14 @@
 // Arquivo: src/entities/empresa.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, HasOne, DataType } from 'sequelize-typescript';
-import { FuncionarioEntity } from './funcionario.entity';
-import { EmpresaUsuarioEntity } from './empresa-usuario.entity';
-import { PedidoEmpresaEntity } from './pedido-empresa.entity';
+import { EmployeeEntity as EmployeeEntity } from './employee.entity';
+import { CompanyUserEntity } from './company-user.entity';
+import { OrderCompanyEntity as OrderCompanyEntity } from './order-company.entity';
 
 @Table({
   tableName: 'Empresa',
   timestamps: false,
 })
-export class EmpresaEntity extends Model {
+export class CompanyEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -62,12 +62,12 @@ export class EmpresaEntity extends Model {
   })
   estado: string;
 
-  @HasMany(() => FuncionarioEntity)
-  funcionarios: FuncionarioEntity[];
+  @HasMany(() => EmployeeEntity)
+  funcionarios: EmployeeEntity[];
 
-  @HasMany(() => EmpresaUsuarioEntity)
-  usuarios: EmpresaUsuarioEntity[];
+  @HasMany(() => CompanyUserEntity)
+  usuarios: CompanyUserEntity[];
 
-  @HasMany(() => PedidoEmpresaEntity)
-  pedidos: PedidoEmpresaEntity[];
+  @HasMany(() => OrderCompanyEntity)
+  pedidos: OrderCompanyEntity[];
 }

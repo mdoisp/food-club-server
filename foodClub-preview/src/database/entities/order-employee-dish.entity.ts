@@ -1,15 +1,15 @@
 // Arquivo: src/entities/pedido-func-prato.entity.ts
 import { Table, Column, Model, PrimaryKey, ForeignKey, DataType } from 'sequelize-typescript';
-import { PedidoFuncionarioEntity } from './pedido-funcionario.entity';
-import { PratoEntity } from './prato.entity';
+import { OrderEmployeeEntity } from './order-employee.entity';
+import { DishEntity } from './dish.entity';
 
 @Table({
   tableName: 'PedidoFunc_Prato',
   timestamps: false,
 })
-export class PedidoFuncPratoEntity extends Model {
+export class OrderEmployeeDishEntity extends Model {
   @PrimaryKey
-  @ForeignKey(() => PedidoFuncionarioEntity)
+  @ForeignKey(() => OrderEmployeeEntity)
   @Column({
     type: DataType.INTEGER,
     field: 'ID_PedidoFunc',
@@ -17,7 +17,7 @@ export class PedidoFuncPratoEntity extends Model {
   pedidoFuncId: number;
 
   @PrimaryKey
-  @ForeignKey(() => PratoEntity)
+  @ForeignKey(() => DishEntity)
   @Column({
     type: DataType.INTEGER,
     field: 'ID_Prato',
