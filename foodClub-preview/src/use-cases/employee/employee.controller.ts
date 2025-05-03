@@ -50,7 +50,7 @@ export class EmployeeController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() employeeData: EmployeeInterface): employeeInterface {
+  update(@Param('id') id: string, @Body() employeeData: EmployeeInterface): EmployeeInterface {
     return this.updateemployeeService.execute(Number(id), employeeData);
   }
 

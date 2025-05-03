@@ -8,9 +8,9 @@ export enum OrderStatus {
 }
   
 export interface OrderInterface {
-    id: string;
-    employeeId: string;
-    dishId: string;
+    id: number;
+    employeeId: number;
+    dishId: number;
     date: Date;
     status: OrderStatus;
     comments: string;

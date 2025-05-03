@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Dish', {
-      idPrato: {
+      idDish: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -30,7 +30,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Restaurants',
+          model: 'Restaurant',
           key: 'id'
         }
       },
@@ -38,19 +38,11 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Dishes');
+    await queryInterface.dropTable('Dish');
   }
 };

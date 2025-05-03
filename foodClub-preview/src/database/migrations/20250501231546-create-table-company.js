@@ -38,7 +38,7 @@ module.exports = {
         type: DataTypes.STRING(2),
         allowNull: true
       },
-      phone: {
+      fone: {
         type: DataTypes.STRING(20),
         allowNull: false
       },
@@ -46,19 +46,11 @@ module.exports = {
         type: DataTypes.STRING(100),
         allowNull: false,
         unique: true
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Companies');
+    await queryInterface.dropTable('Company');
   }
 };

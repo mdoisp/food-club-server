@@ -29,19 +29,11 @@ module.exports = {
         type: DataTypes.STRING(100),
         allowNull: false,
         unique: true
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Restaurants');
+    await queryInterface.dropTable('Restaurant');
   }
 };

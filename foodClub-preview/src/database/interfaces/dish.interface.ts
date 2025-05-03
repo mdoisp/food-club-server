@@ -1,8 +1,8 @@
 export interface DishEntityInterface {
-    idPrato: number;
+    idDish: number;
     name: string;
     price: number;
-    description?: string;
+    description: string;
     ingredients: string[];
     restaurantId: number;
     isAvailable: boolean;

@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Employee', {
-      id: {
+      idFuncionario: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -22,7 +22,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Companies',
+          model: 'Company',
           key: 'IdEmpresa'
         }
       },
@@ -33,19 +33,11 @@ module.exports = {
       department: {
         type: DataTypes.STRING(50),
         allowNull: false
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Employees');
+    await queryInterface.dropTable('Employee');
   }
 };

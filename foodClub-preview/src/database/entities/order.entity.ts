@@ -10,7 +10,7 @@ export class OrderEntity extends Model implements OrderEntityInterface{
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4
   })
-  idOrder: number;
+  idPedido: number;
 
   @Column({
     type: DataType.DATE,
@@ -33,7 +33,7 @@ export class OrderEntity extends Model implements OrderEntityInterface{
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'employeeId'
+    field: 'idFuncionario'
   })
   employeeId: number;
 
@@ -41,7 +41,7 @@ export class OrderEntity extends Model implements OrderEntityInterface{
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'dishId'
+    field: 'idPrato'
   })
   dishId: number;
 

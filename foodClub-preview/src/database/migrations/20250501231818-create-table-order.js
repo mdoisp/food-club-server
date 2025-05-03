@@ -3,25 +3,25 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Order', {
-      id: {
+      idPedido: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false
       },
-      employeeId: {
+      idFuncionario: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Employees',
-          key: 'id'
+          model: 'Employee',
+          key: 'idFuncionario'
         }
       },
-      dishId: {
+      idPrato: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Dishes',
+          model: 'Dish',
           key: 'idPrato'
         }
       },
@@ -45,19 +45,11 @@ module.exports = {
       comments: {
         type: DataTypes.TEXT,
         allowNull: true
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false
       }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('Order');
   }
 };

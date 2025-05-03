@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CompanyInterface } from '../../use-cases/company/company.interface';
 import { CompanyEntity } from '../entities/company.entity';
-import { CompanyEntityInterface } from '../entities/company.interface';
+import { CompanyEntityInterface } from './../interfaces/company.interface';
 
 @Injectable()
 export class CompanyRepository {

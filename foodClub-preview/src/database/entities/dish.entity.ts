@@ -10,7 +10,7 @@ export class DishEntity extends Model implements DishEntityInterface{
     type: DataType.INTEGER,
     field: 'idPrato'
   })
-  idPrato: number;
+  idDish: number;
 
   @Column({
     type: DataType.STRING(100),

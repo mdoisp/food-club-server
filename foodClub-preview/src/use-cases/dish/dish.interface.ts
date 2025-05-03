@@ -1,5 +1,5 @@
 export interface DishInterface{
-    idPrato: number;
+    idDish: number;
     name: string;
     price: number;
     description: string;

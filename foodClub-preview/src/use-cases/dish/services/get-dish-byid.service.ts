@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { DishInterface } from '../dish.interface';
-import { ProductRepository } from 'src/database/repositories/product.repository';
+import { DishRepository } from '../../../database/repositories/dish.repository';
 
 @Injectable()
 export class GetDishByIdService {
-  constructor(private productRepository: ProductRepository){}
+  constructor(private dishRepository: DishRepository){}
   execute(id: number): DishInterface {
-    return this.productRepository.getById(id);
+    return this.dishRepository.getById(id);
   }
 }

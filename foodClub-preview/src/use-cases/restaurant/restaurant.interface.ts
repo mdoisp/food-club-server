@@ -1,7 +1,7 @@
 import { DishInterface } from "../dish/dish.interface";
 
 export interface RestaurantInterface {
-    id: string;
+    idRestaurante: number;
     name: string;
     description?: string;
     address: string;

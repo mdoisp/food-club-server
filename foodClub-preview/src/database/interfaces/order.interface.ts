@@ -8,7 +8,7 @@ export enum OrderStatusEntity {
   }
   
   export interface OrderEntityInterface {
-    idOrder: number;
+    idPedido: number;
     employeeId: number;
     dishId: number;
     date: Date;

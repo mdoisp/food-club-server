@@ -2,21 +2,20 @@ import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { CompanyEntityInterface } from '../interfaces/company.interface';
 import { EmployeeEntity as EmployeeEntity } from './employee.entity';
 
-
 @Table({ tableName: 'Company' })
 export class CompanyEntity extends Model implements CompanyEntityInterface {
   @Column({
     primaryKey: true,
     autoIncrement: true,
     type: DataType.INTEGER,
-    field: 'Id_Empresa'
+    field: 'IdEmpresa'
   })
   idEmpresa: number;
 
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    field: 'Nome_Empresa'
+    field: 'NomeEmpresa'
   })
   nomeEmpresa: string;
 

@@ -17,16 +17,16 @@ export class DishRepository {
   }
 
   update(id: number, dishData: DishInterface): DishInterface {
-    const index = this.dishes.findIndex((dish) => dish.idPrato === id);
+    const index = this.dishes.findIndex((dish) => dish.idDish === id);
     if (index === -1) throw new Error('Prato não encontrado!');
 
-    const updatedDish = { ...dishData, id: this.dishes[index].idPrato };
+    const updatedDish = { ...dishData, id: this.dishes[index].idDish };
     this.dishes[index] = updatedDish;
     return updatedDish;
   }
 
   getById(id: number): DishInterface {
-    const dish = this.dishes.find((dish) => dish.idPrato === id);
+    const dish = this.dishes.find((dish) => dish.idDish === id);
     if (!dish) throw new Error('Prato não encontrado!');
     return dish;
   }
@@ -36,7 +36,7 @@ export class DishRepository {
   }
 
   delete(id: number): void {
-    const index = this.dishes.findIndex((dish) => dish.idPrato === id);
+    const index = this.dishes.findIndex((dish) => dish.idDish === id);
     if (index === -1) throw new Error('Prato não encontrado!');
     this.dishes.splice(index, 1);
   }

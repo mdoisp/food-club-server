@@ -9,7 +9,7 @@ export class EmployeeEntity extends Model implements EmployeeEntityInterface {
     autoIncrement: true,
     type: DataType.INTEGER
   })
-  id: number;
+  idFuncionario: number;
 
   @Column({
     type: DataType.STRING(100),

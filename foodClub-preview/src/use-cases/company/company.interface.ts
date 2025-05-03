@@ -1,15 +1,15 @@
 import { EmployeeInterface } from "../employee/Employee.interface";
 
 export interface CompanyInterface {
-    IdEmpresa: number;
-    NomeEmpresa: string;
-    Rua?: string;
-    CNPJ?: string;
-    CEP?: string;
-    Numero?: string;
-    Cidade?: string;
-    Estado?: string;
-    phone: string;
+    idEmpresa: number;
+    nomeEmpresa: string;
+    rua?: string;
+    cnpj?: string;
+    cep?: string;
+    numero?: string;
+    cidade?: string;
+    estado?: string;
+    fone: string;
     email: string;
-    funcionario: EmployeeInterface[];
+    funcionarios?: EmployeeInterface[];
 }
