@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetCompanyByIdService } from './services/get-company-byyd.service'
+import { GetCompanyByIdService } from './services/get-company-byid.service'
 import { CreateCompanyService } from './services/create-company.service';
 import { UpdateCompanyService } from './services/update-company.service';
 import { DeleteCompanyService } from './services/delete-company.service';
