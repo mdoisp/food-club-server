@@ -17,16 +17,16 @@ export class CompanyRepository {
   }
 
   update(id: number, companyData: CompanyInterface): CompanyInterface {
-    const index = this.companies.findIndex((company) => company.IdEmpresa === id);
+    const index = this.companies.findIndex((company) => company.idEmpresa === id);
     if (index === -1) throw new Error('Empresa não encontrada!');
 
-    const updatedCompany = { ...companyData, id: this.companies[index].IdEmpresa };
+    const updatedCompany = { ...companyData, id: this.companies[index].idEmpresa };
     this.companies[index] = updatedCompany;
     return updatedCompany;
   }
 
   getById(id: number): CompanyInterface {
-    const company = this.companies.find((company) => company.IdEmpresa === id);
+    const company = this.companies.find((company) => company.idEmpresa === id);
     if (!company) throw new Error('Empresa não encontrada!');
     return company;
   }
@@ -36,7 +36,7 @@ export class CompanyRepository {
   }
 
   delete(id: number): void {
-    const index = this.companies.findIndex((company) => company.IdEmpresa === id);
+    const index = this.companies.findIndex((company) => company.idEmpresa === id);
     if (index === -1) throw new Error('Empresa não encontrada!');
     this.companies.splice(index, 1);
   }
