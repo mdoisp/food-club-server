@@ -1,7 +1,7 @@
 // Arquivo: src/entities/funcionario-usuario.entity.ts
 import { Table, Column, Model, PrimaryKey, ForeignKey, DataType } from 'sequelize-typescript';
 import { EmployeeEntity as EmployeeEntity } from './employee.entity';
-import { UserEntity as UserEntity } from './user.entity';
+import { UserEntity as UserEntity } from './order.entity';
 
 @Table({
   tableName: 'Funcionario_Usuario',

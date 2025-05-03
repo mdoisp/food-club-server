@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EmployeeRepository } from 'src/database/repositories/Employee.repository';
-import { EmployeeEntityInterface } from 'src/database/entities/Employee.interface';
+import { EmployeeEntityInterface } from 'src/database/interfaces/employee.interface';
 
 @Injectable()
 export class ListEmployeesService {

@@ -1,36 +1,49 @@
-// Arquivo: src/entities/funcionario.entity.ts
-import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, HasOne, DataType } from 'sequelize-typescript';
-import { EmployeeOrderEntity } from './employee-order.entity';
-import { EmployeeUserEntity } from './employee-user.entity';
-import { CompanyEmployeeEntity } from './company-employee.entity';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { EmployeeEntityInterface } from '../interfaces/employee.interface';
+import { CompanyEntity as CompanyEntity } from './company.entity';
 
-@Table({
-  tableName: 'Funcionario',
-  timestamps: false,
-})
-export class EmployeeEntity extends Model {
-  @PrimaryKey
-  @AutoIncrement
+@Table({ tableName: 'Employees' })
+export class EmployeeEntity extends Model implements EmployeeEntityInterface {
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-    field: 'ID_Funcionario',
+    primaryKey: true,
+    autoIncrement: true,
+    type: DataType.INTEGER
   })
-  idFuncionario: number;
+  id: number;
+
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: false
+  })
+  name: string;
 
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    field: 'Nome_Funcionario',
+    unique: true
   })
-  nomeFuncionario: string;
+  email: string;
 
-  @HasMany(() => EmployeeOrderEntity)
-  pedidos: EmployeeOrderEntity[];
+  @Column({
+    type: DataType.STRING(50),
+    allowNull: false
+  })
+  position: string;
 
-  @HasOne(() => EmployeeUserEntity)
-  usuario: EmployeeUserEntity;
+  @Column({
+    type: DataType.STRING(50),
+    allowNull: false
+  })
+  department: string;
 
-  @HasOne(() => CompanyEmployeeEntity)
-  empresa: CompanyEmployeeEntity;
+  @ForeignKey(() => CompanyEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'companyId'
+  })
+  companyId: number;
+
+  @BelongsTo(() => CompanyEntity)
+  company: CompanyEntity;
 }

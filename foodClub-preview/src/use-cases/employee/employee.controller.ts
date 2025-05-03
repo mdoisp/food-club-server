@@ -6,7 +6,7 @@ import { CreateEmployeeService } from './services/create-employee.service';
 import { UpdateEmployeeService } from './services/update-employee.service';
 import { DeleteEmployeeService } from './services/delete-employee.service';
 import { Response } from 'express';
-import { EmployeeEntityInterface } from 'src/database/entities/employee.interface';
+import { EmployeeEntityInterface } from 'src/database/interfaces/employee.interface';
 import { ListEmployeesService } from './services/list-employees.service';
 
 @Controller('employee')

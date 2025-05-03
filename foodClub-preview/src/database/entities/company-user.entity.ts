@@ -1,7 +1,7 @@
 // Arquivo: src/entities/empresa-usuario.entity.ts
 import { Table, Column, Model, PrimaryKey, ForeignKey, DataType } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
-import { UserEntity as UserEntity } from './user.entity';
+import { UserEntity as UserEntity } from './order.entity';
 
 @Table({
   tableName: 'Empresa_Usuario',

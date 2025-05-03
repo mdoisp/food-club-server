@@ -3,39 +3,45 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Restaurant', {
-      ID_Restaurantes: {
-        type: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false
       },
-      Nome_Restaurante: {
+      name: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: false
       },
-      CNPJ: {
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      address: {
+        type: DataTypes.STRING(200),
+        allowNull: false
+      },
+      phone: {
         type: DataTypes.STRING(20),
-        unique: true,
+        allowNull: false
       },
-      Rua: {
+      email: {
         type: DataTypes.STRING(100),
+        allowNull: false,
+        unique: true
       },
-      Numero: {
-        type: DataTypes.STRING(10),
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false
       },
-      CEP: {
-        type: DataTypes.STRING(10),
-      },
-      Cidade: {
-        type: DataTypes.STRING(50),
-      },
-      Estado: {
-        type: DataTypes.STRING(2),
-      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false
+      }
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Restaurant');
-  },
+    await queryInterface.dropTable('Restaurants');
+  }
 };

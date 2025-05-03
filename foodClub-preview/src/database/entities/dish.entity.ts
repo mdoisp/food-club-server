@@ -1,49 +1,54 @@
-// Arquivo: src/entities/prato.entity.ts
-import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, DataType } from 'sequelize-typescript';
-import { RestaurantDishEntity as RestaurantDishEntity } from './restaurant-dish.entity';
-import { EmployeeOrderDishEntity as EmployeeOrderDishEntity } from './employee-order-dish.entity';
-import { CompanyOrderDishEntity as CompanyOrderDishEntity } from './company-order-dish.entity';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { DishEntityInterface } from '../interfaces/dish.interface';
+import { RestaurantEntity as RestaurantEntity } from './restaurant.entity';
 
-@Table({
-  tableName: 'Prato',
-  timestamps: false,
-})
-export class DishEntity extends Model {
-  @PrimaryKey
-  @AutoIncrement
+@Table({ tableName: 'Dish' })
+export class DishEntity extends Model implements DishEntityInterface{
   @Column({
+    primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
-    allowNull: false,
-    field: 'ID_Prato',
+    field: 'idPrato'
   })
   idPrato: number;
 
   @Column({
     type: DataType.STRING(100),
-    allowNull: false,
-    field: 'Nome_Prato',
+    allowNull: false
   })
-  nomePrato: string;
-
-  @Column({
-    type: DataType.TEXT,
-    field: 'Descricao_Prato',
-  })
-  descricaoPrato: string;
+  name: string;
 
   @Column({
     type: DataType.DECIMAL(10, 2),
-    allowNull: false,
-    field: 'Preco',
+    allowNull: false
   })
-  preco: number;
+  price: number;
 
-  @HasMany(() => RestaurantDishEntity)
-  restaurantes: RestaurantDishEntity[];
+  @Column(DataType.TEXT)
+  description: string;
 
-  @HasMany(() => EmployeeOrderDishEntity)
-  pedidosFuncionario: EmployeeOrderDishEntity[];
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    allowNull: false,
+    defaultValue: []
+  })
+  ingredients: string[];
 
-  @HasMany(() => CompanyOrderDishEntity)
-  pedidosEmpresa: CompanyOrderDishEntity[];
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  })
+  isAvailable: boolean;
+
+  @ForeignKey(() => RestaurantEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'restaurantId'
+  })
+  restaurantId: number;
+
+  @BelongsTo(() => RestaurantEntity)
+  restaurant: RestaurantEntity;
 }
