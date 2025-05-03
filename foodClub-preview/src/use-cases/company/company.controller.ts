@@ -27,8 +27,8 @@ export class CompanyController {
   @HttpCode(201)
   create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { name, description, address, phone, email } = company;
-    if(!(name && description && address && phone && email)){
+    const { nomeEmpresa,cep , numero, fone, email } = company;
+    if(!(nomeEmpresa && cep && numero && fone && email)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

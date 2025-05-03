@@ -1,4 +1,4 @@
-export interface DishInterface{
+export interface DishEntityInterface {
     idDish: number;
     name: string;
     price: number;
@@ -6,4 +6,4 @@ export interface DishInterface{
     ingredients: string[];
     restaurantId: number;
     isAvailable: boolean;
-}
+  }

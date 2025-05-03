@@ -1,17 +1,17 @@
-export enum OrderStatus {
+export enum OrderStatusEntity {
     PENDING = 'pending',
     CONFIRMED = 'confirmed',
     PREPARING = 'preparing',
     READY = 'ready',
     DELIVERED = 'delivered',
     CANCELLED = 'cancelled',
-}
+  }
   
-export interface OrderInterface {
-    id: number;
+  export interface OrderEntityInterface {
+    idPedido: number;
     employeeId: number;
     dishId: number;
     date: Date;
-    status: OrderStatus;
-    comments: string;
-}  
+    status: OrderStatusEntity;
+    comments?: string;
+  }

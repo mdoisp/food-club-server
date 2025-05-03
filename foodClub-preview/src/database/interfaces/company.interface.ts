@@ -1,6 +1,6 @@
-import { EmployeeInterface } from "../employee/Employee.interface";
+import { EmployeeEntityInterface } from "./employee.interface";
 
-export interface CompanyInterface {
+export interface CompanyEntityInterface {
     idEmpresa: number;
     nomeEmpresa: string;
     rua?: string;
@@ -11,5 +11,5 @@ export interface CompanyInterface {
     estado?: string;
     fone: string;
     email: string;
-    funcionarios?: EmployeeInterface[];
-}
+    funcionarios?: EmployeeEntityInterface[];
+  }

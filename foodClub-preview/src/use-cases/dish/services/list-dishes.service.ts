@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ProductRepository } from 'src/database/repositories/product.repository';
-import { ProductEntityInterface } from 'src/database/entities/product.interface';
+import { DishInterface } from '../dish.interface';
+import { DishRepository } from '../../../database/repositories/dish.repository';
 
 @Injectable()
 export class ListDishesService {
-  constructor(private productRepository: ProductRepository) {}
-  execute(): Promise<ProductEntityInterface[]>{
-    return this.productRepository.list();
+  constructor(private dishRepository: DishRepository) {}
+  execute(): Promise<DishInterface[]>{
+    return this.dishRepository.list();
   }
 }

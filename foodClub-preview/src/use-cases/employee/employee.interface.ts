@@ -1,8 +1,11 @@
+import { CompanyEntityInterface } from "src/database/interfaces/company.interface";
+
 export interface EmployeeInterface {
-    id: string;
+    id: number;
     name: string;
     email: string;
-    companyId: string;
     position: string;
     department: string;
+    companyId: number;
+    company?: CompanyEntityInterface;
 }

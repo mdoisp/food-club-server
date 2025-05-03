@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { ProductRepository } from 'src/database/repositories/product.repository';
+import { DishRepository } from '../../../database/repositories/dish.repository';
 
 @Injectable()
 export class DeleteDishService {
-  constructor(private productRepository: ProductRepository) {}
+  constructor(private dishRepository: DishRepository) {}
   execute(id: number): void {
-    this.productRepository.delete(id);
+    this.dishRepository.delete(id);
   }
 }
