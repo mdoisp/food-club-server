@@ -15,7 +15,7 @@ export class UserEntity extends Model {
     allowNull: false,
     field: 'ID_Usuario',
   })
-  id: number;
+  idUsuario: number;
 
   @Column({
     type: DataType.STRING(20),

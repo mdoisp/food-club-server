@@ -14,7 +14,7 @@ export class RestaurantDishEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Restaurantes',
   })
-  restauranteId: number;
+  idRestaurantes: number;
 
   @PrimaryKey
   @ForeignKey(() => DishEntity)
@@ -22,5 +22,5 @@ export class RestaurantDishEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Prato',
   })
-  pratoId: number;
+  idPrato: number;
 }

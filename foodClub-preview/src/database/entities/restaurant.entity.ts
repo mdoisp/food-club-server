@@ -14,7 +14,7 @@ export class RestaurantEntity extends Model {
     allowNull: false,
     field: 'ID_Restaurantes',
   })
-  id: number;
+  idRestaurantes: number;
 
   @Column({
     type: DataType.STRING(100),

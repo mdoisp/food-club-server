@@ -14,7 +14,7 @@ export class CompanyEmployeeEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Empresa',
   })
-  empresaId: number;
+  idEmpresa: number;
 
   @PrimaryKey
   @ForeignKey(() => EmployeeEntity)
@@ -22,5 +22,5 @@ export class CompanyEmployeeEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Funcionario',
   })
-  funcionarioId: number;
+  idFuncionario: number;
 }

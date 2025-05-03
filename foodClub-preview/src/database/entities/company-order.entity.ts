@@ -1,7 +1,7 @@
 // Arquivo: src/entities/pedido-empresa.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, DataType } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
-import { OrderCompanyDishEntity } from './order-company-dish.entity';
+import { CompanyOrderDishEntity } from './company-order-dish.entity';
 
 @Table({
   tableName: 'Pedido_Empresa',
@@ -15,7 +15,7 @@ export class OrderCompanyEntity extends Model {
     allowNull: false,
     field: 'ID_Pedido',
   })
-  id: number;
+  idPedido: number;
 
   @Column({
     type: DataType.STRING(50),
@@ -30,11 +30,11 @@ export class OrderCompanyEntity extends Model {
     allowNull: false,
     field: 'ID_Empresa',
   })
-  empresaId: number;
+  idEmpresa: number;
 
   @BelongsTo(() => CompanyEntity)
   empresa: CompanyEntity;
 
-  @HasMany(() => OrderCompanyDishEntity)
-  pratos: OrderCompanyDishEntity[];
+  @HasMany(() => CompanyOrderDishEntity)
+  pratos: CompanyOrderDishEntity[];
 }

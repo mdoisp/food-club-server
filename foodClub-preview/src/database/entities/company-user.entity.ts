@@ -14,7 +14,7 @@ export class CompanyUserEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Empresa',
   })
-  empresaId: number;
+  idEmpresa: number;
 
   @PrimaryKey
   @ForeignKey(() => UserEntity)
@@ -22,5 +22,5 @@ export class CompanyUserEntity extends Model {
     type: DataType.INTEGER,
     field: 'ID_Usuario',
   })
-  usuarioId: number;
+  idUsuario: number;
 }

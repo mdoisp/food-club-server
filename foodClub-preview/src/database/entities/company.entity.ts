@@ -1,14 +1,14 @@
-// Arquivo: src/entities/empresa.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasMany, HasOne, DataType } from 'sequelize-typescript';
 import { EmployeeEntity as EmployeeEntity } from './employee.entity';
 import { CompanyUserEntity } from './company-user.entity';
-import { OrderCompanyEntity as OrderCompanyEntity } from './order-company.entity';
+import { OrderCompanyEntity as OrderCompanyEntity } from './company-order.entity';
+import { CompanyEntityInterface } from './company.interface';
 
 @Table({
-  tableName: 'Empresa',
+  tableName: 'Company',
   timestamps: false,
 })
-export class CompanyEntity extends Model {
+export class CompanyEntity extends Model implements CompanyEntityInterface {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -16,7 +16,7 @@ export class CompanyEntity extends Model {
     allowNull: false,
     field: 'ID_Empresa',
   })
-  id: number;
+  idEmpresa: number;
 
   @Column({
     type: DataType.STRING(100),

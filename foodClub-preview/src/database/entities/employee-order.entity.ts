@@ -1,13 +1,13 @@
 // Arquivo: src/entities/pedido-funcionario.entity.ts
 import { Table, Column, Model, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany, DataType } from 'sequelize-typescript';
 import { EmployeeEntity } from './employee.entity';
-import { OrderEmployeeDishEntity } from './order-employee-dish.entity';
+import { EmployeeOrderDishEntity } from './employee-order-dish.entity';
 
 @Table({
   tableName: 'Pedido_Funcionario',
   timestamps: false,
 })
-export class OrderEmployeeEntity extends Model {
+export class EmployeeOrderEntity extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -15,7 +15,7 @@ export class OrderEmployeeEntity extends Model {
     allowNull: false,
     field: 'ID_PedidoFunc',
   })
-  id: number;
+  idPedidoFunc: number;
 
   @Column({
     type: DataType.DECIMAL(10, 2),
@@ -30,11 +30,11 @@ export class OrderEmployeeEntity extends Model {
     allowNull: false,
     field: 'ID_Funcionario',
   })
-  funcionarioId: number;
+  idFuncionario: number;
 
   @BelongsTo(() => EmployeeEntity)
   funcionario: EmployeeEntity;
 
-  @HasMany(() => OrderEmployeeDishEntity)
-  pratos: OrderEmployeeDishEntity[];
+  @HasMany(() => EmployeeOrderDishEntity)
+  pratos: EmployeeOrderDishEntity[];
 }
