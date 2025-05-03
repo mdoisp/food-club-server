@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ProductInterface } from 'src/products/product.interface';
+import { DishInterface } from 'src/use-cases/dish/dish.interface';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductEntityInterface } from '../entities/product.interface';
 
 @Injectable()
 export class ProductRepository {
-    private products: ProductInterface[] = [];
+    private products: DishInterface[] = [];
 
     
     constructor(
@@ -13,11 +13,11 @@ export class ProductRepository {
         private productEntity: typeof ProductEntity,
     ){}
 
-    create(product: ProductInterface): void {
+    create(product: DishInterface): void {
         this.products.push(product);
     }
 
-    update(id: number, productData: ProductInterface): ProductInterface {
+    update(id: number, productData: DishInterface): DishInterface {
         const index = this.products.findIndex((product) => product.id === id);
         
         if (index === -1) {
@@ -34,7 +34,7 @@ export class ProductRepository {
         return updatedProduct;
     }
 
-    getById(id: number): ProductInterface{
+    getById(id: number): DishInterface{
         const product = this.products.find((product) => product.id === id);
         if (!product) throw Error('Produto não encontrado!');
         return product;

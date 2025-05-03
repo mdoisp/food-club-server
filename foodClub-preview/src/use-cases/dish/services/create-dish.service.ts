@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ProductInterface } from '../product.interface';
+import { DishInterface } from '../dish.interface';
 import { ProductRepository } from 'src/database/repositories/product.repository';
 
 @Injectable()
-export class CreateProductService {
+export class CreateDishService {
     constructor(private productRepository: ProductRepository){}
-    execute(product: ProductInterface): void {
-        this.productRepository.create(product);
+    execute(dish: DishInterface): void {
+        this.productRepository.create(dish);
     }
 }
