@@ -3,38 +3,38 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Company', {
-      IdEmpresa: {
+      idEmpresa: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      NomeEmpresa: {
+      nomeEmpresa: {
         type: DataTypes.STRING(100),
         allowNull: false
       },
-      Rua: {
+      rua: {
         type: DataTypes.STRING(100),
         allowNull: true
       },
-      CNPJ: {
+      cnpj: {
         type: DataTypes.STRING(20),
         allowNull: true,
         unique: true
       },
-      CEP: {
+      cep: {
         type: DataTypes.STRING(10),
         allowNull: true
       },
-      Numero: {
+      numero: {
         type: DataTypes.STRING(10),
         allowNull: true
       },
-      Cidade: {
+      cidade: {
         type: DataTypes.STRING(50),
         allowNull: true
       },
-      Estado: {
+      estado: {
         type: DataTypes.STRING(2),
         allowNull: true
       },

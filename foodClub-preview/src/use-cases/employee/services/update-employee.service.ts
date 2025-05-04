@@ -5,7 +5,7 @@ import { EmployeeRepository } from 'src/database/repositories/employee.repositor
 @Injectable()
 export class UpdateEmployeeService {
   constructor(private employeeRepository: EmployeeRepository) {}
-  execute(id: number, employeeData: EmployeeInterface): EmployeeInterface {
+  execute(id: number, employeeData: EmployeeInterface): Promise<EmployeeInterface> {
     return this.employeeRepository.update(id, employeeData);
   }
 }

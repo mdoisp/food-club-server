@@ -7,10 +7,25 @@ import { CreateDishService } from './services/create-dish.service';
 import { UpdateDishService } from './services/update-dish.service';
 import { DeleteDishService } from './services/delete-dish.service';
 import { DatabaseModule } from 'src/database/database.module';
+import { dishProvider } from 'src/database/providers/dish.provider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [DishController],
-  providers: [ListDishesService, GetDishByIdService, CreateDishService, UpdateDishService, DeleteDishService],
+  providers: [
+    ...dishProvider,
+    ListDishesService, 
+    GetDishByIdService, 
+    CreateDishService, 
+    UpdateDishService, 
+    DeleteDishService
+  ],
+  exports: [
+    ListDishesService, 
+    GetDishByIdService, 
+    CreateDishService, 
+    UpdateDishService, 
+    DeleteDishService
+  ]
 })
 export class DishModule {}

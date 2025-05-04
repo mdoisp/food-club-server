@@ -4,8 +4,8 @@ import { EmployeeRepository } from 'src/database/repositories/employee.repositor
 
 @Injectable()
 export class GetEmployeeByIdService {
-  constructor(private employeeRepository: EmployeeRepository){}
-  execute(id: number): EmployeeInterface {
+  constructor(private employeeRepository: EmployeeRepository) {}
+  execute(id: number): Promise<EmployeeInterface> {
     return this.employeeRepository.getById(id);
   }
 }

@@ -5,7 +5,7 @@ import { RestaurantRepository } from 'src/database/repositories/restaurant.repos
 @Injectable()
 export class GetRestaurantByIdService {
   constructor(private restaurantRepository: RestaurantRepository){}
-  execute(id: number): RestaurantInterface {
+  execute(id: number): Promise<RestaurantInterface> {
     return this.restaurantRepository.getById(id);
   }
 }

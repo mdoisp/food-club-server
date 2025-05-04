@@ -7,5 +7,5 @@ export interface RestaurantInterface {
     address: string;
     phone: string;
     email: string;
-    dishes: DishInterface[];
+    dishes?: DishInterface[];
 }
