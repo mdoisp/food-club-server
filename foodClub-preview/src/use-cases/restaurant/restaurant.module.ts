@@ -20,6 +20,12 @@ import { RestaurantRepository } from 'src/database/repositories/restaurant.repos
     UpdateRestaurantService, 
     DeleteRestaurantService
   ],
+  exports: [
+    GetRestaurantByIdService, 
+    CreateRestaurantService, 
+    UpdateRestaurantService, 
+    DeleteRestaurantService
+  ]
 })
 export class RestaurantModule {}
 

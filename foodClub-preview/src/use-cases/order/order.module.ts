@@ -22,5 +22,12 @@ import { OrderRepository } from 'src/database/repositories/order.repository';
     UpdateOrderService, 
     DeleteOrderService
   ],
+  exports: [
+    ListOrdersService, 
+    GetOrderByIdService, 
+    CreateOrderService, 
+    UpdateOrderService, 
+    DeleteOrderService
+  ]
 })
 export class OrderModule {}
