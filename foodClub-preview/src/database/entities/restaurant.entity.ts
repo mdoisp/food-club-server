@@ -2,12 +2,14 @@ import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
 import { DishEntity as DishEntity } from './dish.entity';
 
-@Table({ tableName: 'Restaurants' })
+@Table({ tableName: 'Restaurant',
+  timestamps: false })
 export class RestaurantEntity extends Model implements RestaurantEntityInterface {
   @Column({
     primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4
+    autoIncrement: true,
+    type: DataType.INTEGER,
+    field: 'idRestaurante'
   })
   idRestaurante: number;
 

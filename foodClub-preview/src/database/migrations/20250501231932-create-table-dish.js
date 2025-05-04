@@ -22,16 +22,22 @@ module.exports = {
         allowNull: true
       },
       ingredients: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.TEXT, // Armazena como texto
         allowNull: false,
-        defaultValue: []
+        defaultValue: JSON.stringify([]), // Array vazio como JSON
+        get() {
+          return JSON.parse(this.getDataValue('ingredients'));
+        },
+        set(value) {
+          this.setDataValue('ingredients', JSON.stringify(value));
+        }
       },
       restaurantId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: 'Restaurant',
-          key: 'id'
+          key: 'idRestaurante'
         }
       },
       isAvailable: {

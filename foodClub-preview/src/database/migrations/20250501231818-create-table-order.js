@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Dish',
-          key: 'idPrato'
+          key: 'idDish'
         }
       },
       date: {

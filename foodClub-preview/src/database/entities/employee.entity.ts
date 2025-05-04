@@ -2,7 +2,8 @@ import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize
 import { EmployeeEntityInterface } from '../interfaces/employee.interface';
 import { CompanyEntity as CompanyEntity } from './company.entity';
 
-@Table({ tableName: 'Employees' })
+@Table({ tableName: 'Employee',
+  timestamps: false })
 export class EmployeeEntity extends Model implements EmployeeEntityInterface {
   @Column({
     primaryKey: true,

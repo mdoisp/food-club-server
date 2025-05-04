@@ -3,10 +3,10 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface) {
     await queryInterface.createTable('Restaurant', {
-      id: {
-        type: DataTypes.UUID,
+      idRestaurante: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true,
         allowNull: false
       },
       name: {

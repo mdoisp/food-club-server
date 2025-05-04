@@ -6,7 +6,7 @@ import { CompanyRepository } from 'src/database/repositories/company.repository'
 export class UpdateCompanyService {
   constructor(@Inject('COMPANY_REPOSITORY')
     private readonly companyRepository: CompanyRepository) {}
-  execute(id: number, companyData: CompanyInterface): CompanyInterface {
+  execute(id: number, companyData: CompanyInterface): Promise<CompanyInterface> {
     return this.companyRepository.update(id, companyData);
   }
 }

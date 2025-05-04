@@ -7,6 +7,7 @@ import { DeleteCompanyService } from './services/delete-company.service';
 import { DatabaseModule } from 'src/database/database.module';
 import { CompanyRepository } from 'src/database/repositories/Company.repository';
 import { companyProvider } from './../../database/providers/company.provider';
+import { ListCompaniesService } from './services/list-companies.service';
 
 
 @Module({
@@ -15,12 +16,14 @@ import { companyProvider } from './../../database/providers/company.provider';
   providers: [
     ...companyProvider, 
     CompanyRepository,
+    ListCompaniesService,
     GetCompanyByIdService, 
     CreateCompanyService, 
     UpdateCompanyService, 
     DeleteCompanyService
   ],
   exports: [
+    ListCompaniesService,
     GetCompanyByIdService,
     CreateCompanyService,
     UpdateCompanyService,

@@ -1,32 +1,31 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CompanyInterface } from '../../use-cases/company/company.interface';
 import { CompanyEntity } from '../entities/company.entity';
-import { CompanyEntityInterface } from './../interfaces/company.interface';
+import { CompanyEntityInterface } from '../interfaces/company.interface';
+import { CompanyInterface } from 'src/use-cases/company/company.interface';
 
 @Injectable()
 export class CompanyRepository {
-  private companies: CompanyInterface[] = [];
-
   constructor(
     @Inject('COMPANY_ENTITY')
-    private companyEntity: typeof CompanyEntity,
+    private readonly companyEntity: typeof CompanyEntity,
   ) {}
 
-  create(company: CompanyInterface): void {
-    this.companies.push(company);
+  async create(company: Omit<CompanyEntityInterface, 'idEmpresa'>): Promise<CompanyEntityInterface> {
+    return await this.companyEntity.create(company);
   }
 
-  update(id: number, companyData: CompanyInterface): CompanyInterface {
-    const index = this.companies.findIndex((company) => company.idEmpresa === id);
-    if (index === -1) throw new Error('Empresa não encontrada!');
-
-    const updatedCompany = { ...companyData, id: this.companies[index].idEmpresa };
-    this.companies[index] = updatedCompany;
-    return updatedCompany;
+  async update(
+    id: number,
+    companyData: Partial<Omit<CompanyEntityInterface, 'idEmpresa'>>,
+  ): Promise<CompanyEntityInterface> {
+    const company = await this.companyEntity.findByPk(id);
+    if (!company) throw new Error('Empresa não encontrada!');
+    
+    return await company.update(companyData);
   }
 
-  getById(id: number): CompanyInterface {
-    const company = this.companies.find((company) => company.idEmpresa === id);
+  async getById(id: number): Promise<CompanyEntityInterface> {
+    const company = await this.companyEntity.findByPk(id);
     if (!company) throw new Error('Empresa não encontrada!');
     return company;
   }
@@ -35,9 +34,9 @@ export class CompanyRepository {
     return await this.companyEntity.findAll();
   }
 
-  delete(id: number): void {
-    const index = this.companies.findIndex((company) => company.idEmpresa === id);
-    if (index === -1) throw new Error('Empresa não encontrada!');
-    this.companies.splice(index, 1);
+  async delete(id: number): Promise<void> {
+    const company = await this.companyEntity.findByPk(id);
+    if (!company) throw new Error('Empresa não encontrada!');
+    await company.destroy();
   }
 }

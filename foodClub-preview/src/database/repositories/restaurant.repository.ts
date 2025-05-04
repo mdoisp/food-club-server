@@ -5,39 +5,38 @@ import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
 
 @Injectable()
 export class RestaurantRepository {
-  private restaurants: RestaurantInterface[] = [];
-
   constructor(
     @Inject('RESTAURANT_ENTITY')
     private restaurantEntity: typeof RestaurantEntity,
   ) {}
 
-  create(restaurant: RestaurantInterface): void {
-    this.restaurants.push(restaurant);
+  async create(restaurant: Omit<RestaurantEntityInterface, 'idRestaurante'>): Promise<RestaurantEntityInterface> {
+    return await this.restaurantEntity.create(restaurant);
   }
 
-  update(id: number, restaurantData: RestaurantInterface): RestaurantInterface {
-    const index = this.restaurants.findIndex((restaurant) => restaurant.idRestaurante === id);
-    if (index === -1) throw new Error('Restaurante não encontrado!');
+  async update(
+      id: number,
+      restaurantData: Partial<Omit<RestaurantEntityInterface, 'idRestaurante'>>,
+    ): Promise<RestaurantEntityInterface> {
+      const dish = await this.restaurantEntity.findByPk(id);
+      if (!dish) throw new Error('Prato não encontrado!');
+      
+      return await dish.update(restaurantData);
+    }
 
-    const updatedRestaurant = { ...restaurantData, id: this.restaurants[index].idRestaurante };
-    this.restaurants[index] = updatedRestaurant;
-    return updatedRestaurant;
-  }
-
-  getById(id: number): RestaurantInterface {
-    const restaurant = this.restaurants.find((restaurant) => restaurant.idRestaurante === id);
-    if (!restaurant) throw new Error('Restaurante não encontrado!');
-    return restaurant;
-  }
+    async getById(id: number): Promise<RestaurantEntityInterface> {
+      const dish = await this.restaurantEntity.findByPk(id);
+      if (!dish) throw new Error('Prato não encontrado!');
+      return dish;
+    }
 
   async list(): Promise<RestaurantEntityInterface[]> {
     return await this.restaurantEntity.findAll();
   }
 
-  delete(id: number): void {
-    const index = this.restaurants.findIndex((restaurant) => restaurant.idRestaurante === id);
-    if (index === -1) throw new Error('Restaurante não encontrado!');
-    this.restaurants.splice(index, 1);
+  async delete(id: number): Promise<void> {
+    const dish = await this.restaurantEntity.findByPk(id);
+    if (!dish) throw new Error('Prato não encontrado!');
+    await dish.destroy();
   }
 }

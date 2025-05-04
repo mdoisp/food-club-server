@@ -7,6 +7,7 @@ export class CreateCompanyService {
     constructor(@Inject('COMPANY_REPOSITORY')
       private readonly companyRepository: CompanyRepository){}
     execute(company: CompanyInterface): void {
+      console.log(company);
         this.companyRepository.create(company);
     }
 }

@@ -17,7 +17,7 @@ export class RestaurantController {
   ) {}
 
   @Get(':id')
-  getById(@Param('id') id: string): RestaurantInterface {
+  getById(@Param('id') id: string): Promise<RestaurantInterface> {
     const product = this.getRestaurantByIdService.execute(Number(id));
 
     return product;
@@ -40,7 +40,7 @@ export class RestaurantController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface): RestaurantInterface {
+  update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface): Promise<RestaurantInterface> {
     return this.updateRestaurantService.execute(Number(id), restaurantData);
   }
 

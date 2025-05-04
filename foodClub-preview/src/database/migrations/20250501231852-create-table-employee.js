@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Company',
-          key: 'IdEmpresa'
+          key: 'idEmpresa'
         }
       },
       position: {

@@ -2,13 +2,14 @@ import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize
 import { DishEntityInterface } from '../interfaces/dish.interface';
 import { RestaurantEntity as RestaurantEntity } from './restaurant.entity';
 
-@Table({ tableName: 'Dish' })
+@Table({ tableName: 'Dish',
+  timestamps: false })
 export class DishEntity extends Model implements DishEntityInterface{
   @Column({
     primaryKey: true,
     autoIncrement: true,
     type: DataType.INTEGER,
-    field: 'idPrato'
+    field: 'idDish'
   })
   idDish: number;
 
