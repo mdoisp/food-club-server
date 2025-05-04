@@ -5,9 +5,9 @@ module.exports = {
   async up (queryInterface, Sequelize) {
       return queryInterface.bulkInsert('Restaurant', [
         {
-          nomeEmpresa: '',
-          fone: '',
-          email: ''
+          nomeEmpresa: 'FoodClub',
+          fone: '15991211221',
+          email: 'foodclub@email.com'
         }
       ]);
   },

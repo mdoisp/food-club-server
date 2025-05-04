@@ -6,21 +6,21 @@ import { UpdateCompanyService } from './services/update-company.service';
 import { DeleteCompanyService } from './services/delete-company.service';
 import { DatabaseModule } from 'src/database/database.module';
 import { CompanyRepository } from 'src/database/repositories/Company.repository';
-import { companyProviders } from './../../database/providers/company.provider';
+import { companyProvider } from './../../database/providers/company.provider';
 
 
 @Module({
   imports: [DatabaseModule],
   controllers: [CompanyController],
   providers: [
-    ...companyProviders, 
+    ...companyProvider, 
     CompanyRepository,
     GetCompanyByIdService, 
     CreateCompanyService, 
     UpdateCompanyService, 
     DeleteCompanyService
   ],
-  exports: [ // Adicione esta seção
+  exports: [
     GetCompanyByIdService,
     CreateCompanyService,
     UpdateCompanyService,

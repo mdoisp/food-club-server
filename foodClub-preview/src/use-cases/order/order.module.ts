@@ -7,14 +7,14 @@ import { CreateOrderService } from './services/create-order.service';
 import { UpdateOrderService } from './services/update-order.service';
 import { DeleteOrderService } from './services/delete-order.service';
 import { DatabaseModule } from 'src/database/database.module';
-import { orderProviders } from 'src/database/providers/order.provider';
+import { orderProvider } from 'src/database/providers/order.provider';
 import { OrderRepository } from 'src/database/repositories/order.repository';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [OrderController],
   providers: [
-    ...orderProviders,
+    ...orderProvider,
     OrderRepository,
     ListOrdersService, 
     GetOrderByIdService, 

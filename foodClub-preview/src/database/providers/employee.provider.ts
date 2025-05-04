@@ -1,7 +1,7 @@
 import { EmployeeEntity } from "../entities/employee.entity";
 import { EmployeeRepository } from "../repositories/employee.repository";
 
-export const employeeProviders = [
+export const employeeProvider = [
   {
     provide: 'EMPLOYEE_ENTITY',
     useValue: EmployeeEntity

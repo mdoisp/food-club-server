@@ -17,16 +17,16 @@ export class EmployeeRepository {
   }
 
   update(id: number, employeeData: EmployeeInterface): EmployeeInterface {
-    const index = this.employees.findIndex((employee) => employee.id === id);
+    const index = this.employees.findIndex((employee) => employee.idFuncionario === id);
     if (index === -1) throw new Error('Funcionário não encontrado!');
 
-    const updatedEmployee = { ...employeeData, id: this.employees[index].id };
+    const updatedEmployee = { ...employeeData, id: this.employees[index].idFuncionario };
     this.employees[index] = updatedEmployee;
     return updatedEmployee;
   }
 
   getById(id: number): EmployeeInterface {
-    const employee = this.employees.find((employee) => employee.id === id);
+    const employee = this.employees.find((employee) => employee.idFuncionario === id);
     if (!employee) throw new Error('Funcionário não encontrado!');
     return employee;
   }
@@ -36,7 +36,7 @@ export class EmployeeRepository {
   }
 
   delete(id: number): void {
-    const index = this.employees.findIndex((employee) => employee.id === id);
+    const index = this.employees.findIndex((employee) => employee.idFuncionario === id);
     if (index === -1) throw new Error('Funcionário não encontrado!');
     this.employees.splice(index, 1);
   }

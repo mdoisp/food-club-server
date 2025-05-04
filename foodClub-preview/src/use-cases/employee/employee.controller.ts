@@ -12,23 +12,23 @@ import { ListEmployeesService } from './services/list-employees.service';
 @Controller('employee')
 export class EmployeeController {
   constructor(
-    private readonly listemployeesService: ListEmployeesService,
-    private readonly getemployeeByIdService: GetEmployeeByIdService,
-    private readonly createemployeeService: CreateEmployeeService,
-    private readonly updateemployeeService: UpdateEmployeeService,
-    private readonly deleteemployeeService: DeleteEmployeeService
+    private readonly listEmployeesService: ListEmployeesService,
+    private readonly getEmployeeByIdService: GetEmployeeByIdService,
+    private readonly createEmployeeService: CreateEmployeeService,
+    private readonly updateEmployeeService: UpdateEmployeeService,
+    private readonly deleteEmployeeService: DeleteEmployeeService
   ) {}
 
   @Get()
   async list(): Promise<EmployeeEntityInterface[]> {
-    const employeeList = await this.listemployeesService.execute();
+    const employeeList = await this.listEmployeesService.execute();
 
     return employeeList;
   }
 
   @Get(':id')
   getById(@Param('id') id: string): EmployeeInterface {
-    const employee = this.getemployeeByIdService.execute(Number(id));
+    const employee = this.getEmployeeByIdService.execute(Number(id));
 
     return employee;
   }
@@ -45,17 +45,17 @@ export class EmployeeController {
       });
       return;
     }
-    this.createemployeeService.execute(employee);
+    this.createEmployeeService.execute(employee);
     res.send();
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() employeeData: EmployeeInterface): EmployeeInterface {
-    return this.updateemployeeService.execute(Number(id), employeeData);
+    return this.updateEmployeeService.execute(Number(id), employeeData);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string): void {
-    this.deleteemployeeService.execute(Number(id));
+    this.deleteEmployeeService.execute(Number(id));
   }
 }

@@ -2,7 +2,7 @@ import { CompanyEntity } from "../entities/company.entity";
 import { CompanyRepository } from 'src/database/repositories/Company.repository';
 
 
-export const companyProviders = [
+export const companyProvider = [
   {
     provide: 'COMPANY_ENTITY',
     useValue: CompanyEntity
