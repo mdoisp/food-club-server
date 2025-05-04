@@ -1,6 +1,13 @@
-import { EmployeeEntity } from "../entities/Employee.entity";
+import { EmployeeEntity } from "../entities/employee.entity";
+import { EmployeeRepository } from "../repositories/employee.repository";
 
-export const employeeProvider = [{
+export const employeeProviders = [
+  {
     provide: 'EMPLOYEE_ENTITY',
     useValue: EmployeeEntity
-}]
+  },
+  {
+    provide: 'EMPLOYEE_REPOSITORY', // Token de injeção
+    useClass: EmployeeRepository // Usa a classe diretamente
+  }
+];

@@ -12,11 +12,11 @@ import { ListEmployeesService } from './services/list-employees.service';
 @Controller('employee')
 export class EmployeeController {
   constructor(
-    private listemployeesService: ListEmployeesService,
-    private getemployeeByIdService: GetEmployeeByIdService,
-    private createemployeeService: CreateEmployeeService,
-    private updateemployeeService: UpdateEmployeeService,
-    private deleteemployeeService: DeleteEmployeeService
+    private readonly listemployeesService: ListEmployeesService,
+    private readonly getemployeeByIdService: GetEmployeeByIdService,
+    private readonly createemployeeService: CreateEmployeeService,
+    private readonly updateemployeeService: UpdateEmployeeService,
+    private readonly deleteemployeeService: DeleteEmployeeService
   ) {}
 
   @Get()

@@ -11,6 +11,19 @@ import { DatabaseModule } from 'src/database/database.module';
 @Module({
   imports: [DatabaseModule],
   controllers: [DishController],
-  providers: [ListDishesService, GetDishByIdService, CreateDishService, UpdateDishService, DeleteDishService],
+  providers: [
+    ListDishesService, 
+    GetDishByIdService, 
+    CreateDishService, 
+    UpdateDishService, 
+    DeleteDishService
+  ],
+  exports: [
+    ListDishesService, 
+    GetDishByIdService, 
+    CreateDishService, 
+    UpdateDishService, 
+    DeleteDishService
+  ]
 })
 export class DishModule {}

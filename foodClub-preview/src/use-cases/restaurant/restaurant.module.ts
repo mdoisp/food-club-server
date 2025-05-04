@@ -6,11 +6,20 @@ import { CreateRestaurantService } from './services/create-restaurant.service';
 import { UpdateRestaurantService } from './services/update-restaurant.service';
 import { DeleteRestaurantService } from './services/delete-restaurant.service';
 import { DatabaseModule } from 'src/database/database.module';
+import { restaurantProviders } from 'src/database/providers/restaurant.provider';
+import { RestaurantRepository } from 'src/database/repositories/restaurant.repository';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [RestaurantController],
-  providers: [GetRestaurantByIdService, CreateRestaurantService, UpdateRestaurantService, DeleteRestaurantService],
+  providers: [
+    ...restaurantProviders,
+    RestaurantRepository,
+    GetRestaurantByIdService, 
+    CreateRestaurantService, 
+    UpdateRestaurantService, 
+    DeleteRestaurantService
+  ],
 })
 export class RestaurantModule {}
 
