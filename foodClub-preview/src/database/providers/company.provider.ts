@@ -8,7 +8,7 @@ export const companyProviders = [
     useValue: CompanyEntity
   },
   {
-    provide: 'COMPANY_REPOSITORY', // Token de injeção
-    useClass: CompanyRepository // Usa a classe diretamente
+    provide: 'COMPANY_REPOSITORY',
+    useClass: CompanyRepository 
   }
 ];

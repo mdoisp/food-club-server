@@ -13,8 +13,8 @@ import { companyProviders } from './../../database/providers/company.provider';
   imports: [DatabaseModule],
   controllers: [CompanyController],
   providers: [
-    ...companyProviders, // Adiciona o provider da entidade
-    CompanyRepository,  // Adiciona o repositório
+    ...companyProviders, 
+    CompanyRepository,
     GetCompanyByIdService, 
     CreateCompanyService, 
     UpdateCompanyService, 

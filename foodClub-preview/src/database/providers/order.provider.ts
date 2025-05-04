@@ -6,7 +6,7 @@ export const orderProviders = [{
     useValue: OrderEntity
 },
   {
-    provide: 'ORDER_REPOSITORY', // Token de injeção
-    useClass: OrderRepository // Usa a classe diretamente
+    provide: 'ORDER_REPOSITORY', 
+    useClass: OrderRepository 
   }
 ]

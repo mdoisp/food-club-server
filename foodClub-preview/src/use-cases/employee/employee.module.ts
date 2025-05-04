@@ -14,8 +14,8 @@ import { EmployeeRepository } from '../../database/repositories/employee.reposit
   imports: [DatabaseModule],
   controllers: [EmployeeController],
   providers: [
-    ...employeeProviders, // Deve vir primeiro
-    EmployeeRepository, // Opcional, já está nos providers
+    ...employeeProviders,
+    EmployeeRepository, 
     ListEmployeesService,
     GetEmployeeByIdService,
     CreateEmployeeService,

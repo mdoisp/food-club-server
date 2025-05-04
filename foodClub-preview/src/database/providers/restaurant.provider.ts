@@ -6,7 +6,7 @@ export const restaurantProviders = [{
     useValue: RestaurantEntity
 },
   {
-    provide: 'RESTAURANT_REPOSITORY', // Token de injeção
-    useClass: RestaurantRepository // Usa a classe diretamente
+    provide: 'RESTAURANT_REPOSITORY', 
+    useClass: RestaurantRepository
   }
 ]

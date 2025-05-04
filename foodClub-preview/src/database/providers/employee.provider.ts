@@ -7,7 +7,7 @@ export const employeeProviders = [
     useValue: EmployeeEntity
   },
   {
-    provide: 'EMPLOYEE_REPOSITORY', // Token de injeção
-    useClass: EmployeeRepository // Usa a classe diretamente
+    provide: 'EMPLOYEE_REPOSITORY', 
+    useClass: EmployeeRepository 
   }
 ];
