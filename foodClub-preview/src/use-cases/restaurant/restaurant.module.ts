@@ -12,5 +12,5 @@ import { DatabaseModule } from 'src/database/database.module';
   controllers: [RestaurantController],
   providers: [GetRestaurantByIdService, CreateRestaurantService, UpdateRestaurantService, DeleteRestaurantService],
 })
-export class DishModule {}
+export class RestaurantModule {}
 

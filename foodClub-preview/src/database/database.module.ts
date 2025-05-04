@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ProductRepository } from './repositories/product.repository';
+import { DishRepository } from './repositories/dish.repository';
 import { databaseProvider } from './database.provider';
-import { productProvider } from './providers/product.provider';
+import { dishProvider } from './providers/dish.provider';
 
 @Module({
-    providers:[ProductRepository, ...databaseProvider, ...productProvider],
-    exports:[ProductRepository]
+    providers:[DishRepository, ...databaseProvider, ...dishProvider],
+    exports:[DishRepository]
 })
 export class DatabaseModule {}

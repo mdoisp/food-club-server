@@ -12,5 +12,4 @@ import { DatabaseModule } from 'src/database/database.module';
   controllers: [CompanyController],
   providers: [GetCompanyByIdService, CreateCompanyService, UpdateCompanyService, DeleteCompanyService],
 })
-export class DishModule {}
-
+export class CompanyModule {}

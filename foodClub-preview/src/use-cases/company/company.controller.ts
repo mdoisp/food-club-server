@@ -27,7 +27,7 @@ export class CompanyController {
   @HttpCode(201)
   create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { nomeEmpresa,cep , numero, fone, email } = company;
+    const { nomeEmpresa, cep, numero, fone, email } = company;
     if(!(nomeEmpresa && cep && numero && fone && email)){
       res.status(400).json({
         sucess: false,

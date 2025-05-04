@@ -6,7 +6,7 @@ import { CreateOrderService } from './services/create-order.service';
 import { UpdateOrderService } from './services/update-order.service';
 import { DeleteOrderService } from './services/delete-order.service';
 import { Response } from 'express';
-import { OrderEntityInterface } from 'src/database/entities/order.interface';
+import { OrderEntityInterface } from 'src/database/interfaces/order.interface';
 import { ListOrdersService } from './services/list-orders.service';
 
 @Controller('Order')
