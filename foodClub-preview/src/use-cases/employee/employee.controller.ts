@@ -27,7 +27,7 @@ export class EmployeeController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string): EmployeeInterface {
+  getById(@Param('id') id: string): Promise<EmployeeInterface> {
     const employee = this.getEmployeeByIdService.execute(Number(id));
 
     return employee;
@@ -50,7 +50,7 @@ export class EmployeeController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() employeeData: EmployeeInterface): EmployeeInterface {
+  update(@Param('id') id: string, @Body() employeeData: EmployeeInterface): Promise<EmployeeInterface> {
     return this.updateEmployeeService.execute(Number(id), employeeData);
   }
 

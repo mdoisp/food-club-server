@@ -1,32 +1,31 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { OrderInterface } from '../../use-cases/order/order.interface';
 import { OrderEntity } from '../entities/order.entity';
 import { OrderEntityInterface } from '../interfaces/order.interface';
+import { OrderInterface } from '../../use-cases/order/order.interface';
 
 @Injectable()
 export class OrderRepository {
-  private orders: OrderInterface[] = [];
-
   constructor(
     @Inject('ORDER_ENTITY')
-    private orderEntity: typeof OrderEntity,
+    private readonly orderEntity: typeof OrderEntity,
   ) {}
 
-  create(order: OrderInterface): void {
-    this.orders.push(order);
+  async create(order: Omit<OrderInterface, 'id'>): Promise<OrderEntityInterface> {
+    return await this.orderEntity.create(order);
   }
 
-  update(id: number, orderData: OrderInterface): OrderInterface {
-    const index = this.orders.findIndex((order) => order.employeeId === id);
-    if (index === -1) throw new Error('Pedido não encontrado!');
-
-    const updatedOrder = { ...orderData, id: this.orders[index].employeeId };
-    this.orders[index] = updatedOrder;
-    return updatedOrder;
+  async update(
+    id: number,
+    orderData: Partial<Omit<OrderInterface, 'id'>>,
+  ): Promise<OrderEntityInterface> {
+    const order = await this.orderEntity.findByPk(id);
+    if (!order) throw new Error('Pedido não encontrado!');
+    
+    return await order.update(orderData);
   }
 
-  getById(id: number): OrderInterface {
-    const order = this.orders.find((order) => order.employeeId === id);
+  async getById(id: number): Promise<OrderEntityInterface> {
+    const order = await this.orderEntity.findByPk(id);
     if (!order) throw new Error('Pedido não encontrado!');
     return order;
   }
@@ -35,9 +34,9 @@ export class OrderRepository {
     return await this.orderEntity.findAll();
   }
 
-  delete(id: number): void {
-    const index = this.orders.findIndex((order) => order.employeeId === id);
-    if (index === -1) throw new Error('Pedido não encontrado!');
-    this.orders.splice(index, 1);
+  async delete(id: number): Promise<void> {
+    const order = await this.orderEntity.findByPk(id);
+    if (!order) throw new Error('Pedido não encontrado!');
+    await order.destroy();
   }
 }

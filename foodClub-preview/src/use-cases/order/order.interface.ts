@@ -1,3 +1,5 @@
+import { OrderStatusEntity } from "src/database/interfaces/order.interface";
+
 export enum OrderStatus {
     PENDING = 'pending',
     CONFIRMED = 'confirmed',
@@ -12,6 +14,6 @@ export interface OrderInterface {
     employeeId: number;
     dishId: number;
     date: Date;
-    status: OrderStatus;
-    comments: string;
+    status: OrderStatusEntity;
+    comments?: string;
 }  

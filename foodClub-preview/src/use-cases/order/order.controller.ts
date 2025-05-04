@@ -27,7 +27,7 @@ export class OrderController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string): OrderInterface {
+  getById(@Param('id') id: string): Promise<OrderInterface> {
     const order = this.getOrderByIdService.execute(Number(id));
 
     return order;
@@ -50,7 +50,7 @@ export class OrderController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() orderData: OrderInterface): OrderInterface {
+  update(@Param('id') id: string, @Body() orderData: OrderInterface): Promise<OrderInterface> {
     return this.updateOrderService.execute(Number(id), orderData);
   }
 

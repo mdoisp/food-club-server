@@ -18,16 +18,16 @@ export class RestaurantRepository {
       id: number,
       restaurantData: Partial<Omit<RestaurantEntityInterface, 'idRestaurante'>>,
     ): Promise<RestaurantEntityInterface> {
-      const dish = await this.restaurantEntity.findByPk(id);
-      if (!dish) throw new Error('Prato não encontrado!');
+      const restaurant = await this.restaurantEntity.findByPk(id);
+      if (!restaurant) throw new Error('Prato não encontrado!');
       
-      return await dish.update(restaurantData);
+      return await restaurant.update(restaurantData);
     }
 
     async getById(id: number): Promise<RestaurantEntityInterface> {
-      const dish = await this.restaurantEntity.findByPk(id);
-      if (!dish) throw new Error('Prato não encontrado!');
-      return dish;
+      const restaurant = await this.restaurantEntity.findByPk(id);
+      if (!restaurant) throw new Error('Prato não encontrado!');
+      return restaurant;
     }
 
   async list(): Promise<RestaurantEntityInterface[]> {
@@ -35,8 +35,8 @@ export class RestaurantRepository {
   }
 
   async delete(id: number): Promise<void> {
-    const dish = await this.restaurantEntity.findByPk(id);
-    if (!dish) throw new Error('Prato não encontrado!');
-    await dish.destroy();
+    const restaurant = await this.restaurantEntity.findByPk(id);
+    if (!restaurant) throw new Error('Prato não encontrado!');
+    await restaurant.destroy();
   }
 }
