@@ -3,7 +3,8 @@ import { OrderStatusEntity, OrderEntityInterface } from '../interfaces/order.int
 import { EmployeeEntity as EmployeeEntity } from './employee.entity';
 import { DishEntity as DishEntity } from './dish.entity';
 
-@Table({ tableName: 'Orders' })
+@Table({ tableName: 'Orders',
+  timestamps: false })
 export class OrderEntity extends Model implements OrderEntityInterface{
   @Column({
     primaryKey: true,

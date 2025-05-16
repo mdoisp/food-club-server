@@ -5,7 +5,7 @@ import { DishRepository } from '../../../database/repositories/dish.repository';
 @Injectable()
 export class GetDishByIdService {
   constructor(private dishRepository: DishRepository){}
-  execute(id: number): DishInterface {
+  execute(id: number): Promise<DishInterface> {
     return this.dishRepository.getById(id);
   }
 }

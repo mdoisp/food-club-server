@@ -6,7 +6,7 @@ import { CreateOrderService } from './services/create-order.service';
 import { UpdateOrderService } from './services/update-order.service';
 import { DeleteOrderService } from './services/delete-order.service';
 import { Response } from 'express';
-import { OrderEntityInterface } from 'src/database/entities/order.interface';
+import { OrderEntityInterface } from 'src/database/interfaces/order.interface';
 import { ListOrdersService } from './services/list-orders.service';
 
 @Controller('Order')
@@ -27,7 +27,7 @@ export class OrderController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string): OrderInterface {
+  getById(@Param('id') id: string): Promise<OrderInterface> {
     const order = this.getOrderByIdService.execute(Number(id));
 
     return order;
@@ -50,7 +50,7 @@ export class OrderController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() orderData: OrderInterface): OrderInterface {
+  update(@Param('id') id: string, @Body() orderData: OrderInterface): Promise<OrderInterface> {
     return this.updateOrderService.execute(Number(id), orderData);
   }
 

@@ -1,7 +1,7 @@
 import { CompanyEntityInterface } from "src/database/interfaces/company.interface";
 
 export interface EmployeeInterface {
-    id: number;
+    idFuncionario: number;
     name: string;
     email: string;
     position: string;

@@ -1,32 +1,31 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DishInterface } from '../../use-cases/dish/dish.interface';
 import { DishEntity } from '../entities/dish.entity';
 import { DishEntityInterface } from '../interfaces/dish.interface';
+import { DishInterface } from '../../use-cases/dish/dish.interface';
 
 @Injectable()
 export class DishRepository {
-  private dishes: DishInterface[] = [];
-
   constructor(
     @Inject('DISH_ENTITY')
-    private dishEntity: typeof DishEntity,
+    private readonly dishEntity: typeof DishEntity,
   ) {}
 
-  create(dish: DishInterface): void {
-    this.dishes.push(dish);
+  async create(dish: Omit<DishEntityInterface, 'idDish'>): Promise<DishEntityInterface> {
+    return await this.dishEntity.create(dish);
   }
 
-  update(id: number, dishData: DishInterface): DishInterface {
-    const index = this.dishes.findIndex((dish) => dish.idDish === id);
-    if (index === -1) throw new Error('Prato não encontrado!');
-
-    const updatedDish = { ...dishData, id: this.dishes[index].idDish };
-    this.dishes[index] = updatedDish;
-    return updatedDish;
+  async update(
+    id: number,
+    dishData: Partial<Omit<DishEntityInterface, 'idDish'>>,
+  ): Promise<DishEntityInterface> {
+    const dish = await this.dishEntity.findByPk(id);
+    if (!dish) throw new Error('Prato não encontrado!');
+    
+    return await dish.update(dishData);
   }
 
-  getById(id: number): DishInterface {
-    const dish = this.dishes.find((dish) => dish.idDish === id);
+  async getById(id: number): Promise<DishEntityInterface> {
+    const dish = await this.dishEntity.findByPk(id);
     if (!dish) throw new Error('Prato não encontrado!');
     return dish;
   }
@@ -35,9 +34,9 @@ export class DishRepository {
     return await this.dishEntity.findAll();
   }
 
-  delete(id: number): void {
-    const index = this.dishes.findIndex((dish) => dish.idDish === id);
-    if (index === -1) throw new Error('Prato não encontrado!');
-    this.dishes.splice(index, 1);
+  async delete(id: number): Promise<void> {
+    const dish = await this.dishEntity.findByPk(id);
+    if (!dish) throw new Error('Prato não encontrado!');
+    await dish.destroy();
   }
 }

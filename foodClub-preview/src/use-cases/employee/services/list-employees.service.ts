@@ -1,12 +1,15 @@
-import { Injectable } from '@nestjs/common';
-
+import { Injectable, Inject } from '@nestjs/common';
+import { EmployeeEntityInterface } from 'src/database/interfaces/employee.interface';
 import { EmployeeRepository } from 'src/database/repositories/employee.repository';
-import { EmployeeEntityInterface } from 'src/database/entities/employee.interface';
 
 @Injectable()
 export class ListEmployeesService {
-  constructor(private EmployeeRepository: EmployeeRepository) {}
-  execute(): Promise<EmployeeEntityInterface[]>{
-    return this.EmployeeRepository.list();
+  constructor(
+    @Inject('EMPLOYEE_REPOSITORY')
+    private readonly employeeRepository: EmployeeRepository
+  ) {}
+
+  execute(): Promise<EmployeeEntityInterface[]> {
+    return this.employeeRepository.list();
   }
 }

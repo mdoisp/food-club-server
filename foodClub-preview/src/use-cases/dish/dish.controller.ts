@@ -27,7 +27,7 @@ export class DishController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string): DishInterface {
+  getById(@Param('id') id: string): Promise<DishInterface> {
     const dish = this.getDishByIdService.execute(Number(id));
 
     return dish;
@@ -50,7 +50,7 @@ export class DishController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() dishData: DishInterface): DishInterface {
+  update(@Param('id') id: string, @Body() dishData: DishInterface): Promise<DishInterface> {
     return this.updateDishService.execute(Number(id), dishData);
   }
 
