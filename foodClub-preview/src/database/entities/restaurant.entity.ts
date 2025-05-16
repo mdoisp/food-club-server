@@ -1,44 +1,41 @@
-import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, BelongsToMany } from 'sequelize-typescript';
 import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
-import { DishEntity as DishEntity } from './dish.entity';
+import { DishEntity } from './dish.entity';
+import { RestaurantDishEntity } from './restaurant-dish.entity';
 
-@Table({ tableName: 'Restaurants' })
+@Table({ tableName: 'restaurant' })
 export class RestaurantEntity extends Model implements RestaurantEntityInterface {
   @Column({
     primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4
+    autoIncrement: true,
+    type: DataType.INTEGER,
   })
-  idRestaurante: number;
-
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false
-  })
-  name: string;
-
-  @Column(DataType.TEXT)
-  description: string;
-
-  @Column({
-    type: DataType.STRING(200),
-    allowNull: false
-  })
-  address: string;
-
-  @Column({
-    type: DataType.STRING(20),
-    allowNull: false
-  })
-  phone: string;
+  id: number;
 
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    unique: true
   })
-  email: string;
+  restaurant_name: string;
 
-  @HasMany(() => DishEntity)
+  @Column({ type: DataType.STRING(20), unique: true })
+  cnpj: string;
+
+  @Column({ type: DataType.STRING(100) })
+  street: string;
+
+  @Column({ type: DataType.STRING(10) })
+  number: string;
+
+  @Column({ type: DataType.STRING(10) })
+  zip_code: string;
+
+  @Column({ type: DataType.STRING(50) })
+  city: string;
+
+  @Column({ type: DataType.STRING(2) })
+  state: string;
+
+  @BelongsToMany(() => DishEntity, () => RestaurantDishEntity)
   dishes: DishEntity[];
 }

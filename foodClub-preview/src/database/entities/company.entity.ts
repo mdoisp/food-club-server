@@ -1,48 +1,40 @@
 import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { CompanyEntityInterface } from '../interfaces/company.interface';
-import { EmployeeEntity as EmployeeEntity } from './employee.entity';
+import { EmployeeEntity } from './employee.entity';
 
-@Table({ tableName: 'Company' })
+@Table({ tableName: 'company' })
 export class CompanyEntity extends Model implements CompanyEntityInterface {
   @Column({
     primaryKey: true,
     autoIncrement: true,
     type: DataType.INTEGER,
-    field: 'IdEmpresa'
   })
-  idEmpresa: number;
+  id: number;
 
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    field: 'NomeEmpresa'
   })
-  nomeEmpresa: string;
+  company_name: string;
 
-  @Column({ type: DataType.STRING(100), field: 'Rua' })
-  rua: string;
+  @Column({ type: DataType.STRING(100) })
+  street: string;
 
-  @Column({ type: DataType.STRING(20), field: 'CNPJ' })
+  @Column({ type: DataType.STRING(20), unique: true })
   cnpj: string;
 
-  @Column({ type: DataType.STRING(10), field: 'CEP' })
-  cep: string;
+  @Column({ type: DataType.STRING(10) })
+  zip_code: string;
 
-  @Column({ type: DataType.STRING(10), field: 'Numero' })
-  numero: string;
+  @Column({ type: DataType.STRING(10) })
+  number: string;
 
-  @Column({ type: DataType.STRING(50), field: 'Cidade' })
-  cidade: string;
+  @Column({ type: DataType.STRING(50) })
+  city: string;
 
-  @Column({ type: DataType.STRING(2), field: 'Estado' })
-  estado: string;
-
-  @Column({ type: DataType.STRING(20), allowNull: false })
-  fone: string;
-
-  @Column({ type: DataType.STRING(100), allowNull: false, unique: true })
-  email: string;
+  @Column({ type: DataType.STRING(2) })
+  state: string;
 
   @HasMany(() => EmployeeEntity)
-  funcionarios: EmployeeEntity[];
+  employees: EmployeeEntity[];
 }

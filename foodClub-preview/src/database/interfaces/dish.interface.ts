@@ -1,9 +1,9 @@
+import { RestaurantEntityInterface } from './restaurant.interface';
+
 export interface DishEntityInterface {
-    idDish: number;
-    name: string;
-    price: number;
-    description: string;
-    ingredients: string[];
-    restaurantId: number;
-    isAvailable: boolean;
-  }
+  id: number;
+  dish_name: string;
+  dish_description?: string;
+  price: number;
+  restaurants?: RestaurantEntityInterface[];
+}
