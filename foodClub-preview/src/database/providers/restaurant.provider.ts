@@ -1,12 +1,13 @@
 import { RestaurantEntity } from "../entities/restaurant.entity";
-import { RestaurantRepository } from "../repositories/restaurant.repository";
+import { RestaurantRepository } from '../repositories/restaurant.repository';
 
-export const restaurantProvider = [{
+export const restaurantProvider = [
+  {
     provide: 'RESTAURANT_ENTITY',
-    useValue: RestaurantEntity
+    useValue: RestaurantEntity,
   },
   {
-    provide: 'RESTAURANT_REPOSITORY', 
-    useClass: RestaurantRepository
-  }
-]
+    provide: 'RESTAURANT_REPOSITORY',
+    useClass: RestaurantRepository,
+  },
+];

@@ -1,9 +1,9 @@
-export interface DishInterface{
-    idDish: number;
-    name: string;
-    price: number;
-    description: string;
-    ingredients: string[];
-    restaurantId: number;
-    isAvailable: boolean;
+import { RestaurantInterface } from '../restaurant/restaurant.interface';
+
+export interface DishInterface {
+  id: number;
+  dish_name: string;
+  dish_description?: string;
+  price: number;
+  restaurants?: RestaurantInterface[];
 }

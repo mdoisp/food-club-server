@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DishRepository } from '../../../database/repositories/dish.repository';
 
 @Injectable()
 export class DeleteDishService {
-  constructor(private dishRepository: DishRepository) {}
-  execute(id: number): void {
+  constructor(
+    @Inject('DISH_REPOSITORY')
+    private readonly dishRepository: DishRepository
+  ) {}
+  async execute(id: number): Promise<void> {
     this.dishRepository.delete(id);
   }
 }

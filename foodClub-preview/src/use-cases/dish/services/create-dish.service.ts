@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { DishInterface } from '../dish.interface';
+import { Inject, Injectable } from '@nestjs/common';
 import { DishRepository } from '../../../database/repositories/dish.repository';
+import { DishInterface } from '../dish.interface';
 
 @Injectable()
 export class CreateDishService {
-    constructor(private dishRepository: DishRepository){}
-    execute(dish: DishInterface): void {
-        this.dishRepository.create(dish);
+    constructor(
+        @Inject('DISH_REPOSITORY')
+        private readonly dishRepository: DishRepository
+    ){}
+    async execute(dish: Omit<DishInterface, 'id'>): Promise<DishInterface> {
+        return await this.dishRepository.create(dish);
     }
 }
