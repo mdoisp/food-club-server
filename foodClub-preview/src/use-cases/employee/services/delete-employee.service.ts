@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { EmployeeRepository } from 'src/database/repositories/employee.repository';
 
 @Injectable()
 export class DeleteEmployeeService {
-  constructor(private employeeRepository: EmployeeRepository) {}
-  execute(id: number): void {
-    this.employeeRepository.delete(id);
+  constructor(
+    @Inject('EMPLOYEE_REPOSITORY')
+    private readonly employeeRepository: EmployeeRepository
+  ) {}
+  async execute(id: number): Promise<void> {
+    await this.employeeRepository.delete(id);
   }
 }
