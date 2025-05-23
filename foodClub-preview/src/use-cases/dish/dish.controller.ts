@@ -37,8 +37,8 @@ export class DishController {
   @HttpCode(201)
   create(
     @Body() dish: DishInterface, @Res() res: Response) {
-    const { dish_name, price, dish_description, restaurants } = dish;
-    if(!(dish_name && price && dish_description && restaurants)){
+    const { dish_name, price, dish_description } = dish;
+    if(!(dish_name && price && dish_description)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

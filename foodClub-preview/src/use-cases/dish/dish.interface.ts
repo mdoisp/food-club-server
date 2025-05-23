@@ -5,5 +5,4 @@ export interface DishInterface {
   dish_name: string;
   dish_description?: string;
   price: number;
-  restaurants?: RestaurantInterface[];
 }

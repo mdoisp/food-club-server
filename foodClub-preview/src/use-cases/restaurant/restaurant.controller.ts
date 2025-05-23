@@ -27,8 +27,8 @@ export class RestaurantController {
   @HttpCode(201)
   create(
     @Body() restaurant: RestaurantInterface, @Res() res: Response) {
-    const { restaurant_name, zip_code, street, number, city, cnpj, state, dishes} = restaurant;
-    if(!(restaurant_name && zip_code && street && number && city && cnpj && state && dishes)){
+    const { restaurant_name, zip_code, street, number, city, cnpj, state} = restaurant;
+    if(!(restaurant_name && zip_code && street && number && city && cnpj && state)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

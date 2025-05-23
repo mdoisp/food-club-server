@@ -5,5 +5,4 @@ export interface DishEntityInterface {
   dish_name: string;
   dish_description?: string;
   price: number;
-  restaurants?: RestaurantEntityInterface[];
 }
