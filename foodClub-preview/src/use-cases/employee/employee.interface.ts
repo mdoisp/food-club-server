@@ -3,5 +3,5 @@ import { CompanyEntityInterface } from "src/database/interfaces/company.interfac
 export interface EmployeeInterface {
     id: number;
     employee_name: string;
-    company?: CompanyEntityInterface;
+    company_id?: CompanyEntityInterface;
 }
