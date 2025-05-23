@@ -2,7 +2,7 @@ import { Table, Model, Column, DataType, ForeignKey } from 'sequelize-typescript
 import { CompanyEntity } from './company.entity';
 import { EmployeeEntity } from './employee.entity';
 
-@Table({ tableName: 'company_employee' })
+@Table({ tableName: 'company_employee', timestamps: false })
 export class CompanyEmployeeEntity extends Model {
   @ForeignKey(() => CompanyEntity)
   @Column({ type: DataType.INTEGER, primaryKey: true })

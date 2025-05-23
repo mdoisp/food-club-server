@@ -3,7 +3,7 @@ import { CompanyOrderEntityInterface } from '../interfaces/company-order.interfa
 import { CompanyEntity } from './company.entity';
 import { CompanyOrderDishEntity } from './company-order-dish.entity';
 
-@Table({ tableName: 'company_order' })
+@Table({ tableName: 'company_order', timestamps: false })
 export class CompanyOrderEntity extends Model implements CompanyOrderEntityInterface {
   @Column({
     primaryKey: true,

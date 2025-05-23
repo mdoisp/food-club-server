@@ -3,7 +3,7 @@ import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
 import { DishEntity } from './dish.entity';
 import { RestaurantDishEntity } from './restaurant-dish.entity';
 
-@Table({ tableName: 'restaurant' })
+@Table({ tableName: 'restaurant', timestamps: false })
 export class RestaurantEntity extends Model implements RestaurantEntityInterface {
   @Column({
     primaryKey: true,

@@ -3,7 +3,7 @@ import { EmployeeEntityInterface } from '../interfaces/employee.interface';
 import { CompanyEntity } from './company.entity';
 import { CompanyEmployeeEntity } from './company-employee.entity';
 
-@Table({ tableName: 'employee' })
+@Table({ tableName: 'employee', timestamps: false })
 export class EmployeeEntity extends Model implements EmployeeEntityInterface {
   @Column({
     primaryKey: true,

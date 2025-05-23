@@ -3,7 +3,7 @@ import { EmployeeOrderEntityInterface } from '../interfaces/employee-order.inter
 import { EmployeeEntity } from './employee.entity';
 import { EmployeeOrderDishEntity } from './employee-order-dish.entity';
 
-@Table({ tableName: 'employee_order' })
+@Table({ tableName: 'employee_order', timestamps: false })
 export class EmployeeOrderEntity extends Model implements EmployeeOrderEntityInterface {
   @Column({
     primaryKey: true,

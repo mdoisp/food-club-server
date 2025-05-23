@@ -2,7 +2,9 @@ import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { CompanyEntityInterface } from '../interfaces/company.interface';
 import { EmployeeEntity } from './employee.entity';
 
-@Table({ tableName: 'company' })
+@Table({ tableName: 'company',
+  timestamps: false,
+ })
 export class CompanyEntity extends Model implements CompanyEntityInterface {
   @Column({
     primaryKey: true,

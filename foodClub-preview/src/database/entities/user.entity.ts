@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType } from 'sequelize-typescript';
 import { UserEntityInterface } from '../interfaces/user.interface';
 
-@Table({ tableName: 'user' })
+@Table({ tableName: 'user', timestamps: false })
 export class UserEntity extends Model implements UserEntityInterface {
   @Column({
     primaryKey: true,
