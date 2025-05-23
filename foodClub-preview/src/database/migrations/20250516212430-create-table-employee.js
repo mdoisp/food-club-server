@@ -13,6 +13,16 @@ module.exports = {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      company_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'company',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
     });
   },
 

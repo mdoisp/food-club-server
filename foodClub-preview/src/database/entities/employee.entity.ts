@@ -1,4 +1,4 @@
-import { Table, Model, Column, DataType, BelongsToMany } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, BelongsToMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { EmployeeEntityInterface } from '../interfaces/employee.interface';
 import { CompanyEntity } from './company.entity';
 import { CompanyEmployeeEntity } from './company-employee.entity';
@@ -17,6 +17,13 @@ export class EmployeeEntity extends Model implements EmployeeEntityInterface {
     allowNull: false,
   })
   employee_name: string;
+
+  @ForeignKey(() => CompanyEntity)
+  @Column({ type: DataType.INTEGER, allowNull: true })
+  company_id: number;
+
+  @BelongsTo(() => CompanyEntity)
+  company: CompanyEntity;
 
   @BelongsToMany(() => CompanyEntity, () => CompanyEmployeeEntity)
   companies: CompanyEntity[];

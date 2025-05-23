@@ -10,6 +10,8 @@ module.exports = {
           model: 'company',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE', 
       },
       employee_id: {
         type: DataTypes.INTEGER,
@@ -18,6 +20,13 @@ module.exports = {
           model: 'employee',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
       },
     });
   },

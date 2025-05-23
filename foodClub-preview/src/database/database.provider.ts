@@ -5,6 +5,7 @@ import { EmployeeEntity } from "./entities/employee.entity";
 import { OrderEntity } from "./entities/order.entity";
 import { RestaurantEntity } from "./entities/restaurant.entity";
 import { RestaurantDishEntity } from "./entities/restaurant-dish.entity";
+import { CompanyEmployeeEntity } from "./entities/company-employee.entity";
 
 export const databaseProvider = [
     {
@@ -15,7 +16,7 @@ export const databaseProvider = [
                 dialect: 'sqlite'
             });
 
-            sequelize.addModels([DishEntity, CompanyEntity, EmployeeEntity, OrderEntity, RestaurantEntity, RestaurantDishEntity]);
+            sequelize.addModels([DishEntity, CompanyEntity, EmployeeEntity, OrderEntity, RestaurantEntity, RestaurantDishEntity, CompanyEmployeeEntity]);
             return sequelize;
         }
     }
