@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from "@nestjs/common";
 import { CreateUserService } from "./services/create-user.service";
 import { DeleteUserService } from "./services/delete-user.service";
 import { GetUserByIdService } from "./services/get-user-byid.service";
@@ -28,7 +28,8 @@ export class UserController {
     }
     @Post()
     @HttpCode(201)
-    async create(@Param() user: UserInterface,@Res() res: Response): Promise<void> {
+    async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
+        console.log('UESR',user);
         const { user_type, email, password } = user;
         if (!(user_type && email && password)) {
             throw new Error('Todos os campos são obrigatórios');
