@@ -10,9 +10,11 @@ import { EmployeeController } from './use-cases/employee/employee.controller';
 import { OrderController } from './use-cases/order/order.controller';
 import { RestaurantController } from './use-cases/restaurant/restaurant.controller';
 import { CompanyController } from './use-cases/company/company.controller';
+import { UserController } from './use-cases/user/user.controller';
+import { UserModule } from './use-cases/user/user.module';
 @Module({
-  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, OrderModule, RestaurantModule],
-  controllers: [CompanyController, DishController, EmployeeController, OrderController, RestaurantController],
+  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, OrderModule, RestaurantModule, UserModule],
+  controllers: [CompanyController, DishController, EmployeeController, OrderController, RestaurantController,UserController],
   providers: [],
 })
 export class AppModule {}

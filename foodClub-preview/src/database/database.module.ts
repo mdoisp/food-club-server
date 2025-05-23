@@ -10,6 +10,8 @@ import { OrderRepository } from './repositories/order.repository';
 import { RestaurantRepository } from './repositories/restaurant.repository';
 import { companyProvider } from './providers/company.provider';
 import { restaurantProvider } from './providers/restaurant.provider';
+import { UserRepository } from './repositories/user.repository';
+import { userProvider } from './providers/user.provider';
 
 @Module({
     providers:[
@@ -18,19 +20,22 @@ import { restaurantProvider } from './providers/restaurant.provider';
         EmployeeRepository, 
         OrderRepository, 
         RestaurantRepository, 
+        UserRepository,
         ...companyProvider, 
         ...databaseProvider, 
         ...dishProvider, 
         ...employeeProvider, 
         ...orderProvider, 
-        ...restaurantProvider
+        ...restaurantProvider,
+        ...userProvider
     ],
     exports:[
         CompanyRepository, 
         DishRepository, 
         EmployeeRepository, 
         OrderRepository, 
-        RestaurantRepository
+        RestaurantRepository,
+        UserRepository,
     ]
 })
 export class DatabaseModule {}
