@@ -18,7 +18,6 @@ module.exports = {
       },
       cnpj: {
         type: DataTypes.STRING(20),
-        unique: true,
       },
       zip_code: {
         type: DataTypes.STRING(10),

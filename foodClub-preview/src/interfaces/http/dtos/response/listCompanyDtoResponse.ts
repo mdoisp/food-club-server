@@ -50,15 +50,4 @@ export class ListCompanyDtoResponse {
         example: 'SP',
         })
   state?: string;
-    @ApiProperty({
-        type: 'array',
-        description: 'Lista de funcionários da empresa',
-        example: [
-            {
-                employee_name: "João Silva",
-                company_id: 1
-            }
-        ]
-    })
-    employees?: EmployeeEntityInterface[];
 }

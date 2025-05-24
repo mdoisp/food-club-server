@@ -99,12 +99,78 @@ export class CompanyController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() companyData: CompanyInterface): Promise<CompanyInterface> {
-    return this.updateCompanyService.execute(Number(id), companyData);
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa a ser atualizada',
+  })
+  @ApiBody({
+    description: 'Dados da empresa a serem atualizados',
+    type: CreateCompanyDto,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Empresa atualizada com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao atualizar empresa',
+    type: Http400,
+  })
+  async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
+    const expectedFields = ["company_name", "zip_code", "street", "number", "city", "cnpj", "state"];
+    const receivedFields = Object.keys(companyData);
+    const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+    const company =  await this.updateCompanyService.execute(Number(id), companyData);
+    if (!company) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
+    if(invalidFields.length > 0){
+      res.status(400).json({
+        sucess: false,
+        message: 'Campo inválido para atualizar'
+      });
+      return;
+    }
+    res.status(200).json(company);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): void {
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa a ser deletada',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Empresa deletada com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  async delete(@Param('id') id: string,@Res() res: Response): Promise<void> {
+    const company = await this.getCompanyByIdService.execute(Number(id));
+    console.log(company);
+    if (!company) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
     this.deleteCompanyService.execute(Number(id));
+    res.status(200).json({
+      success: true,
+      message: 'Empresa deletada com sucesso',
+    });
   }
 }

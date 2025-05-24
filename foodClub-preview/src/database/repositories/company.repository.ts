@@ -18,13 +18,11 @@ export class CompanyRepository {
     companyData: Partial<Omit<CompanyEntityInterface, 'id'>>,
   ): Promise<CompanyEntityInterface> {
     const company = await this.companyEntity.findByPk(id);
-    if (!company) throw new Error('Empresa não encontrada!');
     return await company.update(companyData);
   }
 
   async getById(id: number): Promise<CompanyEntityInterface> {
     const company = await this.companyEntity.findByPk(id);
-    if (!company) throw new Error('Empresa não encontrada!');
     return company;
   }
 
@@ -34,7 +32,6 @@ export class CompanyRepository {
 
   async delete(id: number): Promise<void> {
     const company = await this.companyEntity.findByPk(id);
-    if (!company) throw new Error('Empresa não encontrada!');
     await company.destroy();
   }
 }
