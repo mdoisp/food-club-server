@@ -159,7 +159,6 @@ export class CompanyController {
   })
   async delete(@Param('id') id: string,@Res() res: Response): Promise<void> {
     const company = await this.getCompanyByIdService.execute(Number(id));
-    console.log(company);
     if (!company) {
       res.status(404).json({
         success: false,

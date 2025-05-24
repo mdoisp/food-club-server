@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { EmployeeEntityInterface } from "src/database/interfaces/employee.interface";
 
 export class ListCompanyDtoResponse {
     @ApiProperty({
