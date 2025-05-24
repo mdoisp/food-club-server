@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { OrderController } from './order.controller';
+// import { OrderController } from './order.controller';
 import { ListOrdersService } from './services/list-orders.service';
 import { GetOrderByIdService } from './services/get-order-byid.service';
 import { CreateOrderService } from './services/create-order.service';
@@ -12,7 +12,7 @@ import { OrderRepository } from 'src/database/repositories/order.repository';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [OrderController],
+  controllers: [],
   providers: [
     ...orderProvider,
     OrderRepository,
