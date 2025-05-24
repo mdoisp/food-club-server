@@ -8,7 +8,10 @@ import { DeleteDishService } from './services/delete-dish.service';
 import { Response } from 'express';
 import { DishEntityInterface } from 'src/database/interfaces/dish.interface';
 import { ListDishesService } from './services/list-dishes.service';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDishDtoResponse';
 
+@ApiTags('Dish API')
 @Controller('Dish')
 export class DishController {
   constructor(
@@ -20,6 +23,16 @@ export class DishController {
   ) {}
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Consulta realizada com sucesso',
+    isArray: true,
+    type: ListDishDtoResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erro interno do servidor',
+  })
   async list(): Promise<DishEntityInterface[]> {
     const dishList = await this.listDishesService.execute();
 
