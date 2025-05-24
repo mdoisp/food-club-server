@@ -10,6 +10,7 @@ export class GetCompanyByIdService {
     ) {}
 
     async execute(id: number): Promise<CompanyEntityInterface> {
-        return await this.companyRepository.getById(id);
+        const company = await this.companyRepository.getById(id);
+        return company;
     }
 }
