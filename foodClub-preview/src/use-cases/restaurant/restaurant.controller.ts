@@ -125,8 +125,8 @@ export class RestaurantController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string, @Res() res: Response): void {
-    const restaurant = this.getRestaurantByIdService.execute(Number(id));
+  async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    const restaurant = await this.getRestaurantByIdService.execute(Number(id));
     if (!restaurant) {
       res.status(404).json({
         success: false,

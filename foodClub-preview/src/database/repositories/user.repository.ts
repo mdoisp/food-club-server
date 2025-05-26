@@ -18,13 +18,11 @@ export class UserRepository {
     userData: Partial<Omit<UserEntityInterface, 'id'>>,
   ): Promise<UserEntityInterface> {
     const user = await this.userEntity.findByPk(id);
-    if (!user) throw new Error('User not found!');
     return await user.update(userData);
   }
 
   async getById(id: number): Promise<UserEntityInterface> {
     const user = await this.userEntity.findByPk(id);
-    if (!user) throw new Error('User not found!');
     return user;
   }
 
@@ -38,7 +36,6 @@ export class UserRepository {
 
   async delete(id: number): Promise<void> {
     const user = await this.userEntity.findByPk(id);
-    if (!user) throw new Error('User not found!');
     await user.destroy();
   }
 }

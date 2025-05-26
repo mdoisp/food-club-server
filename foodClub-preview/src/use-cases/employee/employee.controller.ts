@@ -56,8 +56,8 @@ export class EmployeeController {
     status: 404,
     description: 'Funcionário não encontrado',
   })
-  getById(@Param('id') id: string,@Res() res: Response): Promise<EmployeeInterface> {
-    const employee = this.getEmployeeByIdService.execute(Number(id));
+  async getById(@Param('id') id: string, @Res() res: Response): Promise<EmployeeEntityInterface> {
+    const employee = await this.getEmployeeByIdService.execute(Number(id));
     if (!employee) {
       res.status(404).json({
         success: false,
@@ -157,8 +157,8 @@ export class EmployeeController {
     description: 'Funcionário não encontrado',
     type: Http404,
   })
-  delete(@Param('id') id: string, @Res() res: Response): void {
-    const employee = this.getEmployeeByIdService.execute(Number(id));
+  async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    const employee = await this.getEmployeeByIdService.execute(Number(id));
     if (!employee) {
       res.status(404).json({
         success: false,
