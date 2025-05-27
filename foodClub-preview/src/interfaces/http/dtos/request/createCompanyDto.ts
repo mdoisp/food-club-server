@@ -1,40 +1,28 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { CompanyAffiliateRestaurantEntityInterface } from "src/database/interfaces/company-affiliate-restaurant.interface";
+import { EmployeeEntityInterface } from "src/database/interfaces/employee.interface";
 
 export class CreateCompanyDto {
+    @ApiProperty({
+    description: 'ID do usuário proprietário da empresa',
+    type: Number,   
+    example: 1,
+    })
+    id: number;
+    
+    @ApiProperty({
+    description: 'ID do usuário proprietário da empresa',
+    type: Number,
+    example: 1,
+    })
+    userId: number;
+    
     @ApiProperty({
     description: 'Nome da empresa',
     type: String,
     example: 'Food Club',
     })
-    company_name: string;
-
-    @ApiProperty({
-        description: 'CEP da empresa',
-        type: String,
-        example: '12345-678',
-    })
-    zip_code: string;
-    
-    @ApiProperty({
-    description: 'Rua da empresa',
-    type: String,
-    example: 'Avenida Paulista',
-    })
-    street: string;
-    
-    @ApiProperty({
-    description: 'Número da empresa',
-    type: String,
-    example: '1000',
-    })
-    number: string;
-
-    @ApiProperty({
-    description: 'Cidade da empresa',
-    type: String,
-    example: 'São Paulo',
-    })
-    city: string;
+    name: string;
 
     @ApiProperty({
     description: 'CNPJ da empresa',
@@ -42,11 +30,18 @@ export class CreateCompanyDto {
     example: '12.345.678/0001-90',
     })
     cnpj: string;
-    
+
     @ApiProperty({
-    description: 'Estado da empresa',
+    description: 'CEP da empresa',
     type: String,
-    example: 'SP',
+    example: '12345-678',
     })
-    state: string;
+    cep: string;
+
+    @ApiProperty({
+    description: 'Número do endereço da empresa',
+    type: String,
+    example: '123',
+    })
+    number: string;
     }

@@ -6,7 +6,7 @@ export class CreateUserDto {
         type: Number,
         example: 1,
     })
-    user_type: string;
+    userType: string;
 
     @ApiProperty({
         type: 'string',
