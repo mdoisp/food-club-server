@@ -3,7 +3,7 @@ import { CompanyEntity } from './company.entity';
 import { RestaurantEntity } from './restaurant.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
 
-@Table({ tableName: 'company_order', timestamps: true })
+@Table({ tableName: 'company_order', timestamps: false })
 export class CompanyOrderEntity extends Model {
   @Column({
     primaryKey: true,

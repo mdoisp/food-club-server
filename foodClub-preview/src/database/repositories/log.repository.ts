@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { LogEntity } from '../entities/dish-rating.entity';
-import { LogEntityInterface } from '../interfaces/log.interface';
+import { LogEntityInterface } from '../interfaces/dish-rating.interface';
 
 @Injectable()
 export class LogRepository {

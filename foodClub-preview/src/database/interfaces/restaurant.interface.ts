@@ -1,13 +1,13 @@
-import { DishEntityInterface } from './dish.interface';
+import { DishEntityInterface } from "./dish.interface";
+import { CompanyOrderEntityInterface } from "./company-order.interface";
 
 export interface RestaurantEntityInterface {
   id: number;
-  restaurant_name: string;
-  cnpj?: string;
-  street?: string;
-  number?: string;
-  zip_code?: string;
-  city?: string;
-  state?: string;
+  userId: number;
+  name: string;
+  cnpj: string;
+  cep: string;
+  number: string;
   dishes?: DishEntityInterface[];
+  companyOrders?: CompanyOrderEntityInterface[];
 }

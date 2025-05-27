@@ -1,13 +1,13 @@
+import { CompanyAffiliateRestaurantEntityInterface } from "./company-affiliate-restaurant.interface";
 import { EmployeeEntityInterface } from "./employee.interface";
 
 export interface CompanyEntityInterface {
   id: number;
-  company_name: string;
-  street?: string;
-  cnpj?: string;
-  zip_code?: string;
-  number?: string;
-  city?: string;
-  state?: string;
+  userId: number;
+  name: string;
+  cnpj: string;
+  cep: string;
+  number: string;
   employees?: EmployeeEntityInterface[];
+  affiliateRestaurants?: CompanyAffiliateRestaurantEntityInterface[];
 }

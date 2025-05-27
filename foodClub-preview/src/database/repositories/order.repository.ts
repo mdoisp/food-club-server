@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OrderEntity } from '../entities/order-item.entity';
-import { OrderEntityInterface } from '../interfaces/order.interface';
+import { OrderEntityInterface } from '../interfaces/order-item.interface';
 import { OrderInterface } from '../../use-cases/order/order.interface';
 
 @Injectable()

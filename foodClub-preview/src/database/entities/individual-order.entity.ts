@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
 import { EmployeeEntity } from './employee.entity';
 import { OrderItemEntity } from './order-item.entity';
-import { CompanyOrderEntity } from './employee-order-dish.entity';
+import { CompanyOrderEntity } from './company-order.entity';
 
 @Table({ tableName: 'individual_order', timestamps: false })
 export class IndividualOrderEntity extends Model {

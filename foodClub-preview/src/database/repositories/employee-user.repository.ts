@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EmployeeUserEntity } from '../entities/employee-user.entity';
-import { EmployeeUserEntityInterface } from '../interfaces/employee-user.interface';
+import { EmployeeUserEntityInterface } from '../interfaces/company-affiliate-restaurant.interface';
 
 @Injectable()
 export class EmployeeUserRepository {
