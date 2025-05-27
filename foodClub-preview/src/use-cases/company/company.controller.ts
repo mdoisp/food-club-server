@@ -38,6 +38,7 @@ export class CompanyController {
     })
     async list(): Promise<CompanyEntityInterface[]> {
       const employeeList = await this.listCompaniesService.execute();
+      console.log(employeeList);
       return employeeList;
     }
 
