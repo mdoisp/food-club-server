@@ -9,17 +9,30 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      order_number: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      company_id: {
+      companyId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: 'company',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      restaurantId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'restaurant',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      status: {
+        type: DataTypes.ENUM('pending', 'confirmed', 'preparing', 'delivered', 'canceled'),
+        allowNull: false,
+        defaultValue: 'pending',
       },
     });
   },

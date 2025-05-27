@@ -1,51 +1,43 @@
+// migrations/XXXXXX-create-employee-weekly-orders.js
 const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.createTable('employee', {
+    await queryInterface.createTable('employee_weekly_orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      userId: {
+      employeeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'user',
+          model: 'employee',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      name: {
-        type: DataTypes.STRING(100),
+      dayOfWeek: {
+        type: DataTypes.ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
         allowNull: false,
       },
-      cpf: {
-        type: DataTypes.STRING(14),
-        allowNull: false,
-        unique: true,
-      },
-      companyId: {
+      individualOrderId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
-          model: 'company',
+          model: 'individual_order',
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      birthDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
+        onDelete: 'SET NULL',
       },
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('employee');
+    await queryInterface.dropTable('employee_weekly_orders');
   },
 };

@@ -2,29 +2,37 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.createTable('employee_order', {
+    await queryInterface.createTable('individual_order', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      order_value: {
-        type: DataTypes.DECIMAL(10, 2),
+      companyOrderId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'company_order',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      employee_id: {
+      employeeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: 'employee',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('employee_order');
+    await queryInterface.dropTable('individual_order');
   },
 };

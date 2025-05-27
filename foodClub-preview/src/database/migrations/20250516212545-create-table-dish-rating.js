@@ -2,12 +2,22 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.createTable('employee', {
+await queryInterface.createTable('dish_rating', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
+      },
+      dishId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'dish',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       userId: {
         type: DataTypes.INTEGER,
@@ -19,33 +29,18 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      name: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-      },
-      cpf: {
-        type: DataTypes.STRING(14),
-        allowNull: false,
-        unique: true,
-      },
-      companyId: {
+      rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: 'company',
-          key: 'id',
+        validate: {
+          min: 1,
+          max: 5,
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      birthDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
       },
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('employee');
+    await queryInterface.dropTable('dish_rating');
   },
 };
