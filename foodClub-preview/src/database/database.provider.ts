@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize-typescript"
 import { DishEntity } from "./entities/dish.entity";
 import { CompanyEntity } from "./entities/company.entity";
 import { EmployeeEntity } from "./entities/employee.entity";
-import { OrderEntity } from "./entities/order.entity";
+import { OrderEntity } from "./entities/order-item.entity";
 import { RestaurantEntity } from "./entities/restaurant.entity";
 import { RestaurantDishEntity } from "./entities/restaurant-dish.entity";
 import { CompanyEmployeeEntity } from "./entities/company-employee.entity";

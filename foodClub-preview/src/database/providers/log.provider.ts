@@ -1,4 +1,4 @@
-import { LogEntity } from "../entities/log.entity";
+import { LogEntity } from "../entities/dish-rating.entity";
 import { LogRepository } from '../repositories/log.repository';
 
 export const logProvider = [

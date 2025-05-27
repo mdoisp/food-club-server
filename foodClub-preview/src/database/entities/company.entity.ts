@@ -1,11 +1,10 @@
-import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
-import { CompanyEntityInterface } from '../interfaces/company.interface';
+import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
+import { UserEntity } from './user.entity';
 import { EmployeeEntity } from './employee.entity';
+import { CompanyAffiliateRestaurantEntity } from './restaurant-dish.entity';
 
-@Table({ tableName: 'company',
-  timestamps: false,
- })
-export class CompanyEntity extends Model implements CompanyEntityInterface {
+@Table({ tableName: 'company', timestamps: false })
+export class CompanyEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -14,29 +13,43 @@ export class CompanyEntity extends Model implements CompanyEntityInterface {
   id: number;
 
   @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'user_id',
+  })
+  userId: number;
+
+  @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  company_name: string;
+  name: string;
 
-  @Column({ type: DataType.STRING(100) })
-  street: string;
-
-  @Column({ type: DataType.STRING(20), unique: true })
+  @Column({
+    type: DataType.STRING(20),
+    allowNull: false,
+    unique: true,
+  })
   cnpj: string;
 
-  @Column({ type: DataType.STRING(10) })
-  zip_code: string;
+  @Column({
+    type: DataType.STRING(10),
+    allowNull: false,
+  })
+  cep: string;
 
-  @Column({ type: DataType.STRING(10) })
+  @Column({
+    type: DataType.STRING(10),
+    allowNull: false,
+  })
   number: string;
 
-  @Column({ type: DataType.STRING(50) })
-  city: string;
-
-  @Column({ type: DataType.STRING(2) })
-  state: string;
+  @BelongsTo(() => UserEntity)
+  user: UserEntity;
 
   @HasMany(() => EmployeeEntity)
   employees: EmployeeEntity[];
+
+  @HasMany(() => CompanyAffiliateRestaurantEntity)
+  affiliateRestaurants: CompanyAffiliateRestaurantEntity[];
 }

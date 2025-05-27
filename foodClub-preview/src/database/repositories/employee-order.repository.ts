@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { EmployeeOrderEntity } from '../entities/employee-order.entity';
+import { EmployeeOrderEntity } from '../entities/employee-weekly-orders.entity';
 import { EmployeeOrderEntityInterface } from '../interfaces/employee-order.interface';
 
 @Injectable()

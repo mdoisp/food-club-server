@@ -1,10 +1,10 @@
 import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
-import { CompanyOrderEntityInterface } from '../interfaces/company-order.interface';
 import { CompanyEntity } from './company.entity';
-import { CompanyOrderDishEntity } from './company-order-dish.entity';
+import { RestaurantEntity } from './restaurant.entity';
+import { IndividualOrderEntity } from './individual-order.entity';
 
-@Table({ tableName: 'company_order', timestamps: false })
-export class CompanyOrderEntity extends Model implements CompanyOrderEntityInterface {
+@Table({ tableName: 'company_order', timestamps: true })
+export class CompanyOrderEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -13,20 +13,32 @@ export class CompanyOrderEntity extends Model implements CompanyOrderEntityInter
   id: number;
 
   @Column({
-    type: DataType.STRING(50),
+    type: DataType.INTEGER,
     allowNull: false,
+    field: 'company_id',
   })
-  order_number: string;
+  companyId: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    field: 'restaurant_id',
   })
-  company_id: number;
+  restaurantId: number;
+
+  @Column({
+    type: DataType.ENUM('pending', 'confirmed', 'preparing', 'delivered', 'canceled'),
+    allowNull: false,
+    defaultValue: 'pending',
+  })
+  status: string;
 
   @BelongsTo(() => CompanyEntity)
   company: CompanyEntity;
 
-  @HasMany(() => CompanyOrderDishEntity)
-  dishes: CompanyOrderDishEntity[];
+  @BelongsTo(() => RestaurantEntity)
+  restaurant: RestaurantEntity;
+
+  @HasMany(() => IndividualOrderEntity)
+  collaboratorsOrders: IndividualOrderEntity[];
 }

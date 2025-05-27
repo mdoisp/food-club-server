@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { OrderEntity } from '../entities/order.entity';
+import { OrderEntity } from '../entities/order-item.entity';
 import { OrderEntityInterface } from '../interfaces/order.interface';
 import { OrderInterface } from '../../use-cases/order/order.interface';
 

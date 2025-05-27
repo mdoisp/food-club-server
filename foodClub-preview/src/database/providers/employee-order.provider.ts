@@ -1,4 +1,4 @@
-import { EmployeeOrderEntity } from "../entities/employee-order.entity";
+import { EmployeeOrderEntity } from "../entities/employee-weekly-orders.entity";
 import { EmployeeOrderRepository } from '../repositories/employee-order.repository';
 
 export const employeeOrderProvider = [

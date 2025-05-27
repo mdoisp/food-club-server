@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LogEntity } from '../entities/log.entity';
+import { LogEntity } from '../entities/dish-rating.entity';
 import { LogEntityInterface } from '../interfaces/log.interface';
 
 @Injectable()
