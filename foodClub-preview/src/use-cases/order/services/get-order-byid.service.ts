@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OrderInterface } from '../order.interface';
-import { OrderRepository } from 'src/database/repositories/order.repository';
+import { OrderRepository } from 'src/database/repositories/order-item.repository';
 
 @Injectable()
 export class GetOrderByIdService {

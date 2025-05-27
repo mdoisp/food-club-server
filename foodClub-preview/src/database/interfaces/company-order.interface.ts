@@ -1,9 +1,17 @@
 import { IndividualOrderEntityInterface } from "./individual-order.interface";
 
+export enum CompanyOrderStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  PREPARING = 'preparing',
+  DELIVERED = 'delivered',
+  CANCELED = 'canceled',
+}
+
 export interface CompanyOrderEntityInterface {
   id: number;
   companyId: number;
   restaurantId: number;
-  status: 'pending' | 'confirmed' | 'preparing' | 'delivered' | 'canceled';
+  status: CompanyOrderStatus;
   collaboratorsOrders?: IndividualOrderEntityInterface[];
 }

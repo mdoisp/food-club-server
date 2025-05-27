@@ -21,13 +21,14 @@ export class DishRepository {
     return await dish.update(dishData);
   }
 
-  async getById(id: number): Promise<DishEntityInterface> {
-    const dish = await this.dishEntity.findByPk(id);
-    return dish;
+  async getById(id: number): Promise<DishEntityInterface | null> {
+    return await this.dishEntity.findByPk(id, {
+      include: ['ratings'],
+    });
   }
 
-  async list(): Promise<DishEntityInterface[]> {
-    return await this.dishEntity.findAll();
+  async listByRestaurant(restaurantId: number): Promise<DishEntityInterface[]> {
+    return await this.dishEntity.findAll({ where: { restaurantId } });
   }
 
   async delete(id: number): Promise<void> {

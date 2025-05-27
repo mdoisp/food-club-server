@@ -1,3 +1,4 @@
+// repositories/user.repository.ts
 import { Inject, Injectable } from '@nestjs/common';
 import { UserEntity } from '../entities/user.entity';
 import { UserEntityInterface } from '../interfaces/user.interface';
@@ -13,6 +14,10 @@ export class UserRepository {
     return await this.userEntity.create(user);
   }
 
+  async findByEmail(email: string): Promise<UserEntityInterface | null> {
+    return await this.userEntity.findOne({ where: { email } });
+  }
+
   async update(
     id: number,
     userData: Partial<Omit<UserEntityInterface, 'id'>>,
@@ -21,17 +26,8 @@ export class UserRepository {
     return await user.update(userData);
   }
 
-  async getById(id: number): Promise<UserEntityInterface> {
-    const user = await this.userEntity.findByPk(id);
-    return user;
-  }
-
-  async getByEmail(email: string): Promise<UserEntityInterface | null> {
-    return await this.userEntity.findOne({ where: { email } });
-  }
-
-  async list(): Promise<UserEntityInterface[]> {
-    return await this.userEntity.findAll();
+  async getById(id: number): Promise<UserEntityInterface | null> {
+    return await this.userEntity.findByPk(id);
   }
 
   async delete(id: number): Promise<void> {

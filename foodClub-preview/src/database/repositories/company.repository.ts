@@ -21,9 +21,8 @@ export class CompanyRepository {
     return await company.update(companyData);
   }
 
-  async getById(id: number): Promise<CompanyEntityInterface> {
-    const company = await this.companyEntity.findByPk(id);
-    return company;
+  async getById(id: number): Promise<CompanyEntityInterface | null> {
+    return await this.companyEntity.findByPk(id);
   }
 
   async list(): Promise<CompanyEntityInterface[]> {
@@ -33,5 +32,9 @@ export class CompanyRepository {
   async delete(id: number): Promise<void> {
     const company = await this.companyEntity.findByPk(id);
     await company.destroy();
+  }
+
+  async findByCnpj(cnpj: string): Promise<CompanyEntityInterface | null> {
+    return await this.companyEntity.findOne({ where: { cnpj } });
   }
 }

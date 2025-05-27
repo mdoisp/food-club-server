@@ -1,6 +1,7 @@
+// repositories/company-order.repository.ts
 import { Inject, Injectable } from '@nestjs/common';
-import { CompanyOrderEntity } from '../entities/company-order.entity';
 import { CompanyOrderEntityInterface } from '../interfaces/company-order.interface';
+import { CompanyOrderEntity } from '../entities/company-order.entity';
 
 @Injectable()
 export class CompanyOrderRepository {
@@ -13,17 +14,35 @@ export class CompanyOrderRepository {
     return await this.companyOrderEntity.create(order);
   }
 
-  async getById(id: number): Promise<CompanyOrderEntityInterface> {
+  async update(
+    id: number,
+    orderData: Partial<Omit<CompanyOrderEntityInterface, 'id'>>,
+  ): Promise<CompanyOrderEntityInterface> {
     const order = await this.companyOrderEntity.findByPk(id);
-    if (!order) throw new Error('Company order not found!');
-    return order;
+    return await order.update(orderData);
   }
 
-  async list(): Promise<CompanyOrderEntityInterface[]> {
-    return await this.companyOrderEntity.findAll();
+  async getById(id: number): Promise<CompanyOrderEntityInterface | null> {
+    return await this.companyOrderEntity.findByPk(id, {
+      include: ['collaboratorsOrders'],
+    });
   }
 
   async listByCompany(companyId: number): Promise<CompanyOrderEntityInterface[]> {
-    return await this.companyOrderEntity.findAll({ where: { company_id: companyId } });
+    return await this.companyOrderEntity.findAll({ where: { companyId } });
+  }
+
+  async listByRestaurant(restaurantId: number): Promise<CompanyOrderEntityInterface[]> {
+    return await this.companyOrderEntity.findAll({ where: { restaurantId } });
+  }
+
+  async updateStatus(id: number, status: string): Promise<CompanyOrderEntityInterface> {
+    const order = await this.companyOrderEntity.findByPk(id);
+    return await order.update({ status });
+  }
+
+  async delete(id: number): Promise<void> {
+    const order = await this.companyOrderEntity.findByPk(id);
+    await order.destroy();
   }
 }

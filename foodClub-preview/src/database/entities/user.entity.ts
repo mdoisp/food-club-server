@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, HasOne } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
 import { EmployeeEntity } from './employee.entity';
 import { RestaurantEntity } from './restaurant.entity';
+import { UserType } from '../interfaces/user.interface';
 
 @Table({ tableName: 'user', timestamps: false })
 export class UserEntity extends Model {
@@ -33,7 +34,7 @@ export class UserEntity extends Model {
     allowNull: false,
     field: 'user_type',
   })
-  userType: string;
+  userType: UserType;
 
   @Column({
     type: DataType.STRING(100),

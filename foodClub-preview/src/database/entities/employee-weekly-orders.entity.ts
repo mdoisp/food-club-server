@@ -1,6 +1,7 @@
 import { Table, Model, Column, DataType, BelongsTo } from 'sequelize-typescript';
 import { EmployeeEntity } from './employee.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
+import { DayOfWeek } from '../interfaces/employee-weekly-orders.interface';
 
 @Table({ tableName: 'employee_weekly_orders', timestamps: false })
 export class EmployeeWeeklyOrdersEntity extends Model {
@@ -23,7 +24,7 @@ export class EmployeeWeeklyOrdersEntity extends Model {
     allowNull: false,
     field: 'day_of_week',
   })
-  dayOfWeek: string;
+  dayOfWeek: DayOfWeek;
 
   @Column({
     type: DataType.INTEGER,

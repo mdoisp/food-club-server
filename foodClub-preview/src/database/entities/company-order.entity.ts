@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-ty
 import { CompanyEntity } from './company.entity';
 import { RestaurantEntity } from './restaurant.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
+import { CompanyOrderStatus } from '../interfaces/company-order.interface';
 
 @Table({ tableName: 'company_order', timestamps: false })
 export class CompanyOrderEntity extends Model {
@@ -31,7 +32,7 @@ export class CompanyOrderEntity extends Model {
     allowNull: false,
     defaultValue: 'pending',
   })
-  status: string;
+  status: CompanyOrderStatus;
 
   @BelongsTo(() => CompanyEntity)
   company: CompanyEntity;

@@ -7,8 +7,8 @@ import { CreateOrderService } from './services/create-order.service';
 import { UpdateOrderService } from './services/update-order.service';
 import { DeleteOrderService } from './services/delete-order.service';
 import { DatabaseModule } from 'src/database/database.module';
-import { orderProvider } from 'src/database/providers/order.provider';
-import { OrderRepository } from 'src/database/repositories/order.repository';
+import { orderProvider } from 'src/database/providers/individual-order.provider';
+import { OrderRepository } from 'src/database/repositories/order-item.repository';
 
 @Module({
   imports: [DatabaseModule],
