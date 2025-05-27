@@ -9,7 +9,7 @@ export enum UserType {
   RESTAURANT = 'restaurant',
 }
 
-export interface UserEntityInterface {
+export interface UserInterface {
   id: number;
   email: string;
   password: string;

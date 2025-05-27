@@ -4,13 +4,13 @@ import { DeleteUserService } from "./services/delete-user.service";
 import { GetUserByIdService } from "./services/get-user-byid.service";
 import { ListUsersService } from "./services/list-users.service";
 import { UpdateUserService } from "./services/update-user.service";
-import { UserInterface } from "./user.interface";
 import { Response } from "express";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserDtoResponse";
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
+import { UserInterface } from "./user.interface";
 
 @ApiTags('User API')
 @Controller('user')
@@ -80,8 +80,8 @@ export class UserController {
         type: Http400,
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
-        const { user_type, email, password } = user;
-        if (!(user_type && email && password)) {
+        const { email, password, userType} = user;
+        if (!(email && password && userType)) {
             throw new Error('Todos os campos são obrigatórios');
         }
         await this.createUserService.execute(user);

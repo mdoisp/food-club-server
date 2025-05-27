@@ -1,4 +1,3 @@
-// repositories/user.repository.ts
 import { Inject, Injectable } from '@nestjs/common';
 import { UserEntity } from '../entities/user.entity';
 import { UserEntityInterface } from '../interfaces/user.interface';
@@ -9,6 +8,10 @@ export class UserRepository {
     @Inject('USER_ENTITY')
     private readonly userEntity: typeof UserEntity,
   ) {}
+
+  async list(): Promise<UserEntityInterface[]> {
+    return await this.userEntity.findAll();
+  }
 
   async create(user: Omit<UserEntityInterface, 'id'>): Promise<UserEntityInterface> {
     return await this.userEntity.create(user);
