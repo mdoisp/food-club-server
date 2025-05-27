@@ -1,4 +1,4 @@
-import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
 import { UserEntity } from './user.entity';
 import { CompanyEntity } from './company.entity';
 import { EmployeeWeeklyOrdersEntity } from './employee-weekly-orders.entity';
@@ -13,6 +13,7 @@ export class EmployeeEntity extends Model {
   })
   id: number;
 
+  @ForeignKey(() => UserEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -20,6 +21,7 @@ export class EmployeeEntity extends Model {
   })
   userId: number;
 
+  @ForeignKey(() => CompanyEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

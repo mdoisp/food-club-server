@@ -1,5 +1,4 @@
-// entities/company-affiliate-restaurant.entity.ts
-import { Table, Model, Column, DataType, BelongsTo } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
 import { RestaurantEntity } from './restaurant.entity';
 
@@ -12,6 +11,7 @@ export class CompanyAffiliateRestaurantEntity extends Model {
   })
   id: number;
 
+  @ForeignKey(() => CompanyEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -19,6 +19,7 @@ export class CompanyAffiliateRestaurantEntity extends Model {
   })
   companyId: number;
 
+  @ForeignKey(() => RestaurantEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

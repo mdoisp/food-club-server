@@ -9,6 +9,11 @@ export class EmployeeRepository {
     private readonly employeeEntity: typeof EmployeeEntity,
   ) {}
 
+  async list(): Promise<EmployeeEntityInterface[]> {
+    return await this.employeeEntity.findAll({
+      include: ['weeklyOrders'],
+    });
+  }
   async create(employee: Omit<EmployeeEntityInterface, 'id'>): Promise<EmployeeEntityInterface> {
     return await this.employeeEntity.create(employee);
   }

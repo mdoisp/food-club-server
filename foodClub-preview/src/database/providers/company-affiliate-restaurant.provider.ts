@@ -1,4 +1,4 @@
-import { CompanyAffiliateRestaurantEntity } from '../entities/restaurant-dish.entity';
+import { CompanyAffiliateRestaurantEntity } from '../entities/company-affiliate-restaurant.entity';
 import { CompanyAffiliateRestaurantRepository } from '../repositories/company-affiliate-restaurant.repository';
 
 export const companyAffiliateRestaurantProvider = [

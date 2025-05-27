@@ -3,10 +3,8 @@ import { DishRepository } from './repositories/dish.repository';
 import { databaseProvider } from './database.provider';
 import { dishProvider } from './providers/dish.provider';
 import { employeeProvider } from './providers/employee.provider';
-import { orderProvider } from './providers/individual-order.provider';
 import { EmployeeRepository } from './repositories/employee.repository';
 import { CompanyRepository } from './repositories/company.repository';
-import { OrderRepository } from './repositories/order-item.repository';
 import { RestaurantRepository } from './repositories/restaurant.repository';
 import { companyProvider } from './providers/company.provider';
 import { restaurantProvider } from './providers/restaurant.provider';
@@ -18,14 +16,14 @@ import { userProvider } from './providers/user.provider';
         CompanyRepository, 
         DishRepository, 
         EmployeeRepository, 
-        OrderRepository, 
+        // OrderRepository, 
         RestaurantRepository, 
         UserRepository,
         ...companyProvider, 
         ...databaseProvider, 
         ...dishProvider, 
         ...employeeProvider, 
-        ...orderProvider, 
+        // ...orderProvider, 
         ...restaurantProvider,
         ...userProvider
     ],
@@ -33,7 +31,7 @@ import { userProvider } from './providers/user.provider';
         CompanyRepository, 
         DishRepository, 
         EmployeeRepository, 
-        OrderRepository, 
+        // OrderRepository, 
         RestaurantRepository,
         UserRepository,
     ]

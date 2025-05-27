@@ -8,14 +8,13 @@ import { DeleteRestaurantService } from './services/delete-restaurant.service';
 import { DatabaseModule } from 'src/database/database.module';
 import { restaurantProvider } from 'src/database/providers/restaurant.provider';
 import { RestaurantRepository } from 'src/database/repositories/restaurant.repository';
-import { restaurantDishProvider } from 'src/database/providers/restaurant-dish.provider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [RestaurantController],
   providers: [
     ...restaurantProvider,
-    ...restaurantDishProvider,
+    // ...restaurantDishProvider,
     RestaurantRepository,
     GetRestaurantByIdService, 
     CreateRestaurantService, 

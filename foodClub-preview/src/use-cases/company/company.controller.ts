@@ -36,7 +36,7 @@ export class CompanyController {
       status: 500,
       description: 'Erro interno do servidor',
     })
-    async list(): Promise<ListCompanyDtoResponse[]> {
+    async list(): Promise<CompanyEntityInterface[]> {
       const employeeList = await this.listCompaniesService.execute();
       return employeeList;
     }
@@ -86,8 +86,8 @@ export class CompanyController {
   })
   create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { company_name, zip_code, street, number, city } = company;
-    if(!(company_name && zip_code && street && number && city)){
+    const { userId, name, cnpj, cep, number } = company;
+    if(!(userId && name && cnpj && cep && number)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

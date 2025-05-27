@@ -9,6 +9,11 @@ export class DishRepository {
     private readonly dishEntity: typeof DishEntity,
   ) {}
 
+  async list(): Promise<DishEntityInterface[]> {
+    return await this.dishEntity.findAll({
+      include: ['ratings'],
+    });
+  }
   async create(dish: Omit<DishEntityInterface, 'id'>): Promise<DishEntityInterface> {
     return await this.dishEntity.create(dish);
   }
