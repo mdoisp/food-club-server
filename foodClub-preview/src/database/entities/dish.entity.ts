@@ -16,7 +16,7 @@ export class DishEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'restaurant_id',
+    field: 'restaurantId',
   })
   restaurantId: number;
 

@@ -124,7 +124,7 @@ export class DishController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() dishData: DishInterface, @Res() res: Response): Promise<DishInterface> {
-    const expectedFields = ['dish_name', 'price', 'dish_description'];
+    const expectedFields = ['restaurantId', 'name', 'description', 'price', 'image'];
     const receivedFields = Object.keys(dishData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const dish = await this.updateDishService.execute(Number(id), dishData);

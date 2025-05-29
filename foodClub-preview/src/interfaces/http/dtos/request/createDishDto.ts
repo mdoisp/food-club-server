@@ -2,23 +2,30 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateDishDto {
   @ApiProperty({
-    type: 'string',
-    description: 'Nome do prato',
-    example: 'Pizza',
-    })
-  dish_name: string;
+    description: 'ID of the restaurant to which the dish belongs',
+    type: Number,
+    example: 1,
+  })
+  restaurantId: number;
 
-    @ApiProperty({
-        type: 'string',
-        description: 'Descrição do prato',
-        example: 'Pizza de calabresa',
-    })
-  dish_description?: string;
+  @ApiProperty({
+    description: 'Name of the dish',
+    type: String,
+    example: 'Spaghetti Carbonara',
+  })
+  name: string;
 
-    @ApiProperty({
-        type: 'number',
-        description: 'Preço do prato',
-        example: 29.99,
-    })
+  @ApiProperty({
+    description: 'Description of the dish',
+    type: String,
+    example: 'A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.',
+  })
+  description: string;
+
+  @ApiProperty({
+    description: 'Price of the dish',
+    type: Number,
+    example: 12.99,
+  })
   price: number;
 }
