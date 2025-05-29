@@ -123,7 +123,7 @@ export class CompanyController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
-    const expectedFields = ["company_name", "zip_code", "street", "number", "city", "cnpj", "state"];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const company =  await this.updateCompanyService.execute(Number(id), companyData);
@@ -137,7 +137,7 @@ export class CompanyController {
     if(invalidFields.length > 0){
       res.status(400).json({
         sucess: false,
-        message: 'Campo inválido para atualizar'
+        message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
       });
       return;
     }

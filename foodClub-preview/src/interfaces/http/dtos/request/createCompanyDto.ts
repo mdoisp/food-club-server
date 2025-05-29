@@ -2,14 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CompanyAffiliateRestaurantEntityInterface } from "src/database/interfaces/company-affiliate-restaurant.interface";
 import { EmployeeEntityInterface } from "src/database/interfaces/employee.interface";
 
-export class CreateCompanyDto {
-    @ApiProperty({
-    description: 'ID do usuário proprietário da empresa',
-    type: Number,   
-    example: 1,
-    })
-    id: number;
-    
+export class CreateCompanyDto {    
     @ApiProperty({
     description: 'ID do usuário proprietário da empresa',
     type: Number,
