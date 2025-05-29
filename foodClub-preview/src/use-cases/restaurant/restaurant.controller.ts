@@ -11,16 +11,34 @@ import { ListRestaurantDtoResponse } from 'src/interfaces/http/dtos/response/lis
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateRestaurantDto } from 'src/interfaces/http/dtos/request/createRestaurantDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
+import { ListRestaurantService } from './services/list-restaurant.service';
 
 @ApiTags('Restaurant API')
 @Controller('Restaurant')
 export class RestaurantController {
   constructor(
+    private listRestaurantService: ListRestaurantService,
     private getRestaurantByIdService: GetRestaurantByIdService,
     private createRestaurantService: CreateRestaurantService,
     private updateRestaurantService: UpdateRestaurantService,
     private deleteRestaurantService: DeleteRestaurantService
   ) {}
+
+  @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Consulta realizada com sucesso',
+    isArray: true,
+    type: ListRestaurantDtoResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erro interno do servidor',
+  })
+  async list(): Promise<RestaurantInterface[]> {
+    const restaurantList = await this.listRestaurantService.execute();
+    return restaurantList;
+  }
 
   @Get(':id')
   @ApiParam({
@@ -103,7 +121,7 @@ export class RestaurantController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface,@Res() res: Response): Promise<RestaurantInterface> {
-    const expectedFields = ['restaurant_name', 'zip_code', 'street', 'number', 'city', 'cnpj', 'state'];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(restaurantData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const restaurant = await this.updateRestaurantService.execute(Number(id), restaurantData);

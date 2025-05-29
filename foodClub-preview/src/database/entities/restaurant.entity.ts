@@ -16,7 +16,7 @@ export class RestaurantEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'user_id',
+    field: 'userId',
   })
   userId: number;
 
