@@ -112,7 +112,7 @@ export class UserController {
         type: Http404,
     })
     async update(@Param('id') id: string, @Body() userData: UserInterface, @Res() res: Response): Promise<UserInterface> {
-        const expectedFields = ['user_type', 'email', 'password'];
+        const expectedFields = ['userType', 'email', 'password'];
         const receivedFields = Object.keys(userData);
         const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
         const user = await this.updateUserService.execute(Number(id), userData);

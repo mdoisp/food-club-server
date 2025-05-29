@@ -17,7 +17,7 @@ export class EmployeeEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'user_id',
+    field: 'userId',
   })
   userId: number;
 
@@ -25,7 +25,7 @@ export class EmployeeEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'company_id',
+    field: 'companyId',
   })
   companyId: number;
 
@@ -45,7 +45,7 @@ export class EmployeeEntity extends Model {
   @Column({
     type: DataType.DATEONLY,
     allowNull: false,
-    field: 'birth_date',
+    field: 'birthDate',
   })
   birthDate: Date;
 
@@ -58,6 +58,6 @@ export class EmployeeEntity extends Model {
   @HasMany(() => IndividualOrderEntity)
   individualOrders: IndividualOrderEntity[];
 
-  @HasMany(() => EmployeeWeeklyOrdersEntity)
-  weeklyOrders: EmployeeWeeklyOrdersEntity[];
+  // @HasMany(() => EmployeeWeeklyOrdersEntity)
+  // weeklyOrders: EmployeeWeeklyOrdersEntity[];
 }

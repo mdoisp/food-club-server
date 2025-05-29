@@ -9,5 +9,5 @@ export interface EmployeeEntityInterface {
   cpf: string;
   birthDate: Date;
   individualOrders?: IndividualOrderEntityInterface[];
-  weeklyOrders?: EmployeeWeeklyOrdersEntityInterface[];
+  // weeklyOrders?: EmployeeWeeklyOrdersEntityInterface[];
 }

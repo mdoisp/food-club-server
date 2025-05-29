@@ -11,7 +11,7 @@ export class EmployeeRepository {
 
   async list(): Promise<EmployeeEntityInterface[]> {
     return await this.employeeEntity.findAll({
-      include: ['weeklyOrders'],
+      // include: ['weeklyOrders'],
     });
   }
   async create(employee: Omit<EmployeeEntityInterface, 'id'>): Promise<EmployeeEntityInterface> {
@@ -28,7 +28,7 @@ export class EmployeeRepository {
 
   async getById(id: number): Promise<EmployeeEntityInterface | null> {
     return await this.employeeEntity.findByPk(id, {
-      include: ['weeklyOrders'],
+      // include: ['weeklyOrders'],
     });
   }
 
