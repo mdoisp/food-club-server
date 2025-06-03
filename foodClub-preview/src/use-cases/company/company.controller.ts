@@ -36,8 +36,9 @@ export class CompanyController {
       status: 500,
       description: 'Erro interno do servidor',
     })
-    async list(): Promise<ListCompanyDtoResponse[]> {
+    async list(): Promise<CompanyEntityInterface[]> {
       const employeeList = await this.listCompaniesService.execute();
+      console.log(employeeList);
       return employeeList;
     }
 
@@ -86,8 +87,8 @@ export class CompanyController {
   })
   create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { company_name, zip_code, street, number, city } = company;
-    if(!(company_name && zip_code && street && number && city)){
+    const { userId, name, cnpj, cep, number } = company;
+    if(!(userId && name && cnpj && cep && number)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'
@@ -122,7 +123,7 @@ export class CompanyController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
-    const expectedFields = ["company_name", "zip_code", "street", "number", "city", "cnpj", "state"];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const company =  await this.updateCompanyService.execute(Number(id), companyData);
@@ -136,7 +137,7 @@ export class CompanyController {
     if(invalidFields.length > 0){
       res.status(400).json({
         sucess: false,
-        message: 'Campo inválido para atualizar'
+        message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
       });
       return;
     }

@@ -9,28 +9,32 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      restaurant_name: {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'user',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
       cnpj: {
         type: DataTypes.STRING(20),
+        allowNull: false,
         unique: true,
       },
-      street: {
-        type: DataTypes.STRING(100),
+      cep: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
       },
       number: {
         type: DataTypes.STRING(10),
-      },
-      zip_code: {
-        type: DataTypes.STRING(10),
-      },
-      city: {
-        type: DataTypes.STRING(50),
-      },
-      state: {
-        type: DataTypes.STRING(2),
+        allowNull: false,
       },
     });
   },

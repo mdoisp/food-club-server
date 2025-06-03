@@ -1,7 +1,13 @@
-import { CompanyEntityInterface } from "src/database/interfaces/company.interface";
+import { EmployeeWeeklyOrdersEntityInterface } from "src/database/interfaces/employee-weekly-orders.interface";
+import { IndividualOrderEntityInterface } from "src/database/interfaces/individual-order.interface";
 
 export interface EmployeeInterface {
     id: number;
-    employee_name: string;
-    company_id?: CompanyEntityInterface;
+    userId: number;
+    companyId: number;
+    name: string;
+    cpf: string;
+    birthDate: Date;
+    individualOrders?: IndividualOrderEntityInterface[];
+    // weeklyOrders?: EmployeeWeeklyOrdersEntityInterface[];
 }

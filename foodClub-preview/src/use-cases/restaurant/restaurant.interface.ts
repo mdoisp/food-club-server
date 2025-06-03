@@ -1,13 +1,13 @@
-import { DishInterface } from "../dish/dish.interface";
+import { DishEntityInterface } from "src/database/interfaces/dish.interface";
+import { CompanyOrderEntityInterface } from "src/database/interfaces/company-order.interface";
 
 export interface RestaurantInterface {
     id: number;
-    restaurant_name: string;
-    cnpj?: string;
-    street?: string;
-    number?: string;
-    zip_code?: string;
-    city?: string;
-    state?: string;
-    dishes?: DishInterface[];
+    userId: number;
+    name: string;
+    cnpj: string;
+    cep: string;
+    number: string;
+    dishes?: DishEntityInterface[];
+    companyOrders?: CompanyOrderEntityInterface[];
 }

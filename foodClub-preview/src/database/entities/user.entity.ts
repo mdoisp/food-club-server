@@ -1,8 +1,11 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
-import { UserEntityInterface } from '../interfaces/user.interface';
+import { Table, Model, Column, DataType, HasOne } from 'sequelize-typescript';
+import { CompanyEntity } from './company.entity';
+import { EmployeeEntity } from './employee.entity';
+import { RestaurantEntity } from './restaurant.entity';
+import { UserType } from '../interfaces/user.interface';
 
 @Table({ tableName: 'user', timestamps: false })
-export class UserEntity extends Model implements UserEntityInterface {
+export class UserEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -11,10 +14,14 @@ export class UserEntity extends Model implements UserEntityInterface {
   id: number;
 
   @Column({
-    type: DataType.STRING(20),
+    type: DataType.STRING(100),
     allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
   })
-  user_type: string;
+  email: string;
 
   @Column({
     type: DataType.STRING(100),
@@ -23,9 +30,32 @@ export class UserEntity extends Model implements UserEntityInterface {
   password: string;
 
   @Column({
-    type: DataType.STRING(100),
-    unique: true,
+    type: DataType.ENUM('company', 'employee', 'restaurant'),
     allowNull: false,
+    field: 'user_type',
   })
-  email: string;
+  userType: UserType;
+
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: true,
+    field: 'verification_token',
+  })
+  verificationToken: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+    field: 'verification_token_expire_at',
+  })
+  verificationTokenExpireAt: Date;
+
+  @HasOne(() => CompanyEntity)
+  company: CompanyEntity;
+
+  @HasOne(() => EmployeeEntity)
+  employee: EmployeeEntity;
+
+  @HasOne(() => RestaurantEntity)
+  restaurant: RestaurantEntity;
 }

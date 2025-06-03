@@ -1,10 +1,17 @@
-import { CompanyEntityInterface } from './company.interface';
-import { CompanyOrderDishEntityInterface } from './company-order-dish.interface';
+import { IndividualOrderEntityInterface } from "./individual-order.interface";
+
+export enum CompanyOrderStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  PREPARING = 'preparing',
+  DELIVERED = 'delivered',
+  CANCELED = 'canceled',
+}
 
 export interface CompanyOrderEntityInterface {
   id: number;
-  order_number: string;
-  company_id: number;
-  company?: CompanyEntityInterface;
-  dishes?: CompanyOrderDishEntityInterface[];
+  companyId: number;
+  restaurantId: number;
+  status: CompanyOrderStatus;
+  collaboratorsOrders?: IndividualOrderEntityInterface[];
 }

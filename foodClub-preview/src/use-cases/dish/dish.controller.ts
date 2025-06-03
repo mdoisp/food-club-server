@@ -87,8 +87,8 @@ export class DishController {
   })
   create(
     @Body() dish: DishInterface, @Res() res: Response) {
-    const { dish_name, price, dish_description } = dish;
-    if(!(dish_name && price && dish_description)){
+    const { restaurantId, name, description, price } = dish;
+    if(!(restaurantId && name && description && price)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'
@@ -124,7 +124,7 @@ export class DishController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() dishData: DishInterface, @Res() res: Response): Promise<DishInterface> {
-    const expectedFields = ['dish_name', 'price', 'dish_description'];
+    const expectedFields = ['restaurantId', 'name', 'description', 'price', 'image'];
     const receivedFields = Object.keys(dishData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const dish = await this.updateDishService.execute(Number(id), dishData);

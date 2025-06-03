@@ -1,10 +1,10 @@
-import { Table, Model, Column, DataType, BelongsToMany } from 'sequelize-typescript';
-import { DishEntityInterface } from '../interfaces/dish.interface';
+import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
 import { RestaurantEntity } from './restaurant.entity';
-import { RestaurantDishEntity } from './restaurant-dish.entity';
+import { DishRatingEntity } from './dish-rating.entity';
+import { OrderItemEntity } from './order-item.entity';
 
 @Table({ tableName: 'dish', timestamps: false })
-export class DishEntity extends Model implements DishEntityInterface {
+export class DishEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -12,14 +12,25 @@ export class DishEntity extends Model implements DishEntityInterface {
   })
   id: number;
 
+  @ForeignKey(() => RestaurantEntity) 
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'restaurantId',
+  })
+  restaurantId: number;
+
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  dish_name: string;
+  name: string;
 
-  @Column({ type: DataType.TEXT })
-  dish_description: string;
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false,
+  })
+  description: string;
 
   @Column({
     type: DataType.DECIMAL(10, 2),
@@ -27,6 +38,20 @@ export class DishEntity extends Model implements DishEntityInterface {
   })
   price: number;
 
-  @BelongsToMany(() => RestaurantEntity, () => RestaurantDishEntity)
-  restaurants: RestaurantEntity[];
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: true,
+  })
+  image: string;
+
+  @BelongsTo(() => RestaurantEntity, {
+    foreignKey: 'restaurantId'
+  })
+  restaurant: RestaurantEntity;
+
+  @HasMany(() => DishRatingEntity)
+  ratings: DishRatingEntity[];
+
+  @HasMany(() => OrderItemEntity)
+  orderItems: OrderItemEntity[];
 }

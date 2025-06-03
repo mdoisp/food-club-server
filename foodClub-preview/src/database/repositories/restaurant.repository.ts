@@ -21,9 +21,8 @@ export class RestaurantRepository {
     return await restaurant.update(restaurantData);
   }
 
-  async getById(id: number): Promise<RestaurantEntityInterface> {
-    const restaurant = await this.restaurantEntity.findByPk(id);
-    return restaurant;
+  async getById(id: number): Promise<RestaurantEntityInterface | null> {
+    return await this.restaurantEntity.findByPk(id);
   }
 
   async list(): Promise<RestaurantEntityInterface[]> {
@@ -33,5 +32,9 @@ export class RestaurantRepository {
   async delete(id: number): Promise<void> {
     const restaurant = await this.restaurantEntity.findByPk(id);
     await restaurant.destroy();
+  }
+
+  async findByCnpj(cnpj: string): Promise<RestaurantEntityInterface | null> {
+    return await this.restaurantEntity.findOne({ where: { cnpj } });
   }
 }

@@ -9,8 +9,16 @@ export class UserRepository {
     private readonly userEntity: typeof UserEntity,
   ) {}
 
+  async list(): Promise<UserEntityInterface[]> {
+    return await this.userEntity.findAll();
+  }
+
   async create(user: Omit<UserEntityInterface, 'id'>): Promise<UserEntityInterface> {
     return await this.userEntity.create(user);
+  }
+
+  async findByEmail(email: string): Promise<UserEntityInterface | null> {
+    return await this.userEntity.findOne({ where: { email } });
   }
 
   async update(
@@ -21,17 +29,8 @@ export class UserRepository {
     return await user.update(userData);
   }
 
-  async getById(id: number): Promise<UserEntityInterface> {
-    const user = await this.userEntity.findByPk(id);
-    return user;
-  }
-
-  async getByEmail(email: string): Promise<UserEntityInterface | null> {
-    return await this.userEntity.findOne({ where: { email } });
-  }
-
-  async list(): Promise<UserEntityInterface[]> {
-    return await this.userEntity.findAll();
+  async getById(id: number): Promise<UserEntityInterface | null> {
+    return await this.userEntity.findByPk(id);
   }
 
   async delete(id: number): Promise<void> {

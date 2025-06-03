@@ -1,52 +1,45 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class ListCompanyDtoResponse {
-    @ApiProperty({
-    type: 'number',
-    description: 'ID da empresa',
+   @ApiProperty({
+    description: 'ID do usuário proprietário da empresa',
+    type: Number,   
     example: 1,
     })
-  id: number;
+    id: number;
+    
     @ApiProperty({
-        type: 'string',
-        description: 'Nome da empresa',
-        example: 'Food Club',
-        })
-  company_name: string;
+    description: 'ID do usuário proprietário da empresa',
+    type: Number,
+    example: 1,
+    })
+    userId: number;
+    
     @ApiProperty({
-        type: 'string',
-        description: 'Nome da empresa',
-        example: 'Rua das Flores',
-        })
-  street?: string;
+    description: 'Nome da empresa',
+    type: String,
+    example: 'Food Club',
+    })
+    name: string;
+
     @ApiProperty({
-        type: 'string',
-        description: 'CNPJ da empresa',
-        example: '12.345.678/0001-90',
-        })
-  cnpj?: string;
+    description: 'CNPJ da empresa',
+    type: String,
+    example: '12.345.678/0001-90',
+    })
+    cnpj: string;
+
     @ApiProperty({
-        type: 'string',
-        description: 'CEP da empresa',
-        example: '12345-678',
-        })
-  zip_code?: string;
+    description: 'CEP da empresa',
+    type: String,
+    example: '12345-678',
+    })
+    cep: string;
+
     @ApiProperty({
-        type: 'string',
-        description: 'Número da empresa',
-        example: '123',
-        })
-  number?: string;
-    @ApiProperty({
-        type: 'string',
-        description: 'Cidade da empresa',
-        example: 'São Paulo',
-        })
-  city?: string;
-    @ApiProperty({
-        type: 'string',
-        description: 'Estado da empresa',
-        example: 'SP',
-        })
-  state?: string;
+    description: 'Número do endereço da empresa',
+    type: String,
+    example: '123',
+    })
+    number: string;
 }

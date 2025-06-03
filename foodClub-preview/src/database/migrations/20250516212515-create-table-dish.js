@@ -9,16 +9,31 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      dish_name: {
+      name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
-      dish_description: {
+      description: {
         type: DataTypes.TEXT,
+        allowNull: false,
       },
       price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      restaurantId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'restaurant',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
     });
   },

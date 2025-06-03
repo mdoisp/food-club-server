@@ -1,10 +1,10 @@
-import { Table, Model, Column, DataType, BelongsToMany } from 'sequelize-typescript';
-import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
+import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import { UserEntity } from './user.entity';
 import { DishEntity } from './dish.entity';
-import { RestaurantDishEntity } from './restaurant-dish.entity';
+import { CompanyOrderEntity } from './company-order.entity';
 
 @Table({ tableName: 'restaurant', timestamps: false })
-export class RestaurantEntity extends Model implements RestaurantEntityInterface {
+export class RestaurantEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -12,30 +12,45 @@ export class RestaurantEntity extends Model implements RestaurantEntityInterface
   })
   id: number;
 
+  @ForeignKey(() => UserEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'userId',
+  })
+  userId: number;
+
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  restaurant_name: string;
+  name: string;
 
-  @Column({ type: DataType.STRING(20), unique: true })
+  @Column({
+    type: DataType.STRING(20),
+    allowNull: false,
+    unique: true,
+  })
   cnpj: string;
 
-  @Column({ type: DataType.STRING(100) })
-  street: string;
+  @Column({
+    type: DataType.STRING(10),
+    allowNull: false,
+  })
+  cep: string;
 
-  @Column({ type: DataType.STRING(10) })
+  @Column({
+    type: DataType.STRING(10),
+    allowNull: false,
+  })
   number: string;
 
-  @Column({ type: DataType.STRING(10) })
-  zip_code: string;
+  @BelongsTo(() => UserEntity)
+  user: UserEntity;
 
-  @Column({ type: DataType.STRING(50) })
-  city: string;
-
-  @Column({ type: DataType.STRING(2) })
-  state: string;
-
-  @BelongsToMany(() => DishEntity, () => RestaurantDishEntity)
+  @HasMany(() => DishEntity)
   dishes: DishEntity[];
+
+  @HasMany(() => CompanyOrderEntity)
+  companyOrders: CompanyOrderEntity[];
 }

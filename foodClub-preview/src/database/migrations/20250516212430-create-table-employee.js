@@ -9,19 +9,38 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      employee_name: {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'user',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
-      company_id: {
+      cpf: {
+        type: DataTypes.STRING(14),
+        allowNull: false,
+        unique: true,
+      },
+      companyId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'company',
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
+      },
+      birthDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
       },
     });
   },

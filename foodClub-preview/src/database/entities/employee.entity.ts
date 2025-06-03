@@ -1,10 +1,11 @@
-import { Table, Model, Column, DataType, BelongsToMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { EmployeeEntityInterface } from '../interfaces/employee.interface';
+import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import { UserEntity } from './user.entity';
 import { CompanyEntity } from './company.entity';
-import { CompanyEmployeeEntity } from './company-employee.entity';
+import { EmployeeWeeklyOrdersEntity } from './employee-weekly-orders.entity';
+import { IndividualOrderEntity } from './individual-order.entity';
 
 @Table({ tableName: 'employee', timestamps: false })
-export class EmployeeEntity extends Model implements EmployeeEntityInterface {
+export class EmployeeEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -12,19 +13,51 @@ export class EmployeeEntity extends Model implements EmployeeEntityInterface {
   })
   id: number;
 
+  @ForeignKey(() => UserEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'userId',
+  })
+  userId: number;
+
+  @ForeignKey(() => CompanyEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'companyId',
+  })
+  companyId: number;
+
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  employee_name: string;
+  name: string;
 
-  @ForeignKey(() => CompanyEntity)
-  @Column({ type: DataType.INTEGER, allowNull: true })
-  company_id: number;
+  @Column({
+    type: DataType.STRING(14),
+    allowNull: false,
+    unique: true,
+  })
+  cpf: string;
+
+  @Column({
+    type: DataType.DATEONLY,
+    allowNull: false,
+    field: 'birthDate',
+  })
+  birthDate: Date;
+
+  @BelongsTo(() => UserEntity)
+  user: UserEntity;
 
   @BelongsTo(() => CompanyEntity)
   company: CompanyEntity;
 
-  @BelongsToMany(() => CompanyEntity, () => CompanyEmployeeEntity)
-  companies: CompanyEntity[];
+  @HasMany(() => IndividualOrderEntity)
+  individualOrders: IndividualOrderEntity[];
+
+  // @HasMany(() => EmployeeWeeklyOrdersEntity)
+  // weeklyOrders: EmployeeWeeklyOrdersEntity[];
 }

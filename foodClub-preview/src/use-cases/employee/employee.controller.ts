@@ -86,8 +86,8 @@ export class EmployeeController {
   })
   create(
     @Body() employee: EmployeeInterface, @Res() res: Response) {
-      const { employee_name, company_id } = employee;
-      if(!(employee_name && company_id)){
+      const { userId, companyId, name, cpf, birthDate } = employee;
+      if(!(userId && companyId && name && cpf && birthDate)) {
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

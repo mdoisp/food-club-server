@@ -1,10 +1,11 @@
-import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
-import { CompanyOrderEntityInterface } from '../interfaces/company-order.interface';
+import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
-import { CompanyOrderDishEntity } from './company-order-dish.entity';
+import { RestaurantEntity } from './restaurant.entity';
+import { IndividualOrderEntity } from './individual-order.entity';
+import { CompanyOrderStatus } from '../interfaces/company-order.interface';
 
 @Table({ tableName: 'company_order', timestamps: false })
-export class CompanyOrderEntity extends Model implements CompanyOrderEntityInterface {
+export class CompanyOrderEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -12,21 +13,35 @@ export class CompanyOrderEntity extends Model implements CompanyOrderEntityInter
   })
   id: number;
 
-  @Column({
-    type: DataType.STRING(50),
-    allowNull: false,
-  })
-  order_number: string;
-
+  @ForeignKey(() => CompanyEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    field: 'company_id',
   })
-  company_id: number;
+  companyId: number;
+
+  @ForeignKey(() => RestaurantEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'restaurant_id',
+  })
+  restaurantId: number;
+
+  @Column({
+    type: DataType.ENUM('pending', 'confirmed', 'preparing', 'delivered', 'canceled'),
+    allowNull: false,
+    defaultValue: 'pending',
+  })
+  status: CompanyOrderStatus;
 
   @BelongsTo(() => CompanyEntity)
   company: CompanyEntity;
 
-  @HasMany(() => CompanyOrderDishEntity)
-  dishes: CompanyOrderDishEntity[];
+  @BelongsTo(() => RestaurantEntity)
+  restaurant: RestaurantEntity;
+
+  @HasMany(() => IndividualOrderEntity)
+  collaboratorsOrders: IndividualOrderEntity[];
 }
