@@ -3,14 +3,14 @@ import { DishRatingEntityInterface } from "src/database/interfaces/dish-rating.i
 import { DishRatingRepository } from "src/database/repositories/dish-rating.repository";
 
 @Injectable()
-export class GetListByDishService{
+export class GetByDishAndUserService {
     constructor(
         @Inject('DISH_RATING_REPOSITORY')
         private readonly dishRatingRepository: DishRatingRepository
     ) {}
 
-    async execute(dishId: number):Promise<DishRatingEntityInterface[]> {
-        const dishRating = await this.dishRatingRepository.listByDish(dishId);
+    async execute(dishId: number, userId: number): Promise<DishRatingEntityInterface> {
+        const dishRating = await this.dishRatingRepository.getByDishAndUser(dishId, userId)
         return dishRating;
     }
 }

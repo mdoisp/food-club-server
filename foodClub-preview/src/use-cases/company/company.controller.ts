@@ -57,7 +57,7 @@ export class CompanyController {
     description: 'Empresa não encontrada',
     type: Http404,
   })
-  async getById(@Param('id') id: string, @Res() res: Response,): Promise<ListCompanyDtoResponse> {
+  async getById(@Param('id') id: string, @Res() res: Response): Promise<ListCompanyDtoResponse> {
     const company = await this.getCompanyByIdService.execute(Number(id));
     if (!company) {
       res.status(404).json({
