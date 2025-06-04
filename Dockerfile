@@ -31,5 +31,5 @@ COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-# Em desenvolvimento, use o comando de desenvolvimento
-CMD ["npm", "run", "start:dev"] 
+# Usar o comando de produção
+CMD ["npm", "run", "start:prod"] 
