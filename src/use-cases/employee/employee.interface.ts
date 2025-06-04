@@ -1,4 +1,3 @@
-import { EmployeeWeeklyOrdersEntityInterface } from "src/database/interfaces/employee-weekly-orders.interface";
 import { IndividualOrderEntityInterface } from "src/database/interfaces/individual-order.interface";
 
 export interface EmployeeInterface {
