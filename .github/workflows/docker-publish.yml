@@ -14,11 +14,11 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: '20'
+  NODE_VERSION: '18'
 
 jobs:
   test:
-    name: test (20.x)
+    name: test (18.x)
     runs-on: ubuntu-latest
     services:
       postgres:
