@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { UserType } from '../../../../use-cases/user/user.interface';
 
 export class ListUserDtoResponse {
     @ApiProperty({
@@ -10,22 +11,11 @@ export class ListUserDtoResponse {
 
     @ApiProperty({
         type: 'string',
-        description: 'Tipo de usuário',
-        example: 'admin',
-    })
-  user_type: string;
-
-    @ApiProperty({
-        type: 'string',
-        description: 'Senha do usuário',
-        example: 'password123',
-    })
-  password: string;
-
-    @ApiProperty({
-        type: 'string',
         description: 'Email do usuário',
         example: 'admin@tech.com',
     })
   email: string;
+
+    @ApiProperty({ enum: UserType })
+  userType: UserType;
 }

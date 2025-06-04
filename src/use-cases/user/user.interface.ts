@@ -20,3 +20,5 @@ export interface UserInterface {
   employee?: EmployeeEntityInterface;
   restaurant?: RestaurantEntityInterface;
 }
+
+export type UpdateUserDto = Omit<UserInterface, 'id' | 'verificationToken' | 'verificationTokenExpireAt' | 'company' | 'employee' | 'restaurant'>;

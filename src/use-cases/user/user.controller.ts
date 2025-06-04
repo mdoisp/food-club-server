@@ -10,7 +10,7 @@ import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserD
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
-import { UserInterface } from "./user.interface";
+import { UserInterface, UpdateUserDto } from "./user.interface";
 
 @ApiTags('User API')
 @Controller('user')
@@ -82,10 +82,14 @@ export class UserController {
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
         const { email, password, userType} = user;
         if (!(email && password && userType)) {
-            throw new Error('Todos os campos são obrigatórios');
+            res.status(400).json({
+                success: false,
+                message: 'Todos os campos são obrigatórios',
+            });
+            return;
         }
-        await this.createUserService.execute(user);
-        res.send();
+        const createdUser = await this.createUserService.execute(user);
+        res.status(201).json(createdUser);
     }
 
     @Put(':id')
@@ -111,18 +115,11 @@ export class UserController {
         description: 'Usuário não encontrado',
         type: Http404,
     })
-    async update(@Param('id') id: string, @Body() userData: UserInterface, @Res() res: Response): Promise<UserInterface> {
+    async update(@Param('id') id: string, @Body() userData: UpdateUserDto, @Res() res: Response): Promise<UserInterface> {
         const expectedFields = ['userType', 'email', 'password'];
         const receivedFields = Object.keys(userData);
         const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
-        const user = await this.updateUserService.execute(Number(id), userData);
-        if(!user) {
-            res.status(404).json({
-                success: false,
-                message: 'Usuário não encontrado',
-            });
-            return;
-        }
+        
         if (invalidFields.length > 0) {
             res.status(400).json({
                 success: false,
@@ -131,6 +128,14 @@ export class UserController {
             return;
         }
 
+        const user = await this.updateUserService.execute(Number(id), userData);
+        if(!user) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
 
         res.status(200).json(user);
     }
@@ -158,7 +163,14 @@ export class UserController {
             });
             return;
         }
-        this.deleteUserService.execute(Number(id));
+        const deleted = await this.deleteUserService.execute(Number(id));
+        if (!deleted) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
         res.status(200).json({
             success: true,
             message: 'Usuário deletado com sucesso',

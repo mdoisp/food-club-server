@@ -8,7 +8,12 @@ export class DeleteUserService {
         private readonly userRepository: UserRepository
     ) {}
 
-    async execute(id: number): Promise<void> {
+    async execute(id: number): Promise<boolean> {
+        const user = await this.userRepository.getById(id);
+        if (!user) {
+            return false;
+        }
         await this.userRepository.delete(id);
+        return true;
     }
 }

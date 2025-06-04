@@ -2,12 +2,20 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CompanyEntityInterface } from "src/database/interfaces/company.interface";
 
 export class ListDishDtoResponse {
-    @ApiProperty({
-        type: 'number',
-        description: 'ID do prato',
-        example: 1,
-    })
+    @ApiProperty()
     id: number;
+
+    @ApiProperty()
+    name: string;
+
+    @ApiProperty()
+    description: string;
+
+    @ApiProperty()
+    price: number;
+
+    @ApiProperty()
+    restaurantId: number;
 
     @ApiProperty({
         type: 'string',

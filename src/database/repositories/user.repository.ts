@@ -35,6 +35,8 @@ export class UserRepository {
 
   async delete(id: number): Promise<void> {
     const user = await this.userEntity.findByPk(id);
-    await user.destroy();
+    if (user) {
+      await user.destroy();
+    }
   }
 }
