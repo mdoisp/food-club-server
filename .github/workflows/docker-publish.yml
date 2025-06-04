@@ -7,7 +7,6 @@ on:
       - "development"
       - "main"
   pull_request:
-    types: [closed]
     branches:
       - "main"
       - "development"
@@ -15,30 +14,27 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: '18'
+  NODE_VERSION: '20'
 
 jobs:
-  # Verifica se é um push válido ou um PR merged para main/development
-  check-conditions:
+  test:
+    name: test (20.x)
     runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
-    steps:
-      - id: check
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            echo "should_run=true" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
-            echo "should_run=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_run=false" >> $GITHUB_OUTPUT
-          fi
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: foodclub_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-  quality:
-    needs: check-conditions
-    if: needs.check-conditions.outputs.should_run == 'true'
-    name: Quality Checks
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
@@ -54,12 +50,17 @@ jobs:
       - name: Run linting
         run: npm run lint
       
-      - name: Run tests with coverage
-        run: npm run test:cov
+      - name: Run unit tests
+        run: npm run test
+        
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/foodclub_test
 
   version:
-    needs: [check-conditions, quality]
-    if: needs.check-conditions.outputs.should_run == 'true'
+    needs: [test]
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     name: Generate Version
     runs-on: ubuntu-latest
     outputs:
@@ -103,8 +104,8 @@ jobs:
 
   build:
     name: Build and Push
-    needs: [check-conditions, quality, version]
-    if: needs.check-conditions.outputs.should_run == 'true'
+    needs: [test]
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -160,8 +161,8 @@ jobs:
 
   notify:
     name: Notification
-    needs: [check-conditions, build, version]
-    if: always() && needs.check-conditions.outputs.should_run == 'true'
+    needs: [test, build, version]
+    if: always() && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true))
     runs-on: ubuntu-latest
     steps:
       - name: Send email notification
