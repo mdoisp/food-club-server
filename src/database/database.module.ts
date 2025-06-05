@@ -12,28 +12,28 @@ import { UserRepository } from './repositories/user.repository';
 import { userProvider } from './providers/user.provider';
 
 @Module({
-    providers:[
-        CompanyRepository, 
-        DishRepository, 
-        EmployeeRepository, 
-        // OrderRepository, 
-        RestaurantRepository, 
-        UserRepository,
-        ...companyProvider, 
-        ...databaseProvider, 
-        ...dishProvider, 
-        ...employeeProvider, 
-        // ...orderProvider, 
-        ...restaurantProvider,
-        ...userProvider
-    ],
-    exports:[
-        CompanyRepository, 
-        DishRepository, 
-        EmployeeRepository, 
-        // OrderRepository, 
-        RestaurantRepository,
-        UserRepository,
-    ]
+  providers: [
+    CompanyRepository,
+    DishRepository,
+    EmployeeRepository,
+    // OrderRepository,
+    RestaurantRepository,
+    UserRepository,
+    ...companyProvider,
+    ...databaseProvider,
+    ...dishProvider,
+    ...employeeProvider,
+    // ...orderProvider,
+    ...restaurantProvider,
+    ...userProvider,
+  ],
+  exports: [
+    CompanyRepository,
+    DishRepository,
+    EmployeeRepository,
+    // OrderRepository,
+    RestaurantRepository,
+    UserRepository,
+  ],
 })
 export class DatabaseModule {}

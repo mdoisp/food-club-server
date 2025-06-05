@@ -1,6 +1,6 @@
-import { CompanyEntityInterface } from "./company.interface";
-import { EmployeeEntityInterface } from "./employee.interface";
-import { RestaurantEntityInterface } from "./restaurant.interface";
+import { CompanyEntityInterface } from './company.interface';
+import { EmployeeEntityInterface } from './employee.interface';
+import { RestaurantEntityInterface } from './restaurant.interface';
 
 export enum UserType {
   COMPANY = 'company',

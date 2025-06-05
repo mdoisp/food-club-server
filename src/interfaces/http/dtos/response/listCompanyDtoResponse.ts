@@ -1,45 +1,45 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ListCompanyDtoResponse {
-   @ApiProperty({
-    description: 'ID do usuário proprietário da empresa',
-    type: Number,   
-    example: 1,
-    })
-    id: number;
-    
-    @ApiProperty({
+  @ApiProperty({
     description: 'ID do usuário proprietário da empresa',
     type: Number,
     example: 1,
-    })
-    userId: number;
-    
-    @ApiProperty({
+  })
+  id: number;
+
+  @ApiProperty({
+    description: 'ID do usuário proprietário da empresa',
+    type: Number,
+    example: 1,
+  })
+  userId: number;
+
+  @ApiProperty({
     description: 'Nome da empresa',
     type: String,
     example: 'Food Club',
-    })
-    name: string;
+  })
+  name: string;
 
-    @ApiProperty({
+  @ApiProperty({
     description: 'CNPJ da empresa',
     type: String,
     example: '12.345.678/0001-90',
-    })
-    cnpj: string;
+  })
+  cnpj: string;
 
-    @ApiProperty({
+  @ApiProperty({
     description: 'CEP da empresa',
     type: String,
     example: '12345-678',
-    })
-    cep: string;
+  })
+  cep: string;
 
-    @ApiProperty({
+  @ApiProperty({
     description: 'Número do endereço da empresa',
     type: String,
     example: '123',
-    })
-    number: string;
+  })
+  number: string;
 }

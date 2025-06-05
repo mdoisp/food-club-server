@@ -14,18 +14,18 @@ import { dishProvider } from 'src/database/providers/dish.provider';
   controllers: [DishController],
   providers: [
     ...dishProvider,
-    ListDishesService, 
-    GetDishByIdService, 
-    CreateDishService, 
-    UpdateDishService, 
-    DeleteDishService
+    ListDishesService,
+    GetDishByIdService,
+    CreateDishService,
+    UpdateDishService,
+    DeleteDishService,
   ],
   exports: [
-    ListDishesService, 
-    GetDishByIdService, 
-    CreateDishService, 
-    UpdateDishService, 
-    DeleteDishService
-  ]
+    ListDishesService,
+    GetDishByIdService,
+    CreateDishService,
+    UpdateDishService,
+    DeleteDishService,
+  ],
 })
 export class DishModule {}

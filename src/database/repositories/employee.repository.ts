@@ -6,7 +6,7 @@ import { EmployeeEntityInterface } from '../interfaces/employee.interface';
 export class EmployeeRepository {
   constructor(
     @Inject('EMPLOYEE_ENTITY')
-    private readonly employeeEntity: typeof EmployeeEntity,
+    private readonly employeeEntity: typeof EmployeeEntity
   ) {}
 
   async list(): Promise<EmployeeEntityInterface[]> {
@@ -20,7 +20,7 @@ export class EmployeeRepository {
 
   async update(
     id: number,
-    employeeData: Partial<Omit<EmployeeEntityInterface, 'id'>>,
+    employeeData: Partial<Omit<EmployeeEntityInterface, 'id'>>
   ): Promise<EmployeeEntityInterface> {
     const employee = await this.employeeEntity.findByPk(id);
     return await employee.update(employeeData);

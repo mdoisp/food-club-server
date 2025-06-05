@@ -6,7 +6,7 @@ import { CompanyEntityInterface } from '../interfaces/company.interface';
 export class CompanyRepository {
   constructor(
     @Inject('COMPANY_ENTITY')
-    private readonly companyEntity: typeof CompanyEntity,
+    private readonly companyEntity: typeof CompanyEntity
   ) {}
 
   async create(company: Omit<CompanyEntityInterface, 'id'>): Promise<CompanyEntityInterface> {
@@ -15,7 +15,7 @@ export class CompanyRepository {
 
   async update(
     id: number,
-    companyData: Partial<Omit<CompanyEntityInterface, 'id'>>,
+    companyData: Partial<Omit<CompanyEntityInterface, 'id'>>
   ): Promise<CompanyEntityInterface> {
     const company = await this.companyEntity.findByPk(id);
     return await company.update(companyData);

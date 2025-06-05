@@ -1,4 +1,4 @@
-import { CompanyEntity } from "../entities/company.entity";
+import { CompanyEntity } from '../entities/company.entity';
 import { CompanyRepository } from '../repositories/company.repository';
 
 export const companyProvider = [

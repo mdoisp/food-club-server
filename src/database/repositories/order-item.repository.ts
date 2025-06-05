@@ -6,7 +6,7 @@ import { OrderItemEntityInterface } from '../interfaces/order-item.interface';
 export class OrderItemRepository {
   constructor(
     @Inject('ORDER_ITEM_ENTITY')
-    private readonly orderItemEntity: typeof OrderItemEntity,
+    private readonly orderItemEntity: typeof OrderItemEntity
   ) {}
 
   async create(item: Omit<OrderItemEntityInterface, 'id'>): Promise<OrderItemEntityInterface> {
@@ -15,7 +15,7 @@ export class OrderItemRepository {
 
   async update(
     id: number,
-    itemData: Partial<Omit<OrderItemEntityInterface, 'id'>>,
+    itemData: Partial<Omit<OrderItemEntityInterface, 'id'>>
   ): Promise<OrderItemEntityInterface> {
     const item = await this.orderItemEntity.findByPk(id);
     return await item.update(itemData);

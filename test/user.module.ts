@@ -40,7 +40,7 @@ import { Sequelize } from 'sequelize-typescript';
         OrderItemEntity,
         DishEntity,
         EmployeeWeeklyOrdersEntity,
-        DishRatingEntity
+        DishRatingEntity,
       ],
       logging: false,
     }),
@@ -55,7 +55,7 @@ import { Sequelize } from 'sequelize-typescript';
       OrderItemEntity,
       DishEntity,
       EmployeeWeeklyOrdersEntity,
-      DishRatingEntity
+      DishRatingEntity,
     ]),
   ],
   controllers: [UserController],
@@ -90,7 +90,7 @@ import { Sequelize } from 'sequelize-typescript';
             OrderItemEntity,
             DishEntity,
             EmployeeWeeklyOrdersEntity,
-            DishRatingEntity
+            DishRatingEntity,
           ],
           logging: false,
         });
@@ -384,7 +384,14 @@ export class TestUserModule {
         onDelete: 'CASCADE',
       },
       status: {
-        type: DataTypes.ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'),
+        type: DataTypes.ENUM(
+          'pending',
+          'confirmed',
+          'preparing',
+          'ready',
+          'delivered',
+          'cancelled'
+        ),
         allowNull: false,
       },
       orderDate: {
@@ -423,7 +430,14 @@ export class TestUserModule {
         onDelete: 'CASCADE',
       },
       status: {
-        type: DataTypes.ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'),
+        type: DataTypes.ENUM(
+          'pending',
+          'confirmed',
+          'preparing',
+          'ready',
+          'delivered',
+          'cancelled'
+        ),
         allowNull: false,
       },
       orderDate: {
@@ -510,4 +524,4 @@ export class TestUserModule {
       },
     });
   }
-} 
+}

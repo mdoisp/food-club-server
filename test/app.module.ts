@@ -6,4 +6,4 @@ import { AppService } from '../src/app.service';
   controllers: [AppController],
   providers: [AppService],
 })
-export class TestAppModule {} 
+export class TestAppModule {}

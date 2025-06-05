@@ -1,4 +1,4 @@
-import { EmployeeEntity } from "../entities/employee.entity";
+import { EmployeeEntity } from '../entities/employee.entity';
 import { EmployeeRepository } from '../repositories/employee.repository';
 
 export const employeeProvider = [

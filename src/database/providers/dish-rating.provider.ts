@@ -1,5 +1,5 @@
-import { DishRatingEntity } from "../entities/dish-rating.entity";
-import { DishRatingRepository } from "../repositories/dish-rating.repository";
+import { DishRatingEntity } from '../entities/dish-rating.entity';
+import { DishRatingRepository } from '../repositories/dish-rating.repository';
 
 export const dishRatingProvider = [
   {

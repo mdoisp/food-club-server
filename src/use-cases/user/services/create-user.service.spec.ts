@@ -52,4 +52,4 @@ describe('CreateUserService', () => {
       await expect(service.execute(mockUser)).rejects.toThrow(error);
     });
   });
-}); 
+});

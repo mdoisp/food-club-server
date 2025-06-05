@@ -6,7 +6,7 @@ import { UserEntityInterface } from '../interfaces/user.interface';
 export class UserRepository {
   constructor(
     @Inject('USER_ENTITY')
-    private readonly userEntity: typeof UserEntity,
+    private readonly userEntity: typeof UserEntity
   ) {}
 
   async list(): Promise<UserEntityInterface[]> {
@@ -23,7 +23,7 @@ export class UserRepository {
 
   async update(
     id: number,
-    userData: Partial<Omit<UserEntityInterface, 'id'>>,
+    userData: Partial<Omit<UserEntityInterface, 'id'>>
   ): Promise<UserEntityInterface> {
     const user = await this.userEntity.findByPk(id);
     return await user.update(userData);

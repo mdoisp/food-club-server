@@ -1,7 +1,6 @@
-import { CompanyEntityInterface } from "src/database/interfaces/company.interface";
-import { EmployeeEntityInterface } from "src/database/interfaces/employee.interface";
-import { RestaurantEntityInterface } from "src/database/interfaces/restaurant.interface";
-
+import { CompanyEntityInterface } from 'src/database/interfaces/company.interface';
+import { EmployeeEntityInterface } from 'src/database/interfaces/employee.interface';
+import { RestaurantEntityInterface } from 'src/database/interfaces/restaurant.interface';
 
 export enum UserType {
   COMPANY = 'company',
@@ -21,4 +20,7 @@ export interface UserInterface {
   restaurant?: RestaurantEntityInterface;
 }
 
-export type UpdateUserDto = Omit<UserInterface, 'id' | 'verificationToken' | 'verificationTokenExpireAt' | 'company' | 'employee' | 'restaurant'>;
+export type UpdateUserDto = Omit<
+  UserInterface,
+  'id' | 'verificationToken' | 'verificationTokenExpireAt' | 'company' | 'employee' | 'restaurant'
+>;

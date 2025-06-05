@@ -6,14 +6,14 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const port = 3000;
-  
+
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   });
 
   // Habilitar CORS
   app.enableCors();
-  
+
   const config = new DocumentBuilder()
     .setTitle('Food Club')
     .setDescription('Food Club API')

@@ -21,7 +21,15 @@ export class EmployeeWeeklyOrdersEntity extends Model {
   employeeId: number;
 
   @Column({
-    type: DataType.ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+    type: DataType.ENUM(
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ),
     allowNull: false,
     field: 'day_of_week',
   })

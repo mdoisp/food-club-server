@@ -18,18 +18,17 @@ import { ListRestaurantService } from './services/list-restaurant.service';
     // ...restaurantDishProvider,
     RestaurantRepository,
     ListRestaurantService,
-    GetRestaurantByIdService, 
-    CreateRestaurantService, 
-    UpdateRestaurantService, 
-    DeleteRestaurantService
+    GetRestaurantByIdService,
+    CreateRestaurantService,
+    UpdateRestaurantService,
+    DeleteRestaurantService,
   ],
   exports: [
     ListRestaurantService,
-    GetRestaurantByIdService, 
-    CreateRestaurantService, 
-    UpdateRestaurantService, 
-    DeleteRestaurantService
-  ]
+    GetRestaurantByIdService,
+    CreateRestaurantService,
+    UpdateRestaurantService,
+    DeleteRestaurantService,
+  ],
 })
 export class RestaurantModule {}
-

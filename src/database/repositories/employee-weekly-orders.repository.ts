@@ -6,13 +6,13 @@ import { EmployeeWeeklyOrdersEntityInterface } from '../interfaces/employee-week
 export class EmployeeWeeklyOrdersRepository {
   constructor(
     @Inject('EMPLOYEE_WEEKLY_ORDERS_ENTITY')
-    private readonly weeklyOrdersEntity: typeof EmployeeWeeklyOrdersEntity,
+    private readonly weeklyOrdersEntity: typeof EmployeeWeeklyOrdersEntity
   ) {}
 
   async createOrUpdate(
     employeeId: number,
     dayOfWeek: string,
-    orderId: number | null,
+    orderId: number | null
   ): Promise<EmployeeWeeklyOrdersEntityInterface> {
     const [order, created] = await this.weeklyOrdersEntity.findOrCreate({
       where: { employeeId, dayOfWeek },
@@ -28,7 +28,7 @@ export class EmployeeWeeklyOrdersRepository {
 
   async getByEmployeeAndDay(
     employeeId: number,
-    dayOfWeek: string,
+    dayOfWeek: string
   ): Promise<EmployeeWeeklyOrdersEntityInterface | null> {
     return await this.weeklyOrdersEntity.findOne({ where: { employeeId, dayOfWeek } });
   }

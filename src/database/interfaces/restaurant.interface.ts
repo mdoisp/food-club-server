@@ -1,5 +1,5 @@
-import { DishEntityInterface } from "./dish.interface";
-import { CompanyOrderEntityInterface } from "./company-order.interface";
+import { DishEntityInterface } from './dish.interface';
+import { CompanyOrderEntityInterface } from './company-order.interface';
 
 export interface RestaurantEntityInterface {
   id: number;

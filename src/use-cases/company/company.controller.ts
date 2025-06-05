@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetCompanyByIdService } from './services/get-company-byid.service'
+import { GetCompanyByIdService } from './services/get-company-byid.service';
 import { CreateCompanyService } from './services/create-company.service';
 import { UpdateCompanyService } from './services/update-company.service';
 import { DeleteCompanyService } from './services/delete-company.service';
@@ -25,22 +25,22 @@ export class CompanyController {
     private deleteCompanyService: DeleteCompanyService
   ) {}
 
-   @Get()
-   @ApiResponse({
+  @Get()
+  @ApiResponse({
     status: 200,
     description: 'Consulta realizada com sucesso',
     isArray: true,
     type: ListCompanyDtoResponse,
-   })
-    @ApiResponse({
-      status: 500,
-      description: 'Erro interno do servidor',
-    })
-    async list(): Promise<CompanyEntityInterface[]> {
-      const employeeList = await this.listCompaniesService.execute();
-      console.log(employeeList);
-      return employeeList;
-    }
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erro interno do servidor',
+  })
+  async list(): Promise<CompanyEntityInterface[]> {
+    const employeeList = await this.listCompaniesService.execute();
+    console.log(employeeList);
+    return employeeList;
+  }
 
   @Get(':id')
   @ApiParam({
@@ -51,13 +51,13 @@ export class CompanyController {
     status: 200,
     description: 'Empresa encontrada',
     type: ListCompanyDtoResponse,
-   })
+  })
   @ApiResponse({
     status: 404,
     description: 'Empresa não encontrada',
     type: Http404,
   })
-  async getById(@Param('id') id: string, @Res() res: Response,): Promise<ListCompanyDtoResponse> {
+  async getById(@Param('id') id: string, @Res() res: Response): Promise<ListCompanyDtoResponse> {
     const company = await this.getCompanyByIdService.execute(Number(id));
     if (!company) {
       res.status(404).json({
@@ -85,13 +85,12 @@ export class CompanyController {
     description: 'Erro ao criar empresa',
     type: Http400,
   })
-  create(
-    @Body() company: CompanyInterface, @Res() res: Response) {
+  create(@Body() company: CompanyInterface, @Res() res: Response) {
     const { userId, name, cnpj, cep, number } = company;
-    if(!(userId && name && cnpj && cep && number)){
+    if (!(userId && name && cnpj && cep && number)) {
       res.status(400).json({
         sucess: false,
-        message: 'Todos os campos são obrigatórios'
+        message: 'Todos os campos são obrigatórios',
       });
       return;
     }
@@ -122,11 +121,15 @@ export class CompanyController {
     description: 'Erro ao atualizar empresa',
     type: Http400,
   })
-  async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
+  async update(
+    @Param('id') id: string,
+    @Body() companyData: CompanyInterface,
+    @Res() res: Response
+  ): Promise<CompanyInterface> {
     const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
-    const company =  await this.updateCompanyService.execute(Number(id), companyData);
+    const company = await this.updateCompanyService.execute(Number(id), companyData);
     if (!company) {
       res.status(404).json({
         success: false,
@@ -134,7 +137,7 @@ export class CompanyController {
       });
       return;
     }
-    if(invalidFields.length > 0){
+    if (invalidFields.length > 0) {
       res.status(400).json({
         sucess: false,
         message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
@@ -158,7 +161,7 @@ export class CompanyController {
     description: 'Empresa não encontrada',
     type: Http404,
   })
-  async delete(@Param('id') id: string,@Res() res: Response): Promise<void> {
+  async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const company = await this.getCompanyByIdService.execute(Number(id));
     if (!company) {
       res.status(404).json({

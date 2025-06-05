@@ -1,4 +1,12 @@
-import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  BelongsTo,
+  HasMany,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { UserEntity } from './user.entity';
 import { CompanyEntity } from './company.entity';
 // import { EmployeeWeeklyOrdersEntity } from './employee-weekly-orders.entity';

@@ -84,13 +84,12 @@ export class EmployeeController {
     description: 'Erro ao criar funcionário',
     type: Http400,
   })
-  create(
-    @Body() employee: EmployeeInterface, @Res() res: Response) {
-      const { userId, companyId, name, cpf, birthDate } = employee;
-      if(!(userId && companyId && name && cpf && birthDate)) {
+  create(@Body() employee: EmployeeInterface, @Res() res: Response) {
+    const { userId, companyId, name, cpf, birthDate } = employee;
+    if (!(userId && companyId && name && cpf && birthDate)) {
       res.status(400).json({
         sucess: false,
-        message: 'Todos os campos são obrigatórios'
+        message: 'Todos os campos são obrigatórios',
       });
       return;
     }
@@ -121,7 +120,11 @@ export class EmployeeController {
     description: 'Funcionário não encontrado',
     type: Http404,
   })
-  async update(@Param('id') id: string, @Body() employeeData: EmployeeInterface, @Res() res:Response): Promise<EmployeeInterface> {
+  async update(
+    @Param('id') id: string,
+    @Body() employeeData: EmployeeInterface,
+    @Res() res: Response
+  ): Promise<EmployeeInterface> {
     const expectedFields = ['employee_name', 'company_id'];
     const receivedFields = Object.keys(employeeData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));

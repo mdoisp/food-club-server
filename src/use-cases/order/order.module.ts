@@ -8,24 +8,23 @@
 // import { DeleteOrderService } from './services/delete-order.service';
 // import { DatabaseModule } from 'src/database/database.module';
 
-
 // @Module({
 //   imports: [DatabaseModule],
 //   controllers: [],
 //   providers: [
 //     // ...orderProvider,
 //     // OrderRepository,
-//     ListOrdersService, 
-//     GetOrderByIdService, 
-//     // CreateOrderService, 
-//     UpdateOrderService, 
+//     ListOrdersService,
+//     GetOrderByIdService,
+//     // CreateOrderService,
+//     UpdateOrderService,
 //     DeleteOrderService
 //   ],
 //   exports: [
-//     ListOrdersService, 
-//     GetOrderByIdService, 
-//     // CreateOrderService, 
-//     UpdateOrderService, 
+//     ListOrdersService,
+//     GetOrderByIdService,
+//     // CreateOrderService,
+//     UpdateOrderService,
 //     DeleteOrderService
 //   ]
 // })

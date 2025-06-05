@@ -1,27 +1,27 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { UserType } from "../../../../use-cases/user/user.interface";
+import { ApiProperty } from '@nestjs/swagger';
+import { UserType } from '../../../../use-cases/user/user.interface';
 
 export class CreateUserDto {
-    @ApiProperty({
-        description: 'ID do usuário',
-        type: UserType,
-        example: 'employee',
-        enum: UserType,
-        enumName: 'UserType',
-    })
-    userType: UserType;
+  @ApiProperty({
+    description: 'ID do usuário',
+    type: UserType,
+    example: 'employee',
+    enum: UserType,
+    enumName: 'UserType',
+  })
+  userType: UserType;
 
-    @ApiProperty({
-        type: 'string',
-        description: 'Senha do usuário',
-        example: 'password123'
-    })
-    password: string;
+  @ApiProperty({
+    type: 'string',
+    description: 'Senha do usuário',
+    example: 'password123',
+  })
+  password: string;
 
-    @ApiProperty({
-        description: 'Email do usuário',
-        type: String,
-        example: 'admin@tech.com',
-    })
-    email: string;
+  @ApiProperty({
+    description: 'Email do usuário',
+    type: String,
+    example: 'admin@tech.com',
+  })
+  email: string;
 }

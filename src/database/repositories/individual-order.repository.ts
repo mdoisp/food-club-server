@@ -6,10 +6,12 @@ import { IndividualOrderEntityInterface } from '../interfaces/individual-order.i
 export class IndividualOrderRepository {
   constructor(
     @Inject('INDIVIDUAL_ORDER_ENTITY')
-    private readonly individualOrderEntity: typeof IndividualOrderEntity,
+    private readonly individualOrderEntity: typeof IndividualOrderEntity
   ) {}
 
-  async create(order: Omit<IndividualOrderEntityInterface, 'id'>): Promise<IndividualOrderEntityInterface> {
+  async create(
+    order: Omit<IndividualOrderEntityInterface, 'id'>
+  ): Promise<IndividualOrderEntityInterface> {
     return await this.individualOrderEntity.create(order);
   }
 

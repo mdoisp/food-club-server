@@ -7,7 +7,7 @@ export class GetDishByIdService {
   constructor(
     @Inject('DISH_REPOSITORY')
     private readonly dishRepository: DishRepository
-  ){}
+  ) {}
   async execute(id: number): Promise<DishInterface> {
     return await this.dishRepository.getById(id);
   }

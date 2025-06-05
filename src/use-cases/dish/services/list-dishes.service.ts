@@ -8,7 +8,7 @@ export class ListDishesService {
     @Inject('DISH_REPOSITORY')
     private readonly dishRepository: DishRepository
   ) {}
-  async execute(): Promise<DishInterface[]>{
+  async execute(): Promise<DishInterface[]> {
     return await this.dishRepository.list();
   }
 }

@@ -15,19 +15,19 @@ import { EmployeeRepository } from '../../database/repositories/employee.reposit
   controllers: [EmployeeController],
   providers: [
     ...employeeProvider,
-    EmployeeRepository, 
+    EmployeeRepository,
     ListEmployeesService,
     GetEmployeeByIdService,
     CreateEmployeeService,
     UpdateEmployeeService,
-    DeleteEmployeeService
+    DeleteEmployeeService,
   ],
   exports: [
     ListEmployeesService,
     GetEmployeeByIdService,
     CreateEmployeeService,
     UpdateEmployeeService,
-    DeleteEmployeeService
-  ]
+    DeleteEmployeeService,
+  ],
 })
 export class EmployeeModule {}

@@ -85,13 +85,12 @@ export class DishController {
     description: 'Erro ao criar prato',
     type: Http400,
   })
-  create(
-    @Body() dish: DishInterface, @Res() res: Response) {
+  create(@Body() dish: DishInterface, @Res() res: Response) {
     const { restaurantId, name, description, price } = dish;
-    if(!(restaurantId && name && description && price)){
+    if (!(restaurantId && name && description && price)) {
       res.status(400).json({
         sucess: false,
-        message: 'Todos os campos são obrigatórios'
+        message: 'Todos os campos são obrigatórios',
       });
       return;
     }
@@ -123,7 +122,11 @@ export class DishController {
     description: 'Erro ao atualizar prato',
     type: Http400,
   })
-  async update(@Param('id') id: string, @Body() dishData: DishInterface, @Res() res: Response): Promise<DishInterface> {
+  async update(
+    @Param('id') id: string,
+    @Body() dishData: DishInterface,
+    @Res() res: Response
+  ): Promise<DishInterface> {
     const expectedFields = ['restaurantId', 'name', 'description', 'price', 'image'];
     const receivedFields = Object.keys(dishData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
@@ -161,8 +164,8 @@ export class DishController {
     type: Http404,
   })
   async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
-  const dish = await this.getDishByIdService.execute(Number(id));
-  if (!dish) {
+    const dish = await this.getDishByIdService.execute(Number(id));
+    if (!dish) {
       res.status(404).json({
         success: false,
         message: 'Prato não encontrado',

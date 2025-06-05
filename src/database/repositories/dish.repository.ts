@@ -6,7 +6,7 @@ import { DishEntityInterface } from '../interfaces/dish.interface';
 export class DishRepository {
   constructor(
     @Inject('DISH_ENTITY')
-    private readonly dishEntity: typeof DishEntity,
+    private readonly dishEntity: typeof DishEntity
   ) {}
 
   async list(): Promise<DishEntityInterface[]> {
@@ -20,7 +20,7 @@ export class DishRepository {
 
   async update(
     id: number,
-    dishData: Partial<Omit<DishEntityInterface, 'id'>>,
+    dishData: Partial<Omit<DishEntityInterface, 'id'>>
   ): Promise<DishEntityInterface> {
     const dish = await this.dishEntity.findByPk(id);
     return await dish.update(dishData);

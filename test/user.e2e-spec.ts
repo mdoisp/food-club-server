@@ -107,4 +107,4 @@ describe('UserController (e2e)', () => {
         expect(response.body.message).toBe('Usuário não encontrado');
       });
   });
-}); 
+});

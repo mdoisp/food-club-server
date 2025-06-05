@@ -7,16 +7,18 @@ import { CompanyOrderEntity } from '../entities/company-order.entity';
 export class CompanyOrderRepository {
   constructor(
     @Inject('COMPANY_ORDER_ENTITY')
-    private readonly companyOrderEntity: typeof CompanyOrderEntity,
+    private readonly companyOrderEntity: typeof CompanyOrderEntity
   ) {}
 
-  async create(order: Omit<CompanyOrderEntityInterface, 'id'>): Promise<CompanyOrderEntityInterface> {
+  async create(
+    order: Omit<CompanyOrderEntityInterface, 'id'>
+  ): Promise<CompanyOrderEntityInterface> {
     return await this.companyOrderEntity.create(order);
   }
 
   async update(
     id: number,
-    orderData: Partial<Omit<CompanyOrderEntityInterface, 'id'>>,
+    orderData: Partial<Omit<CompanyOrderEntityInterface, 'id'>>
   ): Promise<CompanyOrderEntityInterface> {
     const order = await this.companyOrderEntity.findByPk(id);
     return await order.update(orderData);

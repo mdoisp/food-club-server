@@ -11,7 +11,7 @@ export class DishRatingEntity extends Model {
   })
   id: number;
 
-  @ForeignKey(() => DishEntity) 
+  @ForeignKey(() => DishEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -19,7 +19,7 @@ export class DishRatingEntity extends Model {
   })
   dishId: number;
 
-  @ForeignKey(() => UserEntity) 
+  @ForeignKey(() => UserEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -38,12 +38,12 @@ export class DishRatingEntity extends Model {
   rating: number;
 
   @BelongsTo(() => DishEntity, {
-    foreignKey: 'dishId'
+    foreignKey: 'dishId',
   })
   dish: DishEntity;
 
   @BelongsTo(() => UserEntity, {
-    foreignKey: 'userId' 
+    foreignKey: 'userId',
   })
   user: UserEntity;
 }

@@ -1,5 +1,5 @@
-import { OrderItemEntity } from "../entities/order-item.entity";
-import { OrderItemRepository } from "../repositories/order-item.repository";
+import { OrderItemEntity } from '../entities/order-item.entity';
+import { OrderItemRepository } from '../repositories/order-item.repository';
 
 export const orderItemProvider = [
   {

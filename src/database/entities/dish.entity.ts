@@ -1,4 +1,12 @@
-import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  BelongsTo,
+  HasMany,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { RestaurantEntity } from './restaurant.entity';
 import { DishRatingEntity } from './dish-rating.entity';
 import { OrderItemEntity } from './order-item.entity';
@@ -12,7 +20,7 @@ export class DishEntity extends Model {
   })
   id: number;
 
-  @ForeignKey(() => RestaurantEntity) 
+  @ForeignKey(() => RestaurantEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -45,7 +53,7 @@ export class DishEntity extends Model {
   image: string;
 
   @BelongsTo(() => RestaurantEntity, {
-    foreignKey: 'restaurantId'
+    foreignKey: 'restaurantId',
   })
   restaurant: RestaurantEntity;
 

@@ -6,16 +6,18 @@ import { RestaurantEntityInterface } from '../interfaces/restaurant.interface';
 export class RestaurantRepository {
   constructor(
     @Inject('RESTAURANT_ENTITY')
-    private readonly restaurantEntity: typeof RestaurantEntity,
+    private readonly restaurantEntity: typeof RestaurantEntity
   ) {}
 
-  async create(restaurant: Omit<RestaurantEntityInterface, 'id'>): Promise<RestaurantEntityInterface> {
+  async create(
+    restaurant: Omit<RestaurantEntityInterface, 'id'>
+  ): Promise<RestaurantEntityInterface> {
     return await this.restaurantEntity.create(restaurant);
   }
 
   async update(
     id: number,
-    restaurantData: Partial<Omit<RestaurantEntityInterface, 'id'>>,
+    restaurantData: Partial<Omit<RestaurantEntityInterface, 'id'>>
   ): Promise<RestaurantEntityInterface> {
     const restaurant = await this.restaurantEntity.findByPk(id);
     return await restaurant.update(restaurantData);

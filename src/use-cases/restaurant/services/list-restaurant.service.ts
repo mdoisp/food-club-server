@@ -4,7 +4,7 @@ import { RestaurantRepository } from 'src/database/repositories/restaurant.repos
 
 @Injectable()
 export class ListRestaurantService {
-  constructor(private restaurantRepository: RestaurantRepository){}
+  constructor(private restaurantRepository: RestaurantRepository) {}
   execute(): Promise<RestaurantInterface[]> {
     return this.restaurantRepository.list();
   }

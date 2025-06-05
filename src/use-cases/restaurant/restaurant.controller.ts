@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetRestaurantByIdService } from './services/get-restaurant-byid.service'
+import { GetRestaurantByIdService } from './services/get-restaurant-byid.service';
 import { CreateRestaurantService } from './services/create-restaurant.service';
 import { UpdateRestaurantService } from './services/update-restaurant.service';
 import { DeleteRestaurantService } from './services/delete-restaurant.service';
@@ -83,13 +83,12 @@ export class RestaurantController {
     description: 'Erro ao criar restaurante',
     type: Http400,
   })
-  create(
-    @Body() restaurant: RestaurantInterface, @Res() res: Response) {
-    const { userId, name, cnpj, cep, number} = restaurant;
-    if(!(userId && name && cnpj && cep && number)) {
+  create(@Body() restaurant: RestaurantInterface, @Res() res: Response) {
+    const { userId, name, cnpj, cep, number } = restaurant;
+    if (!(userId && name && cnpj && cep && number)) {
       res.status(400).json({
         sucess: false,
-        message: 'Todos os campos são obrigatórios'
+        message: 'Todos os campos são obrigatórios',
       });
       return;
     }
@@ -120,7 +119,11 @@ export class RestaurantController {
     description: 'Erro ao atualizar restaurante',
     type: Http400,
   })
-  async update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface,@Res() res: Response): Promise<RestaurantInterface> {
+  async update(
+    @Param('id') id: string,
+    @Body() restaurantData: RestaurantInterface,
+    @Res() res: Response
+  ): Promise<RestaurantInterface> {
     const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(restaurantData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
@@ -156,7 +159,7 @@ export class RestaurantController {
       success: true,
       message: 'Restaurante deletado com sucesso',
     });
-    
+
     this.deleteRestaurantService.execute(Number(id));
   }
 }

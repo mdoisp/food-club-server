@@ -13,8 +13,21 @@ import { CompanyController } from './use-cases/company/company.controller';
 import { UserController } from './use-cases/user/user.controller';
 import { UserModule } from './use-cases/user/user.module';
 @Module({
-  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule/*, OrderModule*/, RestaurantModule, UserModule],
-  controllers: [CompanyController, DishController, EmployeeController/*, OrderController*/, RestaurantController,UserController],
+  imports: [
+    CompanyModule,
+    DishModule,
+    DatabaseModule,
+    EmployeeModule /*, OrderModule*/,
+    RestaurantModule,
+    UserModule,
+  ],
+  controllers: [
+    CompanyController,
+    DishController,
+    EmployeeController /*, OrderController*/,
+    RestaurantController,
+    UserController,
+  ],
   providers: [],
 })
 export class AppModule {}

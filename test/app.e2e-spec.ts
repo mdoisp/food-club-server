@@ -23,7 +23,7 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect((res) => {
+      .expect(res => {
         expect(res.body).toHaveProperty('status', 'online');
         expect(res.body).toHaveProperty('message', 'FoodClub API está funcionando!');
         expect(res.body).toHaveProperty('timestamp');
@@ -32,9 +32,6 @@ describe('AppController (e2e)', () => {
   });
 
   it('/hello (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/hello')
-      .expect(200)
-      .expect('Hello World!');
+    return request(app.getHttpServer()).get('/hello').expect(200).expect('Hello World!');
   });
 });

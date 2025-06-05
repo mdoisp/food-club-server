@@ -6,20 +6,23 @@ import { DishRatingEntityInterface } from '../interfaces/dish-rating.interface';
 export class DishRatingRepository {
   constructor(
     @Inject('DISH_RATING_ENTITY')
-    private readonly dishRatingEntity: typeof DishRatingEntity,
+    private readonly dishRatingEntity: typeof DishRatingEntity
   ) {}
 
   async create(rating: Omit<DishRatingEntityInterface, 'id'>): Promise<DishRatingEntityInterface> {
     return await this.dishRatingEntity.create(rating);
   }
 
-  async getByDishAndUser(dishId: number, userId: number): Promise<DishRatingEntityInterface | null> {
+  async getByDishAndUser(
+    dishId: number,
+    userId: number
+  ): Promise<DishRatingEntityInterface | null> {
     return await this.dishRatingEntity.findOne({ where: { dishId, userId } });
   }
 
   async update(
     id: number,
-    ratingData: Partial<Omit<DishRatingEntityInterface, 'id'>>,
+    ratingData: Partial<Omit<DishRatingEntityInterface, 'id'>>
   ): Promise<DishRatingEntityInterface> {
     const rating = await this.dishRatingEntity.findByPk(id);
     return await rating.update(ratingData);

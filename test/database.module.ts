@@ -30,7 +30,7 @@ import { DataTypes } from 'sequelize';
         OrderItemEntity,
         DishEntity,
         EmployeeWeeklyOrdersEntity,
-        DishRatingEntity
+        DishRatingEntity,
       ],
       synchronize: true,
       logging: false,
@@ -46,7 +46,7 @@ import { DataTypes } from 'sequelize';
       OrderItemEntity,
       DishEntity,
       EmployeeWeeklyOrdersEntity,
-      DishRatingEntity
+      DishRatingEntity,
     ]),
   ],
 })
@@ -335,7 +335,14 @@ export class TestDatabaseModule {
         onDelete: 'CASCADE',
       },
       status: {
-        type: DataTypes.ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'),
+        type: DataTypes.ENUM(
+          'pending',
+          'confirmed',
+          'preparing',
+          'ready',
+          'delivered',
+          'cancelled'
+        ),
         allowNull: false,
       },
       orderDate: {
@@ -374,7 +381,14 @@ export class TestDatabaseModule {
         onDelete: 'CASCADE',
       },
       status: {
-        type: DataTypes.ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'),
+        type: DataTypes.ENUM(
+          'pending',
+          'confirmed',
+          'preparing',
+          'ready',
+          'delivered',
+          'cancelled'
+        ),
         allowNull: false,
       },
       orderDate: {
@@ -461,4 +475,4 @@ export class TestDatabaseModule {
       },
     });
   }
-} 
+}
