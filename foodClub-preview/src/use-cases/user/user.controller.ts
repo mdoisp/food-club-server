@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
 import { CreateUserService } from "./services/create-user.service";
 import { DeleteUserService } from "./services/delete-user.service";
 import { GetUserByIdService } from "./services/get-user-byid.service";
@@ -11,6 +11,9 @@ import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
 import { UserInterface } from "./user.interface";
+import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
+import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
+import { AuthService } from "./services/login.service";
 
 @ApiTags('User API')
 @Controller('user')
@@ -20,7 +23,8 @@ export class UserController {
         private readonly getUserByIdService: GetUserByIdService,
         private readonly listUsersService: ListUsersService,
         private readonly updateUserService: UpdateUserService,
-        private readonly deleteUserService: DeleteUserService
+        private readonly deleteUserService: DeleteUserService,
+        private readonly authService: AuthService,
     ) {}
 
     @Get()
@@ -134,6 +138,47 @@ export class UserController {
 
         res.status(200).json(user);
     }
+
+    @Post('login')
+  @HttpCode(HttpStatus.OK)
+    @ApiBody({
+        description: 'Credenciais de login',
+        type: LoginDto,
+    })
+    @ApiResponse({
+            status: 200,
+            description: 'Login realizado com sucesso',
+            type: LoginResponseDto,
+        })
+    @ApiResponse({
+            status: 400,
+            description: 'Erro ao realizar login',
+            type: Http400,
+        })
+  async login(@Body() body: { email: string, password: string }) {
+    const token = await this.authService.login(body.email, body.password);
+    return { token };
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+    @ApiBody({
+        description: 'Token de logout',
+        type: LoginDto,
+    })
+    @ApiResponse({
+            status: 200,
+            description: 'Logout realizado com sucesso',
+        })
+    @ApiResponse({
+            status: 400,
+            description: 'Erro ao realizar logout',
+            type: Http400,
+        })
+  async logout(@Body() body: { token: string }) {
+    this.authService.logout(body.token);
+    return { message: 'Logout realizado com sucesso' };
+  }
 
     @Delete(':id')
     @ApiParam({

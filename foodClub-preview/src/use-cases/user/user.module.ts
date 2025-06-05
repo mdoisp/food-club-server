@@ -8,6 +8,9 @@ import { ListUsersService } from "./services/list-users.service";
 import { UpdateUserService } from "./services/update-user.service";
 import { userProvider } from "src/database/providers/user.provider";
 import { UserRepository } from "src/database/repositories/user.repository";
+import { GetUserByEmailService } from "./services/get-byemail.service";
+import { AuthService } from "./services/login.service";
+import { JwtService } from "@nestjs/jwt";
 
 @Module({
   imports: [DatabaseModule],
@@ -19,14 +22,20 @@ import { UserRepository } from "src/database/repositories/user.repository";
         GetUserByIdService,
         CreateUserService,
         UpdateUserService,
-        DeleteUserService
+        DeleteUserService,
+        GetUserByEmailService,
+        AuthService,
+        JwtService
     ],
     exports: [
         ListUsersService,
         GetUserByIdService,
         CreateUserService,
         UpdateUserService,
-        DeleteUserService
+        DeleteUserService,
+        GetUserByEmailService,
+        AuthService,
+        JwtService
     ]
 })
 export class UserModule {}
