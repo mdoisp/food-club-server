@@ -44,4 +44,8 @@ export class EmployeeRepository {
   async findByCpf(cpf: string): Promise<EmployeeEntityInterface | null> {
     return await this.employeeEntity.findOne({ where: { cpf } });
   }
+
+  async findByUserId(userId: number): Promise<EmployeeEntityInterface | null> {
+    return await this.employeeEntity.findOne({ where: { userId } });
+  }
 }

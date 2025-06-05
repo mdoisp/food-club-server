@@ -37,4 +37,8 @@ export class CompanyRepository {
   async findByCnpj(cnpj: string): Promise<CompanyEntityInterface | null> {
     return await this.companyEntity.findOne({ where: { cnpj } });
   }
+
+  async findByUserId(userId: number): Promise<CompanyEntityInterface | null> {
+    return await this.companyEntity.findOne({ where: { userId } });
+  }
 }

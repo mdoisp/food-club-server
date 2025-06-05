@@ -37,4 +37,8 @@ export class RestaurantRepository {
   async findByCnpj(cnpj: string): Promise<RestaurantEntityInterface | null> {
     return await this.restaurantEntity.findOne({ where: { cnpj } });
   }
+
+  async findByUserId(userId: number): Promise<RestaurantEntityInterface | null> {
+    return await this.restaurantEntity.findOne({ where: { userId } });
+  }
 }

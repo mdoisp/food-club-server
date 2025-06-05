@@ -140,7 +140,7 @@ export class UserController {
     }
 
     @Post('login')
-  @HttpCode(HttpStatus.OK)
+    @HttpCode(HttpStatus.OK)
     @ApiBody({
         description: 'Credenciais de login',
         type: LoginDto,
@@ -155,13 +155,13 @@ export class UserController {
             description: 'Erro ao realizar login',
             type: Http400,
         })
-  async login(@Body() body: { email: string, password: string }) {
-    const token = await this.authService.login(body.email, body.password);
-    return { token };
-  }
+    async login(@Body() body: { email: string, password: string }) {
+        const { token, userDetails } = await this.authService.login(body.email, body.password);
+        return { token, userDetails };
+    }
 
-  @Post('logout')
-  @HttpCode(HttpStatus.OK)
+    @Post('logout')
+    @HttpCode(HttpStatus.OK)
     @ApiBody({
         description: 'Token de logout',
         type: LoginDto,
@@ -175,10 +175,10 @@ export class UserController {
             description: 'Erro ao realizar logout',
             type: Http400,
         })
-  async logout(@Body() body: { token: string }) {
-    this.authService.logout(body.token);
-    return { message: 'Logout realizado com sucesso' };
-  }
+    async logout(@Body() body: { token: string }) {
+        this.authService.logout(body.token);
+        return { message: 'Logout realizado com sucesso' };
+    }
 
     @Delete(':id')
     @ApiParam({
