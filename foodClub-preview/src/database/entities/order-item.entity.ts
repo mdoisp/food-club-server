@@ -23,7 +23,7 @@ export class OrderItemEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'dish_id',
+    field: 'dishId',
   })
   dishId: number;
 

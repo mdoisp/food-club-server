@@ -9,12 +9,14 @@ import { DeleteDishService } from './services/delete-dish.service';
 import { ListDishesByRestaurantService } from './services/list-dishes-by-restaurant.service';
 import { DatabaseModule } from 'src/database/database.module';
 import { dishProvider } from 'src/database/providers/dish.provider';
+import { dishRatingProvider } from 'src/database/providers/dish-rating.provider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [DishController],
   providers: [
     ...dishProvider,
+    ...dishRatingProvider,
     ListDishesService, 
     GetDishByIdService, 
     CreateDishService, 

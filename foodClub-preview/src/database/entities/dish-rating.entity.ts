@@ -15,7 +15,7 @@ export class DishRatingEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'dish_id',
+    field: 'dishId',
   })
   dishId: number;
 
@@ -23,7 +23,7 @@ export class DishRatingEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'user_id',
+    field: 'userId',
   })
   userId: number;
 
