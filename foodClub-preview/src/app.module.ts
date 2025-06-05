@@ -12,9 +12,11 @@ import { RestaurantController } from './use-cases/restaurant/restaurant.controll
 import { CompanyController } from './use-cases/company/company.controller';
 import { UserController } from './use-cases/user/user.controller';
 import { UserModule } from './use-cases/user/user.module';
+import { DishRatingControlller } from './use-cases/dish-rating/dish-rating.controller';
+import { DishRatingModule } from './use-cases/dish-rating/dish-rating.module';
 @Module({
-  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule/*, OrderModule*/, RestaurantModule, UserModule],
-  controllers: [CompanyController, DishController, EmployeeController/*, OrderController*/, RestaurantController,UserController],
+  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule, RestaurantModule, UserModule],
+  controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller, RestaurantController,UserController],
   providers: [],
 })
 export class AppModule {}
