@@ -13,6 +13,7 @@ import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDishD
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDishDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
+import { ListDishesByRestaurantService } from './services/list-dishes-by-restaurant.service';
 
 @ApiTags('Dish API')
 @Controller('Dish')
@@ -22,7 +23,8 @@ export class DishController {
     private getDishByIdService: GetDishByIdService,
     private createDishService: CreateDishService,
     private updateDishService: UpdateDishService,
-    private deleteDishService: DeleteDishService
+    private deleteDishService: DeleteDishService,
+    private listDishesByRestaurantService: ListDishesByRestaurantService
   ) {}
 
   @Get()
@@ -174,5 +176,21 @@ export class DishController {
       success: true,
       message: 'Prato deletado com sucesso',
     });
+  }
+
+  @Get('by-restaurant/:restaurantId')
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de pratos do restaurante',
+    isArray: true,
+    type: ListDishDtoResponse,
+  })
+  async listByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
+    const dishes = await this.listDishesByRestaurantService.execute(Number(restaurantId));
+    res.status(200).json(dishes);
   }
 }
