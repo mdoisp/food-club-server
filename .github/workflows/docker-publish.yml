@@ -61,11 +61,14 @@ jobs:
 
   version:
     needs: [test]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')) ||
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'development'))
     name: Gerar Versão
     runs-on: ubuntu-latest
     outputs:
       new_version: ${{ steps.version.outputs.version }}
+      pr_number: ${{ github.event.pull_request.number }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -117,7 +120,9 @@ jobs:
   build-and-push:
     name: Build e Push das Imagens
     needs: [test, version]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')) ||
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'development'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -160,29 +165,77 @@ jobs:
           security-checks: 'vuln,config,secret'
           severity: 'CRITICAL,HIGH'
           
+      - name: Set Docker tags
+        id: docker_tags
+        run: |
+          echo "tags<<EOF" >> $GITHUB_OUTPUT
+          echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ needs.version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}" >> $GITHUB_OUTPUT
+          fi
+          echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}" >> $GITHUB_OUTPUT
+          fi
+          echo "EOF" >> $GITHUB_OUTPUT
+          
       - name: Build and push Docker images
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: |
-            ${{ env.DOCKER_HUB_REPOSITORY }}:${{ needs.version.outputs.new_version }}
-            ${{ env.DOCKER_HUB_REPOSITORY }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.version.outputs.new_version }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}
+          tags: ${{ steps.docker_tags.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Create Git tag
-        if: success() && github.ref == 'refs/heads/main'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git tag ${{ needs.version.outputs.new_version }}
           git push origin ${{ needs.version.outputs.new_version }}
 
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const version = '${{ needs.version.outputs.new_version }}';
+            const comment = `🐳 Docker images foram construídas e publicadas com sucesso!
+            
+            Você pode testar as imagens usando:
+            
+            **Docker Hub:**
+            \`\`\`bash
+            docker pull ${{ env.DOCKER_HUB_REPOSITORY }}:${version}
+            \`\`\`
+            
+            **GitHub Container Registry:**
+            \`\`\`bash
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${version}
+            \`\`\`
+            
+            Para testar localmente:
+            \`\`\`bash
+            docker run -p 3000:3000 ${{ env.DOCKER_HUB_REPOSITORY }}:${version}
+            # ou
+            docker run -p 3000:3000 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${version}
+            \`\`\``;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            });
+
   notify:
     name: Notificações
     needs: [test, build-and-push, version]
-    if: always()
+    if: |
+      always() && 
+      (github.event_name == 'push' || 
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'development')))
     runs-on: ubuntu-latest
     steps:
       - name: Determinar Status
@@ -200,6 +253,8 @@ jobs:
           fi
 
       - name: Send email notification
+        if: env.MAIL_SERVER != ''
+        continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.MAIL_SERVER }}
