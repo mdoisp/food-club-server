@@ -36,4 +36,12 @@ export class CreateRestaurantDto {
         example: '123',
     })
     number: string;
+
+    @ApiProperty({
+        description: 'URL da imagem do restaurante',
+        type: String,
+        example: 'https://exemplo.com/imagem.jpg',
+        required: false,
+    })
+    image?: string;
 }

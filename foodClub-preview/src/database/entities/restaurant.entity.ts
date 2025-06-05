@@ -45,6 +45,12 @@ export class RestaurantEntity extends Model {
   })
   number: string;
 
+  @Column({
+    type: DataType.STRING(200),
+    allowNull: true,
+  })
+  image: string;
+
   @BelongsTo(() => UserEntity)
   user: UserEntity;
 

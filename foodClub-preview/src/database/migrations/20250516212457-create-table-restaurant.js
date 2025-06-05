@@ -36,6 +36,10 @@ module.exports = {
         type: DataTypes.STRING(10),
         allowNull: false,
       },
+      image: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+      },
     });
   },
 
