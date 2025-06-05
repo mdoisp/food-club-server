@@ -11,6 +11,12 @@ on:
       - "main"
       - "development"
 
+permissions:
+  contents: read
+  packages: write
+  pull-requests: write  # Permissão para comentar em PRs
+  issues: write        # Permissão para interagir com issues/PRs
+
 env:
   DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/foodclub-server
   REGISTRY: ghcr.io
@@ -127,6 +133,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      pull-requests: write  # Permissão para comentar em PRs
+      issues: write        # Permissão para interagir com issues/PRs
     steps:
       - uses: actions/checkout@v4
       
