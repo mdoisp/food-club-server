@@ -14,6 +14,8 @@ import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDishDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { ListDishesByRestaurantService } from './services/list-dishes-by-restaurant.service';
+import { AverageRatingByRestaurantService } from './services/average-rating-by-restaurant.service';
+import { AverageRatingDishInterface } from './average-rating-dish.interface';
 
 @ApiTags('Dish API')
 @Controller('Dish')
@@ -24,7 +26,8 @@ export class DishController {
     private createDishService: CreateDishService,
     private updateDishService: UpdateDishService,
     private deleteDishService: DeleteDishService,
-    private listDishesByRestaurantService: ListDishesByRestaurantService
+    private listDishesByRestaurantService: ListDishesByRestaurantService,
+    private averageRatingByRestaurantService: AverageRatingByRestaurantService
   ) {}
 
   @Get()
@@ -191,6 +194,34 @@ export class DishController {
   })
   async listByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
     const dishes = await this.listDishesByRestaurantService.execute(Number(restaurantId));
+    res.status(200).json(dishes);
+  }
+
+  @Get('by-restaurant/:restaurantId/average-rating')
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de pratos do restaurante com média das avaliações',
+    isArray: true,
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          restaurantId: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Prato X' },
+          price: { type: 'number', example: 25.5 },
+          averageRating: { type: 'number', example: 4.5, nullable: true },
+        },
+      },
+    },
+  })
+  async averageRatingByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
+    const dishes: AverageRatingDishInterface[] = await this.averageRatingByRestaurantService.execute(Number(restaurantId));
     res.status(200).json(dishes);
   }
 }

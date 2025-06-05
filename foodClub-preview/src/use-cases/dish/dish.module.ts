@@ -10,6 +10,7 @@ import { ListDishesByRestaurantService } from './services/list-dishes-by-restaur
 import { DatabaseModule } from 'src/database/database.module';
 import { dishProvider } from 'src/database/providers/dish.provider';
 import { dishRatingProvider } from 'src/database/providers/dish-rating.provider';
+import { AverageRatingByRestaurantService } from './services/average-rating-by-restaurant.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -22,7 +23,8 @@ import { dishRatingProvider } from 'src/database/providers/dish-rating.provider'
     CreateDishService, 
     UpdateDishService, 
     DeleteDishService,
-    ListDishesByRestaurantService
+    ListDishesByRestaurantService,
+    AverageRatingByRestaurantService
   ],
   exports: [
     ListDishesService, 
@@ -30,7 +32,8 @@ import { dishRatingProvider } from 'src/database/providers/dish-rating.provider'
     CreateDishService, 
     UpdateDishService, 
     DeleteDishService,
-    ListDishesByRestaurantService
+    ListDishesByRestaurantService,
+    AverageRatingByRestaurantService
   ]
 })
 export class DishModule {}
