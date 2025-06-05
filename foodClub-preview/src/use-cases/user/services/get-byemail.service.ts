@@ -10,7 +10,6 @@ export class GetUserByEmailService {
 
     async execute(email: string): Promise<any> {
         const user = await this.userRepository.findByEmail(email);
-        console.log('User found by email:', user);
         return user;
     }
 }
