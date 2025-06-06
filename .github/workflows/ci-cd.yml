@@ -19,6 +19,7 @@ permissions:
 env:
   DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/foodclub-server
   NODE_VERSION: '18'
+  NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
 
 jobs:
   build-and-deploy:
@@ -116,14 +117,16 @@ jobs:
           git push origin ${{ steps.version.outputs.version }}
 
       - name: Send email on failure
-        if: failure()
+        if: failure() && env.NOTIFICATION_EMAIL != ''
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
           subject: '❌ Falha no Pipeline - FoodClub Server'
+          to: ${{ env.NOTIFICATION_EMAIL }}
+          from: ${{ secrets.MAIL_FROM }}
           body: |
             Ocorreu uma falha no pipeline de CI/CD do FoodClub Server.
             
@@ -133,6 +136,4 @@ jobs:
             - Autor: ${{ github.actor }}
             
             Para mais detalhes, acesse:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          to: ${{ secrets.EMAIL_TO }}
-          from: GitHub Actions 
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} 
