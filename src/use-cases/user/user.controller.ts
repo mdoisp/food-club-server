@@ -1,11 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UseGuards } from "@nestjs/common";
 import { CreateUserService } from "./services/create-user.service";
 import { DeleteUserService } from "./services/delete-user.service";
 import { GetUserByIdService } from "./services/get-user-byid.service";
 import { ListUsersService } from "./services/list-users.service";
 import { UpdateUserService } from "./services/update-user.service";
 import { Response } from "express";
-import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiParam, ApiResponse, ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserDtoResponse";
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
@@ -141,40 +141,29 @@ export class UserController {
 
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    @ApiBody({
-        description: 'Credenciais de login',
-        type: LoginDto,
+    @ApiOperation({ summary: 'Realizar login', description: 'Autentica um usuário e retorna um token JWT' })
+    @ApiResponse({ 
+        status: 200, 
+        description: 'Login realizado com sucesso',
+        type: LoginResponseDto 
     })
-    @ApiResponse({
-            status: 200,
-            description: 'Login realizado com sucesso',
-            type: LoginResponseDto,
-        })
-    @ApiResponse({
-            status: 400,
-            description: 'Erro ao realizar login',
-            type: Http400,
-        })
-    async login(@Body() body: { email: string, password: string }) {
+    @ApiResponse({ 
+        status: 401, 
+        description: 'Credenciais inválidas' 
+    })
+    async login(@Body() body: LoginDto) {
         const { token, userDetails } = await this.authService.login(body.email, body.password);
         return { token, userDetails };
     }
 
     @Post('logout')
     @HttpCode(HttpStatus.OK)
-    @ApiBody({
-        description: 'Token de logout',
-        type: LoginDto,
+    @ApiBearerAuth('JWT-auth')
+    @ApiOperation({ summary: 'Realizar logout', description: 'Invalida o token JWT atual' })
+    @ApiResponse({ 
+        status: 200, 
+        description: 'Logout realizado com sucesso' 
     })
-    @ApiResponse({
-            status: 200,
-            description: 'Logout realizado com sucesso',
-        })
-    @ApiResponse({
-            status: 400,
-            description: 'Erro ao realizar logout',
-            type: Http400,
-        })
     async logout(@Body() body: { token: string }) {
         this.authService.logout(body.token);
         return { message: 'Logout realizado com sucesso' };

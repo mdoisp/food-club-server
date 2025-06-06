@@ -16,14 +16,12 @@ import { userProvider } from './providers/user.provider';
         CompanyRepository, 
         DishRepository, 
         EmployeeRepository, 
-        // OrderRepository, 
         RestaurantRepository, 
         UserRepository,
         ...companyProvider, 
         ...databaseProvider, 
         ...dishProvider, 
         ...employeeProvider, 
-        // ...orderProvider, 
         ...restaurantProvider,
         ...userProvider
     ],
@@ -31,9 +29,14 @@ import { userProvider } from './providers/user.provider';
         CompanyRepository, 
         DishRepository, 
         EmployeeRepository, 
-        // OrderRepository, 
         RestaurantRepository,
         UserRepository,
+        ...companyProvider, 
+        ...databaseProvider, 
+        ...dishProvider, 
+        ...employeeProvider, 
+        ...restaurantProvider,
+        ...userProvider
     ]
 })
 export class DatabaseModule {}

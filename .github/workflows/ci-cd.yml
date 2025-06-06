@@ -1,0 +1,221 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: 
+      - "development"
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+      - "development"
+
+permissions:
+  contents: read
+  packages: write
+  pull-requests: write
+  issues: write
+
+env:
+  DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_USERNAME }}/foodclub-server
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ format('{0}/{1}', github.repository_owner, 'foodclub-server') }}
+  NODE_VERSION: '18'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linting
+        run: npm run lint
+
+  version:
+    needs: [lint]
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')) ||
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'development'))
+    name: Gerar Versão
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.version.outputs.version }}
+      pr_number: ${{ github.event.pull_request.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate semantic version
+        id: version
+        run: |
+          git fetch --tags
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          
+          if [ "$latest_tag" = "v0.0.0" ] && [ ! -f .version-initialized ]; then
+            git tag v0.0.0
+            touch .version-initialized
+          fi
+          
+          major=$(echo $latest_tag | cut -d. -f1 | tr -d 'v')
+          minor=$(echo $latest_tag | cut -d. -f2)
+          patch=$(echo $latest_tag | cut -d. -f3)
+          
+          if git rev-list $latest_tag..HEAD --count > /dev/null 2>&1; then
+            commits=$(git log $latest_tag..HEAD --pretty=format:"%s")
+          else
+            commits=""
+          fi
+          
+          if [ -n "$commits" ]; then
+            if echo "$commits" | grep -iE "BREAKING|MAJOR"; then
+              major=$((major + 1))
+              minor=0
+              patch=0
+            elif echo "$commits" | grep -iE "feat|feature|MINOR"; then
+              minor=$((minor + 1))
+              patch=0
+            else
+              patch=$((patch + 1))
+            fi
+          fi
+          
+          if [[ "${{ github.ref }}" == "refs/heads/development" ]]; then
+            new_version="v$major.$minor.$patch-dev"
+          else
+            new_version="v$major.$minor.$patch"
+          fi
+          
+          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+          echo "version=${new_version}" >> $GITHUB_OUTPUT
+
+  build-and-push:
+    name: Build e Push das Imagens
+    needs: [lint, version]
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')) ||
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'development'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+        env:
+          JWT_SECRET: build-secret
+          JWT_EXPIRATION: 3600
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/foodclub
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Scan Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          security-checks: 'vuln,config,secret'
+          severity: 'CRITICAL,HIGH'
+          
+      - name: Set Docker tags
+        id: docker_tags
+        run: |
+          echo "tags<<EOF" >> $GITHUB_OUTPUT
+          echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ needs.version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}" >> $GITHUB_OUTPUT
+          fi
+          echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.version.outputs.new_version }}" >> $GITHUB_OUTPUT
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}" >> $GITHUB_OUTPUT
+          fi
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.docker_tags.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+
+      - name: Create Git tag
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git tag ${{ needs.version.outputs.new_version }}
+          git push origin ${{ needs.version.outputs.new_version }}
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const version = '${{ needs.version.outputs.new_version }}';
+            const comment = `🐳 Docker images foram construídas e publicadas com sucesso!
+            
+            Você pode testar as imagens usando:
+            
+            **Docker Hub:**
+            \`\`\`bash
+            docker pull ${{ env.DOCKER_HUB_REPOSITORY }}:${version}
+            \`\`\`
+            
+            **GitHub Container Registry:**
+            \`\`\`bash
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${version}
+            \`\`\`
+            
+            Para testar localmente:
+            \`\`\`bash
+            docker-compose pull
+            docker-compose up -d
+            \`\`\``;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            }); 

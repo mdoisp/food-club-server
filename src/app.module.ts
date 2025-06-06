@@ -14,8 +14,9 @@ import { UserController } from './use-cases/user/user.controller';
 import { UserModule } from './use-cases/user/user.module';
 import { DishRatingControlller } from './use-cases/dish-rating/dish-rating.controller';
 import { DishRatingModule } from './use-cases/dish-rating/dish-rating.module';
+import { AuthModule } from './use-cases/user/auth.module';
 @Module({
-  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule, RestaurantModule, UserModule],
+  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule, RestaurantModule, UserModule, AuthModule],
   controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller, RestaurantController,UserController],
   providers: [],
 })

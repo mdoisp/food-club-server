@@ -11,9 +11,13 @@ import { UserRepository } from "src/database/repositories/user.repository";
 import { GetUserByEmailService } from "./services/get-byemail.service";
 import { AuthService } from "./services/login.service";
 import { JwtService } from "@nestjs/jwt";
+import { AuthModule } from './auth.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    AuthModule,
+  ],
     controllers: [UserController],
     providers: [
         ...userProvider,
