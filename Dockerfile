@@ -9,8 +9,11 @@ RUN apk add --no-cache python3 make g++
 # Copia os arquivos de configuração
 COPY package*.json ./
 
-# Instala as dependências com fallback para npm install
-RUN npm ci --only=production || npm install --only=production
+# Instala TODAS as dependências (incluindo devDependencies) para build
+RUN npm install
+
+# Instala o Nest CLI globalmente
+RUN npm install -g @nestjs/cli
 
 # Copia os arquivos de configuração do TypeScript
 COPY tsconfig*.json ./
@@ -31,7 +34,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
 # Instala apenas as dependências de produção
-RUN npm ci --only=production || npm install --only=production
+RUN npm ci --omit=dev || npm install --omit=dev
 
 # Expõe a porta da aplicação
 EXPOSE 3000
