@@ -10,7 +10,7 @@ RUN apk add --no-cache python3 make g++
 COPY package*.json ./
 
 # Instala TODAS as dependências (incluindo devDependencies) para build
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Instala o Nest CLI globalmente
 RUN npm install -g @nestjs/cli
