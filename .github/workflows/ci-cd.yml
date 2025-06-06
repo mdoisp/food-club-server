@@ -122,18 +122,20 @@ jobs:
         with:
           server_address: ${{ secrets.MAIL_SERVER }}
           server_port: ${{ secrets.MAIL_PORT }}
+          secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: '❌ Falha no Pipeline - FoodClub Server'
           to: ${{ env.NOTIFICATION_EMAIL }}
           from: ${{ secrets.MAIL_FROM }}
-          body: |
-            Ocorreu uma falha no pipeline de CI/CD do FoodClub Server.
-            
-            Detalhes:
-            - Branch: ${{ github.ref }}
-            - Commit: ${{ github.sha }}
-            - Autor: ${{ github.actor }}
-            
-            Para mais detalhes, acesse:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} 
+          html_body: |
+            <h2>Falha no Pipeline do FoodClub Server</h2>
+            <p>Ocorreu uma falha no pipeline de CI/CD.</p>
+            <h3>Detalhes:</h3>
+            <ul>
+              <li><strong>Branch:</strong> ${{ github.ref }}</li>
+              <li><strong>Commit:</strong> ${{ github.sha }}</li>
+              <li><strong>Autor:</strong> ${{ github.actor }}</li>
+            </ul>
+            <p>
+              Para mais detalhes, <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">clique aqui</a>. 
