@@ -7,7 +7,7 @@ import { GetByDishAndUserService } from "./services/get-bydish-and-user.service"
 import { UpdateDishRatingService } from "./services/update-dish-rating.service";
 import { DeleteDishRatingService } from "./services/delete-dish-rating.service";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRatingDtoResponse';
+import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRatingDtoResponse';
 import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRatingDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
@@ -28,7 +28,7 @@ export class DishRatingControlller {
         status: 200,
         description: 'Consulta realizada com sucesso',
         isArray: true,
-        type: ListDishRatingDtoResponse,
+        type: ListDishAverageRatingDtoResponse,
     })
     @ApiResponse({
         status: 500,
@@ -58,7 +58,7 @@ export class DishRatingControlller {
     @ApiResponse({
         status: 200,
         description: 'Consulta realizada com sucesso',
-        type: ListDishRatingDtoResponse,
+        type: ListDishAverageRatingDtoResponse,
     })
     @ApiResponse({
         status: 404,
@@ -120,7 +120,7 @@ export class DishRatingControlller {
     @ApiResponse({
         status: 200,
         description: 'Avaliação atualizada com sucesso',
-        type: ListDishRatingDtoResponse,
+        type: ListDishAverageRatingDtoResponse,
     })
     @ApiResponse({
         status: 400,
