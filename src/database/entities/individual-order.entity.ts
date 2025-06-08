@@ -34,6 +34,6 @@ export class IndividualOrderEntity extends Model {
   @BelongsTo(() => EmployeeEntity)
   employee: EmployeeEntity;
 
-  @HasMany(() => OrderItemEntity)
-  order: OrderItemEntity[];
+  // @HasMany(() => OrderItemEntity)
+  // order: OrderItemEntity[];
 }
