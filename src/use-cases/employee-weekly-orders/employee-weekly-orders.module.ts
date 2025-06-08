@@ -8,6 +8,7 @@ import { DeleteWeeklyOrderService } from './services/delete-weekly-order.service
 import { EmployeeWeeklyOrdersService } from './services/employee-weekly-orders.service';
 import { employeeProvider } from 'src/database/providers/employee.provider';
 import { individualOrderProvider } from 'src/database/providers/individual-order.provider';
+import { orderItemProvider } from 'src/database/providers/order-item.provider';
 
 @Module({
   imports: [DatabaseModule],
@@ -15,7 +16,8 @@ import { individualOrderProvider } from 'src/database/providers/individual-order
   providers: [
     ...employeeWeeklyOrdersProvider,
     ...employeeProvider,
-    ...individualOrderProvider, 
+    ...individualOrderProvider,
+    ...orderItemProvider,
     CreateOrUpdateWeeklyOrderService,
     GetWeeklyOrdersByEmployeeService,
     DeleteWeeklyOrderService,

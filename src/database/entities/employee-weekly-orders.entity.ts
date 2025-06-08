@@ -16,27 +16,27 @@ export class EmployeeWeeklyOrdersEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'employee_id',
+    field: 'employeeId',
   })
   employeeId: number;
 
   @Column({
     type: DataType.ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
     allowNull: false,
-    field: 'day_of_week',
+    field: 'dayOfWeek',
   })
   dayOfWeek: DayOfWeek;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: true,
-    field: 'individual_order_id',
-  })
-  individualOrderId: number;
+  // @Column({
+  //   type: DataType.INTEGER,
+  //   allowNull: true,
+  //   field: 'individual_order_id',
+  // })
+  // individualOrderId: number;
 
   @BelongsTo(() => EmployeeEntity)
   employee: EmployeeEntity;
 
-  @BelongsTo(() => IndividualOrderEntity, 'individual_order_id')
-  individualOrder: IndividualOrderEntity;
+  // @BelongsTo(() => IndividualOrderEntity, 'individual_order_id')
+  // individualOrder: IndividualOrderEntity;
 }

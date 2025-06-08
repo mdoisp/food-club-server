@@ -16,12 +16,12 @@ export class EmployeeWeeklyOrderResponse {
     })
     dayOfWeek: DayOfWeek;
 
-    @ApiProperty({
-        description: 'ID do pedido individual',
-        type: Number,
-        example: 1,
-    })
-    individualOrderId: number;
+    // @ApiProperty({
+    //     description: 'ID do pedido individual',
+    //     type: Number,
+    //     example: 1,
+    // })
+    // individualOrderId: number;
 
     createdAt?: Date;
     updatedAt?: Date;

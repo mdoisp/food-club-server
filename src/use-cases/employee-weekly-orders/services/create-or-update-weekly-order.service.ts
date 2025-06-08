@@ -22,37 +22,41 @@ export class CreateOrUpdateWeeklyOrderService {
     if (!employee) {
         throw new NotFoundException('Funcionário não encontrado');
     }
-
-    let individualOrder = await this.individualOrderRepository.getById(employeeWeeklyOrder.individualOrderId);
-    if (!individualOrder) {
-        individualOrder = await this.individualOrderRepository.create({
-            employeeId: employeeWeeklyOrder.employeeId,
-            companyOrderId: employee.companyId,
-            order: employeeWeeklyOrder.order,
-        });
-        if (!individualOrder) {
-            throw new NotFoundException('Erro ao criar pedido semanal');
-        }
+    
+    // console.log('employeeWeeklyOrder', {
+    //   employeeId: employeeWeeklyOrder.employeeId,
+    //   companyOrderId: employee,
+    // });
+    //     const individualOrder = await this.individualOrderRepository.create({
+    //         employeeId: employeeWeeklyOrder.employeeId,
+    //         companyOrderId: employee.companyId,
+    //     });
+    //     if (!individualOrder) {
+    //         throw new NotFoundException('Erro ao criar pedido semanal');
+    //     }
+    
+    const individualOrder = {
+      employeeId: employeeWeeklyOrder.employeeId,
+      dayOfWeek: employeeWeeklyOrder.dayOfWeek,
+      order: employeeWeeklyOrder.order,
     }
-
+    console.log('individualOrder', individualOrder);
     const existingOrder = await this.employeeWeeklyOrdersRepository.findByEmployeeAndDay(employeeWeeklyOrder.employeeId,employeeWeeklyOrder.dayOfWeek);
+    console.log('existingOrder2', existingOrder);
     if (existingOrder) {
       const updatedOrder = await this.employeeWeeklyOrdersRepository.update(existingOrder.id, individualOrder);
       if (!updatedOrder) {
         throw new NotFoundException('Erro ao atualizar pedido semanal');
       }
       return updatedOrder;
-    }
+    }else{
 
-    const newOrder = await this.employeeWeeklyOrdersRepository.create({
-      employeeId: employeeWeeklyOrder.employeeId,
-      dayOfWeek: employeeWeeklyOrder.dayOfWeek,
-      individualOrderId: employeeWeeklyOrder.individualOrderId,
-    });
+    const newOrder = await this.employeeWeeklyOrdersRepository.create(individualOrder);
     if (!newOrder) {
       throw new NotFoundException('Erro ao criar pedido semanal');
     }
 
     return newOrder;
+    }
   }
 } 

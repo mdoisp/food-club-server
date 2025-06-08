@@ -17,59 +17,59 @@ export class EmployeeWeeklyOrdersService {
     private readonly employeeEntity: typeof EmployeeEntity,
   ) {}
 
-  async createOrUpdateWeeklyOrder(dto: CreateEmployeeWeeklyOrderDto): Promise<EmployeeWeeklyOrderResponse> {
-    // Verificar se o funcionário existe
-    const employee = await this.employeeEntity.findByPk(dto.employeeId);
-    if (!employee) {
-      throw new NotFoundException('Funcionário não encontrado');
-    }
+  // async createOrUpdateWeeklyOrder(dto: CreateEmployeeWeeklyOrderDto): Promise<EmployeeWeeklyOrderResponse> {
+  //   // Verificar se o funcionário existe
+  //   const employee = await this.employeeEntity.findByPk(dto.employeeId);
+  //   if (!employee) {
+  //     throw new NotFoundException('Funcionário não encontrado');
+  //   }
 
-    // Verificar se o pedido individual existe
-    const individualOrder = await this.individualOrderEntity.findByPk(dto.individualOrderId);
-    if (!individualOrder) {
-      throw new NotFoundException('Pedido individual não encontrado');
-    }
+  //   // Verificar se o pedido individual existe
+  //   const individualOrder = await this.individualOrderEntity.findByPk(dto.individualOrderId);
+  //   if (!individualOrder) {
+  //     throw new NotFoundException('Pedido individual não encontrado');
+  //   }
 
-    // Verificar se já existe um pedido para este dia
-    const existingOrder = await this.employeeWeeklyOrdersEntity.findOne({
-      where: {
-        employeeId: dto.employeeId,
-        dayOfWeek: dto.dayOfWeek,
-      },
-    });
+  //   // Verificar se já existe um pedido para este dia
+  //   const existingOrder = await this.employeeWeeklyOrdersEntity.findOne({
+  //     where: {
+  //       employeeId: dto.employeeId,
+  //       dayOfWeek: dto.dayOfWeek,
+  //     },
+  //   });
 
-    if (existingOrder) {
-      // Atualizar pedido existente
-      await existingOrder.update({
-        individualOrderId: dto.individualOrderId,
-      });
-      return existingOrder;
-    }
+  //   if (existingOrder) {
+  //     // Atualizar pedido existente
+  //     await existingOrder.update({
+  //       individualOrderId: dto.individualOrderId,
+  //     });
+  //     return existingOrder;
+  //   }
 
-    // Criar novo pedido
-    const newOrder = await this.employeeWeeklyOrdersEntity.create({
-      employeeId: dto.employeeId,
-      dayOfWeek: dto.dayOfWeek,
-      individualOrderId: dto.individualOrderId,
-    });
+  //   // Criar novo pedido
+  //   const newOrder = await this.employeeWeeklyOrdersEntity.create({
+  //     employeeId: dto.employeeId,
+  //     dayOfWeek: dto.dayOfWeek,
+  //     individualOrderId: dto.individualOrderId,
+  //   });
 
-    return newOrder;
-  }
+  //   return newOrder;
+  // }
 
-  async getWeeklyOrdersByEmployee(employeeId: number): Promise<EmployeeWeeklyOrderResponse[]> {
-    const employee = await this.employeeEntity.findByPk(employeeId);
-    if (!employee) {
-      throw new NotFoundException('Funcionário não encontrado');
-    }
+  // async getWeeklyOrdersByEmployee(employeeId: number): Promise<EmployeeWeeklyOrderResponse[]> {
+  //   const employee = await this.employeeEntity.findByPk(employeeId);
+  //   if (!employee) {
+  //     throw new NotFoundException('Funcionário não encontrado');
+  //   }
 
-    return await this.employeeWeeklyOrdersEntity.findAll({
-      where: { employeeId },
-      include: [
-        { model: IndividualOrderEntity, as: 'individualOrder' },
-        { model: EmployeeEntity, as: 'employee' },
-      ],
-    });
-  }
+  //   return await this.employeeWeeklyOrdersEntity.findAll({
+  //     where: { employeeId },
+  //     include: [
+  //       { model: IndividualOrderEntity, as: 'individualOrder' },
+  //       { model: EmployeeEntity, as: 'employee' },
+  //     ],
+  //   });
+  // }
 
   async deleteWeeklyOrder(id: number): Promise<void> {
     const order = await this.employeeWeeklyOrdersEntity.findByPk(id);
