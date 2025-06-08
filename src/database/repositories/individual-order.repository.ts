@@ -14,9 +14,7 @@ export class IndividualOrderRepository {
   }
 
   async getById(id: number): Promise<IndividualOrderEntityInterface | null> {
-    return await this.individualOrderEntity.findByPk(id, {
-      include: ['order'],
-    });
+    return await this.individualOrderEntity.findByPk(id);
   }
 
   async listByCompanyOrder(companyOrderId: number): Promise<IndividualOrderEntityInterface[]> {
