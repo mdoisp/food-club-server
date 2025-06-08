@@ -25,4 +25,20 @@ import { DayOfWeek, EmployeeWeeklyOrdersEntityInterface } from "src/database/int
             where: { employeeId, dayOfWeek },
         });
     }
+
+    async findByEmployeeId(employeeId: number): Promise<EmployeeWeeklyOrdersEntityInterface[]> {
+        return await this.employeeWeeklyOrdersEntity.findAll({
+            where: { employeeId },
+        });
+    }
+
+    async getById(id: number): Promise<EmployeeWeeklyOrdersEntityInterface | null> {
+        return await this.employeeWeeklyOrdersEntity.findByPk(id);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.employeeWeeklyOrdersEntity.destroy({
+            where: { id },
+        });
+    }
  }

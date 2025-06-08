@@ -13,8 +13,6 @@ export class CreateOrUpdateWeeklyOrderService {
     private readonly employeeWeeklyOrdersRepository: EmployeeWeeklyOrdersRepository,
     @Inject('EMPLOYEE_REPOSITORY')
     private readonly employeeRepository: EmployeeRepository,
-    @Inject('INDIVIDUAL_ORDER_REPOSITORY')
-    private readonly individualOrderRepository: IndividualOrderRepository,
   ) {}
 
   async execute(employeeWeeklyOrder: EmployeeWeeklyOrdersEntityInterface): Promise<EmployeeWeeklyOrdersEntityInterface> {
@@ -22,18 +20,6 @@ export class CreateOrUpdateWeeklyOrderService {
     if (!employee) {
         throw new NotFoundException('Funcionário não encontrado');
     }
-    
-    // console.log('employeeWeeklyOrder', {
-    //   employeeId: employeeWeeklyOrder.employeeId,
-    //   companyOrderId: employee,
-    // });
-    //     const individualOrder = await this.individualOrderRepository.create({
-    //         employeeId: employeeWeeklyOrder.employeeId,
-    //         companyOrderId: employee.companyId,
-    //     });
-    //     if (!individualOrder) {
-    //         throw new NotFoundException('Erro ao criar pedido semanal');
-    //     }
     
     const individualOrder = {
       employeeId: employeeWeeklyOrder.employeeId,

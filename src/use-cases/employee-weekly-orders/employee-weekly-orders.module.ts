@@ -5,7 +5,6 @@ import { employeeWeeklyOrdersProvider } from 'src/database/providers/employee-we
 import { CreateOrUpdateWeeklyOrderService } from './services/create-or-update-weekly-order.service';
 import { GetWeeklyOrdersByEmployeeService } from './services/get-weekly-orders-by-employee.service';
 import { DeleteWeeklyOrderService } from './services/delete-weekly-order.service';
-import { EmployeeWeeklyOrdersService } from './services/employee-weekly-orders.service';
 import { employeeProvider } from 'src/database/providers/employee.provider';
 import { individualOrderProvider } from 'src/database/providers/individual-order.provider';
 import { orderItemProvider } from 'src/database/providers/order-item.provider';
@@ -21,13 +20,11 @@ import { orderItemProvider } from 'src/database/providers/order-item.provider';
     CreateOrUpdateWeeklyOrderService,
     GetWeeklyOrdersByEmployeeService,
     DeleteWeeklyOrderService,
-    EmployeeWeeklyOrdersService,
   ],
   exports: [
     CreateOrUpdateWeeklyOrderService,
     GetWeeklyOrdersByEmployeeService,
     DeleteWeeklyOrderService,
-    EmployeeWeeklyOrdersService,
   ]
 })
 export class EmployeeWeeklyOrdersModule {} 
