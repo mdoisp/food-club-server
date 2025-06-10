@@ -15,6 +15,7 @@ import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
 import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
 import { AuthService } from "./services/login.service";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { GetUserByEmailService } from "./services/get-byemail.service";
 
 @ApiTags('User API')
 @Controller('user')
@@ -26,6 +27,7 @@ export class UserController {
         private readonly updateUserService: UpdateUserService,
         private readonly deleteUserService: DeleteUserService,
         private readonly authService: AuthService,
+        private readonly getUserByEmailService: GetUserByEmailService,
     ) {}
 
     @Get()
@@ -184,5 +186,25 @@ export class UserController {
     async logout(@Body() body: { token: string }) {
         this.authService.logout(body.token);
         return { message: 'Logout realizado com sucesso' };
+    }
+
+    @Get('check-email/:email')
+    @ApiOperation({ summary: 'Verificar se o email já existe', description: 'Verifica se o email já está cadastrado no sistema.' })
+    @ApiParam({
+        name: 'email',
+        required: true,
+        description: 'Email a ser verificado',
+        schema: { type: 'string', example: 'teste@email.com' },
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Retorna se o email já está cadastrado',
+        schema: {
+            example: { exists: true }
+        }
+    })
+    async checkEmail(@Param('email') email: string) {
+        const user = await this.getUserByEmailService.execute(email);
+        return { exists: !!user };
     }
 }
