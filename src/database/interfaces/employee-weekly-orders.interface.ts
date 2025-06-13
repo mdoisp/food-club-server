@@ -1,3 +1,4 @@
+import { DishEntityInterface } from "./dish.interface";
 import { IndividualOrderEntityInterface } from "./individual-order.interface";
 import { OrderItemEntityInterface } from "./order-item.interface";
 
@@ -9,4 +10,5 @@ export interface EmployeeWeeklyOrdersEntityInterface {
   dayOfWeek: DayOfWeek;
   orderItemId: number;
   order?: OrderItemEntityInterface;
+  dish?: DishEntityInterface;
 }

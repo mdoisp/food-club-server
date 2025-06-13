@@ -5,6 +5,7 @@ import { EmployeeWeeklyOrdersRepository } from '../repositories/employee-weekly-
 import { EmployeeRepository } from 'src/database/repositories/employee.repository';
 import { OrderItemRepository } from 'src/database/repositories/order-item.repository';
 import { EmployeeWeeklyOrdersEntityInterface } from 'src/database/interfaces/employee-weekly-orders.interface';
+import { DishRepository } from 'src/database/repositories/dish.repository';
 
 @Injectable()
 export class GetWeeklyOrdersByEmployeeService {
@@ -15,6 +16,8 @@ export class GetWeeklyOrdersByEmployeeService {
     private readonly employeeRepository: EmployeeRepository,
     @Inject('ORDER_ITEM_REPOSITORY')
     private readonly orderItemRepository: OrderItemRepository,
+    @Inject('DISH_REPOSITORY')
+    private readonly dishRepository: DishRepository,
   ) {}
 
   async execute(employeeId: number): Promise<EmployeeWeeklyOrderResponse[]> {
@@ -24,19 +27,21 @@ export class GetWeeklyOrdersByEmployeeService {
     }
 
     const employeeWeeklyOrders = await this.employeeWeeklyOrdersRepository.findByEmployeeId(employeeId);
-    let count = 0;
     const result: EmployeeWeeklyOrdersEntityInterface[] = [];
     for (const employeeWeeklyOrder of employeeWeeklyOrders) {
-      count++;
       const orderItems = await this.orderItemRepository.findByPk(employeeWeeklyOrder.orderItemId);
       employeeWeeklyOrder.order = orderItems;
+      if (orderItems.dishId) {
+        const dish = await this.dishRepository.getById(orderItems.dishId);
+        employeeWeeklyOrder.dish = dish;
+      }
       result.push({
         id: employeeWeeklyOrder.id,
         employeeId: employeeWeeklyOrder.employeeId,
         dayOfWeek: employeeWeeklyOrder.dayOfWeek,
         orderItemId: employeeWeeklyOrder.orderItemId,
         order: orderItems,
-        
+        dish: employeeWeeklyOrder.dish,
       });
     }
 
