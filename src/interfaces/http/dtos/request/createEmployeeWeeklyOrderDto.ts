@@ -17,13 +17,6 @@ export class CreateEmployeeWeeklyOrderDto {
         example: 'Monday',
     })
     dayOfWeek: DayOfWeek;
-    
-    @ApiProperty({
-        description: 'ID do pedido individual',
-        type: Number,
-        example: 1,
-    })
-    individualOrderId: number;
 
     @ApiProperty({
         description: 'Itens do pedido',
