@@ -7,5 +7,6 @@ export interface EmployeeWeeklyOrdersEntityInterface {
   id: number;
   employeeId: number;
   dayOfWeek: DayOfWeek;
-  order?: OrderItemEntityInterface[];
+  orderItemId: number;
+  order?: OrderItemEntityInterface;
 }

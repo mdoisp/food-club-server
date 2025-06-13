@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from 'sequelize
 import { EmployeeEntity } from './employee.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
 import { DayOfWeek } from '../interfaces/employee-weekly-orders.interface';
+import { OrderItemEntity } from './order-item.entity';
 
 @Table({ tableName: 'employee_weekly_orders', timestamps: false })
 export class EmployeeWeeklyOrdersEntity extends Model {
@@ -27,6 +28,13 @@ export class EmployeeWeeklyOrdersEntity extends Model {
   })
   dayOfWeek: DayOfWeek;
 
+  @ForeignKey(() => OrderItemEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    field: 'orderItemId',
+  })
+  orderItemId: number;
   // @Column({
   //   type: DataType.INTEGER,
   //   allowNull: true,

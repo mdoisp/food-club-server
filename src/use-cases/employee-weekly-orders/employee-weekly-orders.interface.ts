@@ -4,7 +4,7 @@ export interface EmployeeWeeklyOrderInterface {
   id: number;
   employeeId: number;
   dayOfWeek: DayOfWeek;
-  individualOrderId: number;
+  orderItemId: number;
   createdAt?: Date;
   updatedAt?: Date;
 } 

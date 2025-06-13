@@ -5,6 +5,7 @@ import { EmployeeRepository } from 'src/database/repositories/employee.repositor
 import { IndividualOrderRepository } from 'src/database/repositories/individual-order.repository';
 import { EmployeeWeeklyOrdersEntityInterface } from 'src/database/interfaces/employee-weekly-orders.interface';
 import { OrderItemEntityInterface } from 'src/database/interfaces/order-item.interface';
+import { OrderItemRepository } from 'src/database/repositories/order-item.repository';
 
 @Injectable()
 export class CreateOrUpdateWeeklyOrderService {
@@ -13,6 +14,8 @@ export class CreateOrUpdateWeeklyOrderService {
     private readonly employeeWeeklyOrdersRepository: EmployeeWeeklyOrdersRepository,
     @Inject('EMPLOYEE_REPOSITORY')
     private readonly employeeRepository: EmployeeRepository,
+    @Inject('ORDER_ITEM_REPOSITORY')
+    private readonly orderItemRepository: OrderItemRepository,
   ) {}
 
   async execute(employeeWeeklyOrder: EmployeeWeeklyOrdersEntityInterface): Promise<EmployeeWeeklyOrdersEntityInterface> {
@@ -24,19 +27,23 @@ export class CreateOrUpdateWeeklyOrderService {
     const individualOrder = {
       employeeId: employeeWeeklyOrder.employeeId,
       dayOfWeek: employeeWeeklyOrder.dayOfWeek,
-      order: employeeWeeklyOrder.order,
+      orderItemId: employeeWeeklyOrder.order.id,
     }
-    console.log('individualOrder', individualOrder);
+
     const existingOrder = await this.employeeWeeklyOrdersRepository.findByEmployeeAndDay(employeeWeeklyOrder.employeeId,employeeWeeklyOrder.dayOfWeek);
-    console.log('existingOrder2', existingOrder);
+
     if (existingOrder) {
-      const updatedOrder = await this.employeeWeeklyOrdersRepository.update(existingOrder.id, individualOrder);
-      if (!updatedOrder) {
+      const orderItems = await this.orderItemRepository.create(employeeWeeklyOrder.order);
+      individualOrder.orderItemId = orderItems.id;
+      const updatedWeeklyOrder = await this.employeeWeeklyOrdersRepository.update(existingOrder.id, individualOrder);
+
+      if (!updatedWeeklyOrder) {
         throw new NotFoundException('Erro ao atualizar pedido semanal');
       }
-      return updatedOrder;
+      return updatedWeeklyOrder;
     }else{
-
+      const orderItems = await this.orderItemRepository.create(employeeWeeklyOrder.order);
+      individualOrder.orderItemId = orderItems.id;      
     const newOrder = await this.employeeWeeklyOrdersRepository.create(individualOrder);
     if (!newOrder) {
       throw new NotFoundException('Erro ao criar pedido semanal');

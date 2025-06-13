@@ -5,7 +5,7 @@ import { DishEntity } from './dish.entity';
 @Table({ 
   tableName: 'order_item', 
   timestamps: false,
-  underscored: true // Adiciona suporte para snake_case
+  underscored: true
 })
 export class OrderItemEntity extends Model {
   @Column({
@@ -27,7 +27,7 @@ export class OrderItemEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'dish_id', // Corrigido para snake_case
+    field: 'dishId',
   })
   dishId: number;
 
@@ -45,7 +45,7 @@ export class OrderItemEntity extends Model {
   // individualOrder: IndividualOrderEntity;
 
   @BelongsTo(() => DishEntity, {
-    foreignKey: 'dish_id',
+    foreignKey: 'dishId',
     as: 'dish'
   })
   dish: DishEntity;

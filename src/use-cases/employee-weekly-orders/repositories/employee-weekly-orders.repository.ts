@@ -19,8 +19,6 @@ import { DayOfWeek, EmployeeWeeklyOrdersEntityInterface } from "src/database/int
     }
 
     async findByEmployeeAndDay(employeeId: number, dayOfWeek: DayOfWeek): Promise<EmployeeWeeklyOrdersEntityInterface | null> {
-        console.log('employeeId', employeeId);
-        console.log('dayOfWeek', dayOfWeek);
         return await this.employeeWeeklyOrdersEntity.findOne({
             where: { employeeId, dayOfWeek },
         });
