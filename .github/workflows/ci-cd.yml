@@ -22,8 +22,8 @@ env:
   NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
 
 jobs:
-  build-and-deploy:
-    name: Build e Deploy
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,6 +42,19 @@ jobs:
       
       - name: Build
         run: npm run build
+
+  version:
+    name: Version Management
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.version.outputs.version }}
+      is_pr_merge: ${{ steps.version.outputs.is_pr_merge }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate version
         id: version
@@ -91,14 +104,12 @@ jobs:
           
           # Define o formato da versão baseado no contexto
           if [ "$is_pr_merge" == "true" ]; then
-            # PR sendo mesclado - usa versão normal
             if [[ "${{ github.event.pull_request.base.ref }}" == "development" ]]; then
               new_version="v$major.$minor.$patch-dev"
             else
               new_version="v$major.$minor.$patch"
             fi
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            # PR em revisão - usa sufixo pr
             new_version="v$major.$minor.$patch-pr${{ github.event.pull_request.number }}"
           elif [[ "${{ github.ref }}" == "refs/heads/development" ]]; then
             new_version="v$major.$minor.$patch-dev"
@@ -109,6 +120,13 @@ jobs:
           echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
           echo "version=${new_version}" >> $GITHUB_OUTPUT
           echo "is_pr_merge=${is_pr_merge}" >> $GITHUB_OUTPUT
+
+  docker:
+    name: Docker Build and Push
+    needs: version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -120,7 +138,7 @@ jobs:
         id: docker_tags
         run: |
           echo "tags<<EOF" >> $GITHUB_OUTPUT
-          echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ steps.version.outputs.version }}" >> $GITHUB_OUTPUT
+          echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ needs.version.outputs.new_version }}" >> $GITHUB_OUTPUT
           if [[ "${{ github.event_name }}" == "push" ]]; then
             echo "${{ env.DOCKER_HUB_REPOSITORY }}:${{ github.ref == 'refs/heads/development' && 'development' || 'latest' }}" >> $GITHUB_OUTPUT
           fi
@@ -133,37 +151,64 @@ jobs:
           push: true
           tags: ${{ steps.docker_tags.outputs.tags }}
 
-      - name: Create Git tag
-        if: success() && (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development') || github.event_name == 'pull_request')
+  tag:
+    name: Create Git Tag
+    needs: [version, docker]
+    if: success() && (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development') || github.event_name == 'pull_request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create and push tag
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          if [[ "${{ steps.version.outputs.is_pr_merge }}" == "true" ]]; then
-            # PR sendo mesclado - cria tag normal
-            git tag -a ${{ steps.version.outputs.version }} -m "Release ${{ steps.version.outputs.version }} (via PR #${{ github.event.pull_request.number }})"
-          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            # PR em revisão - cria tag temporária
-            git tag -a ${{ steps.version.outputs.version }} -m "PR #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}"
+          # Verifica se a tag já existe
+          if git rev-parse "${{ needs.version.outputs.new_version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ needs.version.outputs.new_version }} já existe. Incrementando versão..."
+            # Incrementa o patch
+            current_version=$(echo ${{ needs.version.outputs.new_version }} | tr -d 'v')
+            major=$(echo $current_version | cut -d. -f1)
+            minor=$(echo $current_version | cut -d. -f2)
+            patch=$(echo $current_version | cut -d. -f3)
+            new_patch=$((patch + 1))
+            new_version="v$major.$minor.$new_patch"
           else
-            # Push direto - cria tag normal
-            git tag -a ${{ steps.version.outputs.version }} -m "Release ${{ steps.version.outputs.version }}"
+            new_version="${{ needs.version.outputs.new_version }}"
           fi
           
-          git push origin ${{ steps.version.outputs.version }}
+          if [[ "${{ needs.version.outputs.is_pr_merge }}" == "true" ]]; then
+            git tag -a $new_version -m "Release $new_version (via PR #${{ github.event.pull_request.number }})"
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git tag -a $new_version -m "PR #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}"
+          else
+            git tag -a $new_version -m "Release $new_version"
+          fi
+          
+          git push origin $new_version
 
+  notify:
+    name: Send Notifications
+    needs: [build, version, docker, tag]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
       - name: Send email on failure
         if: failure() && env.NOTIFICATION_EMAIL != ''
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: ${{ secrets.MAIL_SERVER }}
-          server_port: ${{ secrets.MAIL_PORT }}
+          server_address: smtp.gmail.com
+          server_port: 587
           secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
+          username: ${{ secrets.FOODCLUB_EMAIL }}
+          password: ${{ secrets.FOODCLUB_EMAIL_PASSWORD }}
           subject: '❌ Falha no Pipeline - FoodClub Server'
           to: ${{ env.NOTIFICATION_EMAIL }}
-          from: ${{ secrets.MAIL_FROM }}
+          from: ${{ secrets.FOODCLUB_EMAIL }}
           html_body: |
             <h2>Falha no Pipeline do FoodClub Server</h2>
             <p>Ocorreu uma falha no pipeline de CI/CD.</p>
@@ -172,6 +217,7 @@ jobs:
               <li><strong>Branch:</strong> ${{ github.ref }}</li>
               <li><strong>Commit:</strong> ${{ github.sha }}</li>
               <li><strong>Autor:</strong> ${{ github.actor }}</li>
+              <li><strong>Job com falha:</strong> ${{ needs.*.result == 'failure' && 'Job com falha' || 'N/A' }}</li>
             </ul>
             <p>
               Para mais detalhes, <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">clique aqui</a>. 
