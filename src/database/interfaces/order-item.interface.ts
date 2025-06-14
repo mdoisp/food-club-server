@@ -1,6 +1,7 @@
+import { IndividualOrderEntityInterface } from "./individual-order.interface";
+
 export interface OrderItemEntityInterface {
   id: number;
-  individualOrderId: number;
   dishId: number;
   quantity: number;
 }

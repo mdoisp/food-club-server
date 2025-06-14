@@ -15,9 +15,13 @@ import { UserModule } from './use-cases/user/user.module';
 import { DishRatingControlller } from './use-cases/dish-rating/dish-rating.controller';
 import { DishRatingModule } from './use-cases/dish-rating/dish-rating.module';
 import { AuthModule } from './use-cases/user/auth.module';
+import { EmployeeWeeklyOrdersModule } from './use-cases/employee-weekly-orders/employee-weekly-orders.module';
+import { EmployeeWeeklyOrdersController } from './use-cases/employee-weekly-orders/employee-weekly-orders.controller';
 @Module({
-  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule, RestaurantModule, UserModule, AuthModule],
-  controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller, RestaurantController,UserController],
+  imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule,
+            RestaurantModule, UserModule, AuthModule, EmployeeWeeklyOrdersModule],
+  controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller,
+                RestaurantController,UserController, EmployeeWeeklyOrdersController],
   providers: [],
 })
 export class AppModule {}

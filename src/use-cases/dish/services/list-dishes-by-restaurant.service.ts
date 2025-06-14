@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DishInterface } from '../dish.interface';
 import { DishRepository } from '../../../database/repositories/dish.repository';
 import { DishRatingRepository } from '../../../database/repositories/dish-rating.repository';
+import { ListDishRatingDtoResponse } from '../../../interfaces/http/dtos/response/listDishRatingDtoResponse';
+import { DishRatingEntityInterface } from '../../../database/interfaces/dish-rating.interface';
 
 @Injectable()
 export class ListDishesByRestaurantService {
@@ -12,12 +14,19 @@ export class ListDishesByRestaurantService {
     private readonly dishRatingRepository: DishRatingRepository
   ) {}
 
-  async execute(restaurantId: number): Promise<DishInterface[]> {
+  async execute(restaurantId: number): Promise<ListDishRatingDtoResponse[]> {
     const dishes = await this.dishRepository.listByRestaurant(restaurantId);
     const dishesWithRatings = await Promise.all(
       dishes.map(async (dish) => {
         const ratings = await this.dishRatingRepository.listByDish(dish.id);
-        return { ...dish, ratings };
+        return {
+          restaurantId: dish.restaurantId,
+          name: dish.name,
+          description: dish.description,
+          price: dish.price,
+          image: dish.image,
+          ratings: ratings as DishRatingEntityInterface[]
+        };
       })
     );
     return dishesWithRatings;

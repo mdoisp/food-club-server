@@ -25,6 +25,10 @@ export class OrderItemRepository {
     return await this.orderItemEntity.findAll({ where: { individualOrderId: orderId } });
   }
 
+  async findByPk(id: number): Promise<OrderItemEntityInterface> {
+    return await this.orderItemEntity.findByPk(id);
+  }
+
   async delete(id: number): Promise<void> {
     const item = await this.orderItemEntity.findByPk(id);
     await item.destroy();

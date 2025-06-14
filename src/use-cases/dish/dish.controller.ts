@@ -16,6 +16,7 @@ import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { ListDishesByRestaurantService } from './services/list-dishes-by-restaurant.service';
 import { AverageRatingByRestaurantService } from './services/average-rating-by-restaurant.service';
 import { AverageRatingDishInterface } from './average-rating-dish.interface';
+import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRatingDtoResponse';
 
 @ApiTags('Dish API')
 @Controller('Dish')
@@ -188,9 +189,9 @@ export class DishController {
   })
   @ApiResponse({
     status: 200,
-    description: 'Lista de pratos do restaurante',
+    description: 'Lista de pratos do restaurante com suas avaliações',
     isArray: true,
-    type: ListDishDtoResponse,
+    type: ListDishRatingDtoResponse,
   })
   async listByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
     const dishes = await this.listDishesByRestaurantService.execute(Number(restaurantId));

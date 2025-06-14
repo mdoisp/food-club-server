@@ -16,7 +16,7 @@ export class IndividualOrderEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'company_order_id',
+    field: 'companyOrderId',
   })
   companyOrderId: number;
 
@@ -24,7 +24,7 @@ export class IndividualOrderEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'employee_id',
+    field: 'employeeId',
   })
   employeeId: number;
 
@@ -34,6 +34,6 @@ export class IndividualOrderEntity extends Model {
   @BelongsTo(() => EmployeeEntity)
   employee: EmployeeEntity;
 
-  @HasMany(() => OrderItemEntity)
-  order: OrderItemEntity[];
+  // @HasMany(() => OrderItemEntity)
+  // order: OrderItemEntity[];
 }

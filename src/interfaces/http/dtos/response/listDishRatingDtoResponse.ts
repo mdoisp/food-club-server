@@ -1,15 +1,42 @@
+import { DishRatingEntityInterface } from '../../../../database/interfaces/dish-rating.interface';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ListDishRatingDtoResponse {
-  @ApiProperty({ example: 1, description: 'ID da avaliação' })
-  id: number;
+  @ApiProperty({
+    description: 'ID do restaurante',
+    example: 1,
+  })
+  restaurantId: number;
 
-  @ApiProperty({ example: 1, description: 'ID do prato' })
-  dishId: number;
+  @ApiProperty({
+    description: 'Nome do prato',
+    example: 'X-Burger',
+  })
+  name: string;
 
-  @ApiProperty({ example: 1, description: 'ID do usuário' })
-  userId: number;
+  @ApiProperty({
+    description: 'Descrição do prato',
+    example: 'Hambúrguer artesanal com queijo, alface, tomate e molho especial',
+  })
+  description: string;
 
-  @ApiProperty({ example: 5, description: 'Nota da avaliação (1 a 5)' })
-  rating: number;
+  @ApiProperty({
+    description: 'Preço do prato',
+    example: 25.90,
+  })
+  price: number;
+
+  @ApiProperty({
+    description: 'URL da imagem do prato',
+    example: 'https://exemplo.com/imagem.jpg',
+    required: false,
+  })
+  image?: string;
+
+  @ApiProperty({
+    description: 'Avaliações do prato',
+    type: [Object],
+    required: false,
+  })
+  ratings?: DishRatingEntityInterface[];
 } 
