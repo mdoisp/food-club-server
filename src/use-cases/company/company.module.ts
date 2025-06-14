@@ -8,14 +8,17 @@ import { DatabaseModule } from 'src/database/database.module';
 import { CompanyRepository } from 'src/database/repositories/company.repository';
 import { companyProvider } from './../../database/providers/company.provider';
 import { ListCompaniesService } from './services/list-companies.service';
-
+import { UserRepository } from 'src/database/repositories/user.repository';
+import { userProvider } from 'src/database/providers/user.provider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [CompanyController],
   providers: [
-    ...companyProvider, 
+    ...companyProvider,
+    ...userProvider,
     CompanyRepository,
+    UserRepository,
     ListCompaniesService,
     GetCompanyByIdService, 
     CreateCompanyService, 
