@@ -14,6 +14,8 @@ import { UserInterface } from "./user.interface";
 import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
 import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
 import { AuthService } from "./services/login.service";
+import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { GetUserByEmailService } from "./services/get-byemail.service";
 
 @ApiTags('User API')
 @Controller('user')
@@ -25,31 +27,37 @@ export class UserController {
         private readonly updateUserService: UpdateUserService,
         private readonly deleteUserService: DeleteUserService,
         private readonly authService: AuthService,
+        private readonly getUserByEmailService: GetUserByEmailService,
     ) {}
 
     @Get()
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
     @ApiResponse({
         status: 200,
-        description: 'Consulta realizada com sucesso',
-        isArray: true,
-        type: ListUserDtoResponse,
+        description: 'Lista de usuários retornada com sucesso',
+        type: [ListUserDtoResponse],
     })
     @ApiResponse({
-        status: 500,
-        description: 'Erro interno do servidor',
+        status: 401,
+        description: 'Não autorizado',
     })
     async list(): Promise<UserInterface[]> {
-        const userList = await this.listUsersService.execute();
-        return userList;
+        return await this.listUsersService.execute();
     }
+
     @Get(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
     @ApiParam({
         name: 'id',
+        required: true,
         description: 'ID do usuário',
+        schema: { type: 'number' },
     })
     @ApiResponse({
         status: 200,
-        description: 'Usuário encontrado',
+        description: 'Usuário encontrado com sucesso',
         type: ListUserDtoResponse,
     })
     @ApiResponse({
@@ -57,17 +65,14 @@ export class UserController {
         description: 'Usuário não encontrado',
         type: Http404,
     })
-    async getById(@Param('id') id: string, @Res() res:Response): Promise<UserInterface> {
-        const user = await this.getUserByIdService.execute(Number(id));
-        if (!user) {
-      res.status(404).json({
-        success: false,
-        message: 'Usuário não encontrado',
-      });
-      return;
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
+    async getById(@Param('id') id: number): Promise<UserInterface> {
+        return await this.getUserByIdService.execute(id);
     }
-        res.status(200).json(user);
-    }
+
     @Post()
     @HttpCode(201)
     @ApiBody({
@@ -93,12 +98,16 @@ export class UserController {
     }
 
     @Put(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
     @ApiParam({
         name: 'id',
+        required: true,
         description: 'ID do usuário',
+        schema: { type: 'number' },
     })
     @ApiBody({
-        description: 'Dados do usuário a serem atualizados',
+        description: 'Dados do usuário',
         type: CreateUserDto,
     })
     @ApiResponse({
@@ -106,37 +115,42 @@ export class UserController {
         description: 'Usuário atualizado com sucesso',
     })
     @ApiResponse({
-        status: 400,
-        description: 'Erro ao atualizar usuário',
-        type: Http400,
+        status: 404,
+        description: 'Usuário não encontrado',
+        type: Http404,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
+    async update(@Param('id') id: number, @Body() user: UserInterface): Promise<void> {
+        await this.updateUserService.execute(id, user);
+    }
+
+    @Delete(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
+    @ApiParam({
+        name: 'id',
+        required: true,
+        description: 'ID do usuário',
+        schema: { type: 'number' },
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Usuário deletado com sucesso',
     })
     @ApiResponse({
         status: 404,
         description: 'Usuário não encontrado',
         type: Http404,
     })
-    async update(@Param('id') id: string, @Body() userData: UserInterface, @Res() res: Response): Promise<UserInterface> {
-        const expectedFields = ['userType', 'email', 'password'];
-        const receivedFields = Object.keys(userData);
-        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
-        const user = await this.updateUserService.execute(Number(id), userData);
-        if(!user) {
-            res.status(404).json({
-                success: false,
-                message: 'Usuário não encontrado',
-            });
-            return;
-        }
-        if (invalidFields.length > 0) {
-            res.status(400).json({
-                success: false,
-                message: 'Campos inválidos',
-            });
-            return;
-        }
-
-
-        res.status(200).json(user);
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
+    async delete(@Param('id') id: number): Promise<void> {
+        await this.deleteUserService.execute(id);
     }
 
     @Post('login')
@@ -157,6 +171,7 @@ export class UserController {
     }
 
     @Post('logout')
+    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Realizar logout', description: 'Invalida o token JWT atual' })
@@ -164,38 +179,32 @@ export class UserController {
         status: 200, 
         description: 'Logout realizado com sucesso' 
     })
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
     async logout(@Body() body: { token: string }) {
         this.authService.logout(body.token);
         return { message: 'Logout realizado com sucesso' };
     }
 
-    @Delete(':id')
+    @Get('check-email/:email')
+    @ApiOperation({ summary: 'Verificar se o email já existe', description: 'Verifica se o email já está cadastrado no sistema.' })
     @ApiParam({
-        name: 'id',
-        description: 'ID do usuário',
+        name: 'email',
+        required: true,
+        description: 'Email a ser verificado',
+        schema: { type: 'string', example: 'teste@email.com' },
     })
     @ApiResponse({
         status: 200,
-        description: 'Usuário deletado com sucesso',
-    })
-    @ApiResponse({
-        status: 404,
-        description: 'Usuário não encontrado',
-        type: Http404,
-    })
-    async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
-        const user = await this.getUserByIdService.execute(Number(id));
-        if (!user) {
-            res.status(404).json({
-                success: false,
-                message: 'Usuário não encontrado',
-            });
-            return;
+        description: 'Retorna se o email já está cadastrado',
+        schema: {
+            example: { exists: true }
         }
-        this.deleteUserService.execute(Number(id));
-        res.status(200).json({
-            success: true,
-            message: 'Usuário deletado com sucesso',
-        });
+    })
+    async checkEmail(@Param('email') email: string) {
+        const user = await this.getUserByEmailService.execute(email);
+        return { exists: !!user };
     }
 }
