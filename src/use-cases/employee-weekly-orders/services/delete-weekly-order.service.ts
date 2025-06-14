@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Inject } from '@nestjs/common';
-import { EmployeeWeeklyOrdersRepository } from '../repositories/employee-weekly-orders.repository';
+import { EmployeeWeeklyOrdersRepository } from '../../../database/repositories/employee-weekly-orders.repository';
 
 @Injectable()
 export class DeleteWeeklyOrderService {

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Inject } from '@nestjs/common';
 import { EmployeeWeeklyOrderResponse } from 'src/interfaces/http/dtos/response/employeeWeeklyOrderResponse';
-import { EmployeeWeeklyOrdersRepository } from '../repositories/employee-weekly-orders.repository';
+import { EmployeeWeeklyOrdersRepository } from '../../../database/repositories/employee-weekly-orders.repository';
 import { EmployeeRepository } from 'src/database/repositories/employee.repository';
 import { OrderItemRepository } from 'src/database/repositories/order-item.repository';
 import { EmployeeWeeklyOrdersEntityInterface } from 'src/database/interfaces/employee-weekly-orders.interface';
