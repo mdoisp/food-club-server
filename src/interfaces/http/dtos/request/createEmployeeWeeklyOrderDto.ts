@@ -20,8 +20,8 @@ export class CreateEmployeeWeeklyOrderDto {
 
     @ApiProperty({
         description: 'Itens do pedido',
-        type: [CreateOrderItemDto],
+        type: CreateOrderItemDto,
     })
-    order: OrderItemEntityInterface[];
+    order: OrderItemEntityInterface;
 
   }
