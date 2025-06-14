@@ -38,7 +38,6 @@ export class CompanyController {
     })
     async list(): Promise<CompanyEntityInterface[]> {
       const employeeList = await this.listCompaniesService.execute();
-      console.log(employeeList);
       return employeeList;
     }
 
@@ -85,7 +84,7 @@ export class CompanyController {
     description: 'Erro ao criar empresa',
     type: Http400,
   })
-  create(
+  async create(
     @Body() company: CompanyInterface, @Res() res: Response) {
     const { userId, name, cnpj, cep, number } = company;
     if(!(userId && name && cnpj && cep && number)){
@@ -95,8 +94,19 @@ export class CompanyController {
       });
       return;
     }
-    this.createCompanyService.execute(company);
-    res.send();
+
+    try {
+      await this.createCompanyService.execute(company);
+      res.status(201).json({
+        success: true,
+        message: 'Empresa criada com sucesso'
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
   }
 
   @Put(':id')
@@ -126,14 +136,7 @@ export class CompanyController {
     const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
-    const company =  await this.updateCompanyService.execute(Number(id), companyData);
-    if (!company) {
-      res.status(404).json({
-        success: false,
-        message: 'Empresa não encontrada',
-      });
-      return;
-    }
+    
     if(invalidFields.length > 0){
       res.status(400).json({
         sucess: false,
@@ -141,7 +144,23 @@ export class CompanyController {
       });
       return;
     }
-    res.status(200).json(company);
+
+    try {
+      const company = await this.updateCompanyService.execute(Number(id), companyData);
+      if (!company) {
+        res.status(404).json({
+          success: false,
+          message: 'Empresa não encontrada',
+        });
+        return;
+      }
+      res.status(200).json(company);
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
   }
 
   @Delete(':id')

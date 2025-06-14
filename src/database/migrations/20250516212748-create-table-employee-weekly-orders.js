@@ -24,15 +24,13 @@ module.exports = {
         type: DataTypes.ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
         allowNull: false,
       },
-      individualOrderId: {
+      orderItemId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'individual_order',
+          model: 'order_item',
           key: 'id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
       },
     });
   },

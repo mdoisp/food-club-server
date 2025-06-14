@@ -10,6 +10,7 @@ import { companyProvider } from './providers/company.provider';
 import { restaurantProvider } from './providers/restaurant.provider';
 import { UserRepository } from './repositories/user.repository';
 import { userProvider } from './providers/user.provider';
+import { employeeWeeklyOrdersProvider } from './providers/employee-weekly-orders.provider';
 
 @Module({
     providers:[
@@ -23,7 +24,8 @@ import { userProvider } from './providers/user.provider';
         ...dishProvider, 
         ...employeeProvider, 
         ...restaurantProvider,
-        ...userProvider
+        ...userProvider,
+        ...employeeWeeklyOrdersProvider
     ],
     exports:[
         CompanyRepository, 
@@ -36,7 +38,8 @@ import { userProvider } from './providers/user.provider';
         ...dishProvider, 
         ...employeeProvider, 
         ...restaurantProvider,
-        ...userProvider
+        ...userProvider,
+        ...employeeWeeklyOrdersProvider
     ]
 })
 export class DatabaseModule {}
