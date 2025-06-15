@@ -1,0 +1,228 @@
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
+
+import { GetDishByIdService } from '../../../application/use-cases/get-dish-byid.service';
+import { DishInterface } from 'src/domain/models/dish.interface';
+import { CreateDishService } from '../../../application/use-cases/create-dish.service';
+import { UpdateDishService } from '../../../application/use-cases/update-dish.service';
+import { DeleteDishService } from '../../../application/use-cases/delete-dish.service';
+import { Response } from 'express';
+import { DishEntityInterface } from 'src/domain/repositories/dish.interface';
+import { ListDishesService } from '../../../application/use-cases/list-dishes.service';
+import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDishDtoResponse';
+import { Http404 } from 'src/interfaces/http/dtos/response/http404';
+import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDishDto';
+import { Http400 } from 'src/interfaces/http/dtos/response/http400';
+import { ListDishesByRestaurantService } from '../../../application/use-cases/list-dishes-by-restaurant.service';
+import { AverageRatingByRestaurantService } from '../../../application/use-cases/average-rating-by-restaurant.service';
+import { AverageRatingDishInterface } from '../../../domain/models/average-rating-dish.interface';
+import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRatingDtoResponse';
+
+@ApiTags('Dish API')
+@Controller('Dish')
+export class DishController {
+  constructor(
+    private listDishesService: ListDishesService,
+    private getDishByIdService: GetDishByIdService,
+    private createDishService: CreateDishService,
+    private updateDishService: UpdateDishService,
+    private deleteDishService: DeleteDishService,
+    private listDishesByRestaurantService: ListDishesByRestaurantService,
+    private averageRatingByRestaurantService: AverageRatingByRestaurantService
+  ) {}
+
+  @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Consulta realizada com sucesso',
+    isArray: true,
+    type: ListDishDtoResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erro interno do servidor',
+  })
+  async list(): Promise<DishEntityInterface[]> {
+    const dishList = await this.listDishesService.execute();
+
+    return dishList;
+  }
+
+  @Get(':id')
+  @ApiParam({
+    name: 'id',
+    description: 'ID do prato',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Consulta realizada com sucesso',
+    type: ListDishDtoResponse,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Prato não encontrado',
+    type: Http404,
+  })
+  async getById(@Param('id') id: string, @Res() res: Response): Promise<DishInterface> {
+    const dish = await this.getDishByIdService.execute(Number(id));
+    if (!dish) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
+
+    res.status(200).json(dish);
+  }
+
+  @Post()
+  @HttpCode(201)
+  @ApiBody({
+    description: 'Dados do prato a serem criados',
+    type: CreateDishDto,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Prato criado com sucesso',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao criar prato',
+    type: Http400,
+  })
+  create(
+    @Body() dish: DishInterface, @Res() res: Response) {
+    const { restaurantId, name, description, price } = dish;
+    if(!(restaurantId && name && description && price)){
+      res.status(400).json({
+        sucess: false,
+        message: 'Todos os campos são obrigatórios'
+      });
+      return;
+    }
+    this.createDishService.execute(dish);
+    res.send();
+  }
+
+  @Put(':id')
+  @ApiParam({
+    name: 'id',
+    description: 'ID do prato',
+  })
+  @ApiBody({
+    description: 'Dados do prato a serem atualizados',
+    type: CreateDishDto,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Prato atualizado com sucesso',
+    type: ListDishDtoResponse,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Prato não encontrado',
+    type: Http404,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao atualizar prato',
+    type: Http400,
+  })
+  async update(@Param('id') id: string, @Body() dishData: DishInterface, @Res() res: Response): Promise<DishInterface> {
+    const expectedFields = ['restaurantId', 'name', 'description', 'price', 'image'];
+    const receivedFields = Object.keys(dishData);
+    const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+    const dish = await this.updateDishService.execute(Number(id), dishData);
+
+    if (invalidFields.length > 0) {
+      res.status(400).json({
+        success: false,
+        message: `Campos inválidos: ${invalidFields.join(', ')}`,
+      });
+      return;
+    }
+    if (!dish) {
+      res.status(404).json({
+        success: false,
+        message: 'Prato não encontrado',
+      });
+      return;
+    }
+    res.status(200).json(dish);
+  }
+
+  @Delete(':id')
+  @ApiParam({
+    name: 'id',
+    description: 'ID do prato a ser deletado',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Prato deletado com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Prato não encontrado',
+    type: Http404,
+  })
+  async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
+  const dish = await this.getDishByIdService.execute(Number(id));
+  if (!dish) {
+      res.status(404).json({
+        success: false,
+        message: 'Prato não encontrado',
+      });
+      return;
+    }
+    this.deleteDishService.execute(Number(id));
+    res.status(200).json({
+      success: true,
+      message: 'Prato deletado com sucesso',
+    });
+  }
+
+  @Get('by-restaurant/:restaurantId')
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de pratos do restaurante com suas avaliações',
+    isArray: true,
+    type: ListDishRatingDtoResponse,
+  })
+  async listByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
+    const dishes = await this.listDishesByRestaurantService.execute(Number(restaurantId));
+    res.status(200).json(dishes);
+  }
+
+  @Get('by-restaurant/:restaurantId/average-rating')
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de pratos do restaurante com média das avaliações',
+    isArray: true,
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          restaurantId: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Prato X' },
+          price: { type: 'number', example: 25.5 },
+          averageRating: { type: 'number', example: 4.5, nullable: true },
+        },
+      },
+    },
+  })
+  async averageRatingByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
+    const dishes: AverageRatingDishInterface[] = await this.averageRatingByRestaurantService.execute(Number(restaurantId));
+    res.status(200).json(dishes);
+  }
+}
