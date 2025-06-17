@@ -8,7 +8,7 @@ import { CompanyRepository } from 'src/infrastructure/database/repositories/comp
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { userProvider } from 'src/infrastructure/providers/user.provider';
-import { JwtStrategy } from '../../../use-cases/user/strategies/jwt.strategy';
+import { JwtStrategy } from '../../../infrastructure/strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({

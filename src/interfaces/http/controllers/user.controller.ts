@@ -14,7 +14,7 @@ import { UserInterface } from "src/domain/models/user.interface";
 import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
 import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
 import { AuthService } from "../../../application/use-cases/login.service";
-import { JwtAuthGuard } from "../../../use-cases/user/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "../../../infrastructure/guards/jwt-auth.guard";
 import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.service";
 
 @ApiTags('User API')
