@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { DayOfWeek } from "src/database/interfaces/employee-weekly-orders.interface";
-import { OrderItemEntityInterface } from "src/database/interfaces/order-item.interface";
+import { DayOfWeek } from "src/domain/repositories/employee-weekly-orders.interface";
+import { OrderItemEntityInterface } from "src/domain/repositories/order-item.interface";
 
 export class EmployeeWeeklyOrderResponse {
     @ApiProperty({
