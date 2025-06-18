@@ -7,6 +7,8 @@ import { GetByRestaurantAndUserService } from "../../../application/use-cases/ge
 import { UpdateRestaurantRatingService } from "../../../application/use-cases/update-restaurant-rating.service";
 import { DeleteRestaurantRatingService } from "../../../application/use-cases/delete-restaurant-rating.service";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRatingDtoResponse";
+import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRatingDto";
 
 @ApiTags('Restaurant Rating API')
 @Controller('restaurant-rating')
@@ -23,11 +25,13 @@ export class RestaurantRatingController {
     @ApiParam({
         name: 'restaurantId',
         description: 'ID do restaurante',
+
     })
     @ApiResponse({
         status: 200,
         description: 'Consulta realizada com sucesso',
         isArray: true,
+        type: ListRestaurantAverageRatingDtoResponse,
     })
     @ApiResponse({
         status: 500,
@@ -49,6 +53,7 @@ export class RestaurantRatingController {
     @ApiParam({
         name: 'restaurantId',
         description: 'ID do restaurante',
+        type: ListRestaurantAverageRatingDtoResponse,
     })
     @ApiParam({
         name: 'userId',
@@ -80,7 +85,7 @@ export class RestaurantRatingController {
     @Post()
     @ApiBody({
         description: 'Dados da avaliação a serem criados',
-        type: Object,
+        type: CreateRestaurantRatingDto,
     })
     @ApiResponse({
         status: 201,
@@ -107,10 +112,11 @@ export class RestaurantRatingController {
     @ApiParam({
         name: 'id',
         description: 'ID da avaliação',
+        type: CreateRestaurantRatingDto,
     })
     @ApiBody({
         description: 'Dados para atualizar a avaliação',
-        type: Object,
+        type: CreateRestaurantRatingDto,
     })
     @ApiResponse({
         status: 200,
