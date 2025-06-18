@@ -7,14 +7,16 @@ module.exports = {
       {
         id: 1,
         dishId: 1,
-        userId: 1,
+        userId: 3,
         rating: 5,
+        description: 'Prato muito bom',
       },
       {
         id: 2,
         dishId: 1,
-        userId: 1,
+        userId: 3,
         rating: 3,
+        description: 'Prato bom, mas poderia ser melhor',
       }
     ]);
   },

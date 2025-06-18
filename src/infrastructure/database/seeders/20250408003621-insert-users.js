@@ -13,19 +13,19 @@ module.exports = {
         id: 1,
         email: 'admin@tech.com',
         password: hashedPassword,
-        user_type: 'restaurant',
+        userType: 'restaurant',
       },
       {
         id: 2,
         email: 'company@tech.com',
         password: hashedPassword,
-        user_type: 'company',
+        userType: 'company',
       },
       {
         id: 3,
         email: 'employee@tech.com',
         password: hashedPassword,
-        user_type: 'employee',
+        userType: 'employee',
       }
     ]);
   },

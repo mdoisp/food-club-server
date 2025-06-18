@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from '
 import { UserEntity } from './user.entity';
 import { DishEntity } from './dish.entity';
 import { CompanyOrderEntity } from './company-order.entity';
+import { RestaurantRatingEntity } from './restaurant-rating.entity';
 
 @Table({ tableName: 'restaurant', timestamps: false })
 export class RestaurantEntity extends Model {
@@ -59,4 +60,7 @@ export class RestaurantEntity extends Model {
 
   @HasMany(() => CompanyOrderEntity)
   companyOrders: CompanyOrderEntity[];
+
+  @HasMany(() => RestaurantRatingEntity)
+  restaurantRatings: RestaurantRatingEntity[];
 }

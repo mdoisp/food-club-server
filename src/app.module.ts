@@ -17,11 +17,13 @@ import { DishRatingModule } from './interfaces/http/dish-rating.module';
 import { AuthModule } from './interfaces/http/auth.module';
 import { EmployeeWeeklyOrdersModule } from './interfaces/http/employee-weekly-orders.module';
 import { EmployeeWeeklyOrdersController } from './interfaces/http/controllers/employee-weekly-orders.controller';
+import { RestaurantRatingModule } from './interfaces/http/restaurant-rating.module';
+import { RestaurantRatingController } from './interfaces/http/controllers/restaurant-rating.controller';
 @Module({
   imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule,
-            RestaurantModule, UserModule, AuthModule, EmployeeWeeklyOrdersModule],
+            RestaurantModule, UserModule, AuthModule, EmployeeWeeklyOrdersModule, RestaurantRatingModule],
   controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller,
-                RestaurantController,UserController, EmployeeWeeklyOrdersController],
+                RestaurantController,UserController, EmployeeWeeklyOrdersController, RestaurantRatingController],
   providers: [],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { DishEntityInterface } from "src/domain/repositories/dish.interface";
 import { CompanyOrderEntityInterface } from "src/domain/repositories/company-order.interface";
+import { RestaurantRatingInterface } from './restaurant-rating.interface';
 
 export interface RestaurantInterface {
     id: number;
@@ -11,4 +12,5 @@ export interface RestaurantInterface {
     image?: string;
     dishes?: DishEntityInterface[];
     companyOrders?: CompanyOrderEntityInterface[];
+    restaurantRatings?: RestaurantRatingInterface[];
 }
