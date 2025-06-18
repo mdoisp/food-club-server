@@ -16,6 +16,8 @@ export interface UserInterface {
   userType: UserType;
   verificationToken?: string;
   verificationTokenExpireAt?: Date;
+  cpf?: string;
+  cnpj?: string;
   company?: CompanyEntityInterface;
   employee?: EmployeeEntityInterface;
   restaurant?: RestaurantEntityInterface;

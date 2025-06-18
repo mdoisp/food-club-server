@@ -23,5 +23,12 @@ export class CreateUserDto {
         type: String,
         example: 'admin@tech.com',
     })
-    email: string;
+    email: string;  
+
+    @ApiProperty({
+        description: 'CPF do usuário',
+        type: String,
+        example: '123.456.789-00',
+    })
+    cpf: string;
 }

@@ -23,9 +23,7 @@ export class GetDishByIdService {
      const ratingsWithEmployeeName = await Promise.all(ratings.map(async r => {
        let employeeName = 'Usuário';
        if (r.userId) {
-        console.log('r.userId', r.userId);
          const employee = await this.employeeRepository.findByUserId(r.userId);
-         console.log('employee', employee);
          if (employee && employee.name) employeeName = employee.name;
        }
        return {

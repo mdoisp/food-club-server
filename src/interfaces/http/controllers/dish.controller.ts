@@ -64,7 +64,6 @@ export class DishController {
     type: Http404,
   })
   async getById(@Param('id') id: string, @Res() res: Response): Promise<DishInterface> {
-    console.log('idpesquisado', id);
     const dish = await this.getDishByIdService.execute(Number(id));
     if (!dish) {
       res.status(404).json({

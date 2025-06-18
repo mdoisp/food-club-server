@@ -12,6 +12,7 @@ import { GetUserByEmailService } from "../../application/use-cases/get-byemail.s
 import { AuthService } from "../../application/use-cases/login.service";
 import { JwtService } from "@nestjs/jwt";
 import { AuthModule } from './auth.module';
+import { CreateEmployeeService } from "src/application/use-cases/create-employee.service";
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { AuthModule } from './auth.module';
         DeleteUserService,
         GetUserByEmailService,
         AuthService,
-        JwtService
+        JwtService,
+        CreateEmployeeService
     ],
     exports: [
         ListUsersService,
@@ -39,7 +41,8 @@ import { AuthModule } from './auth.module';
         DeleteUserService,
         GetUserByEmailService,
         AuthService,
-        JwtService
+        JwtService,
+        CreateEmployeeService
     ]
 })
 export class UserModule {}

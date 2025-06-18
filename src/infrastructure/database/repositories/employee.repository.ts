@@ -46,7 +46,6 @@ export class EmployeeRepository {
   }
 
   async findByUserId(userId: number): Promise<EmployeeEntityInterface | null> {
-    console.log('userId', userId);
     return await this.employeeEntity.findOne({ where: { userId } });
   }
 }
