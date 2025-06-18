@@ -13,7 +13,7 @@ export class CreateCompanyService {
         private readonly userRepository: UserRepository
     ) {}
 
-    async execute(company: Omit<CompanyEntityInterface, 'id'>): Promise<CompanyEntityInterface> {
+    async execute(company: CompanyEntityInterface): Promise<CompanyEntityInterface> {
         const { userId, cnpj } = company;
         
         const user = await this.userRepository.getById(userId);
@@ -21,15 +21,24 @@ export class CreateCompanyService {
             throw new BadRequestException('Usuário não encontrado');
         }
 
-        if (!validateCNPJ(cnpj)) {
-            throw new BadRequestException('CNPJ inválido');
-        }
+        // if (!validateCNPJ(cnpj)) {
+        //     throw new BadRequestException('CNPJ inválido');
+        // }
 
-        const existingCompany = await this.companyRepository.findByCnpj(cnpj);
-        if (existingCompany) {
+        const validate = await this.validateUserCreateCompany(company);
+        if(!validate){
             throw new BadRequestException('Já existe uma empresa cadastrada com este CNPJ');
         }
 
         return await this.companyRepository.create(company);
+    }
+
+    async validateUserCreateCompany(company: CompanyEntityInterface): Promise<boolean> {
+        const companies = await this.companyRepository.list();
+        const existingCompany = companies.find(c => c.cnpj === company.cnpj);
+        if(existingCompany){
+            return false;
+        }
+        return true;
     }
 }

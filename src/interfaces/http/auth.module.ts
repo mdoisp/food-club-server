@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseModule } from '../../../infrastructure/database/database.module';
-import { AuthService } from '../../../application/use-cases/login.service';
-import { GetUserByEmailService } from '../../../application/use-cases/get-byemail.service';
+import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { AuthService } from '../../application/use-cases/login.service';
+import { GetUserByEmailService } from '../../application/use-cases/get-byemail.service';
 import { CompanyRepository } from 'src/infrastructure/database/repositories/company.repository';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { userProvider } from 'src/infrastructure/providers/user.provider';
-import { JwtStrategy } from '../../../infrastructure/strategies/jwt.strategy';
+import { JwtStrategy } from '../../infrastructure/strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({

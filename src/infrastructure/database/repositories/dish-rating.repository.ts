@@ -25,8 +25,15 @@ export class DishRatingRepository {
     return await rating.update(ratingData);
   }
 
-  async listByDish(dishId: number): Promise<DishRatingEntityInterface[]> {
-    return await this.dishRatingEntity.findAll({ where: { dishId } });
+  async listByDish(dishId: number): Promise<any[]> {
+    const { UserEntity } = require('../entities/user.entity');
+    const { EmployeeEntity } = require('../entities/employee.entity');
+    return await this.dishRatingEntity.findAll({ 
+      where: { dishId },
+      include: [
+        { model: UserEntity, as: 'user', include: [{ model: EmployeeEntity, as: 'employee' }] },
+      ],
+    });
   }
 
   async delete(id: number): Promise<void> {

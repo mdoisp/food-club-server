@@ -39,4 +39,10 @@ export class ListDishRatingDtoResponse {
     required: false,
   })
   ratings?: DishRatingEntityInterface[];
+
+  @ApiProperty({
+    description: 'Média de avaliações do prato',
+    example: 4.5,
+  })
+  averageRating: number;
 } 

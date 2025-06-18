@@ -25,7 +25,8 @@ export class ListDishesByRestaurantService {
           description: dish.description,
           price: dish.price,
           image: dish.image,
-          ratings: ratings as DishRatingEntityInterface[]
+          ratings: ratings as DishRatingEntityInterface[],
+          averageRating: ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length : 0
         };
       })
     );

@@ -84,7 +84,7 @@ export class EmployeeController {
     description: 'Erro ao criar funcionário',
     type: Http400,
   })
-  create(
+  async create(
     @Body() employee: EmployeeInterface, @Res() res: Response) {
       const { userId, companyId, name, cpf, birthDate } = employee;
       if(!(userId && companyId && name && cpf && birthDate)) {
@@ -94,7 +94,7 @@ export class EmployeeController {
       });
       return;
     }
-    this.createEmployeeService.execute(employee);
+    await this.createEmployeeService.execute(employee);
     res.send();
   }
 
