@@ -3,4 +3,5 @@ export interface DishRatingEntityInterface {
   dishId: number;
   userId: number;
   rating: number;
+  description?: string;
 }

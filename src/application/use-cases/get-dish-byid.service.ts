@@ -30,7 +30,7 @@ export class GetDishByIdService {
          name: employeeName,
          rating: r.rating,
          profileImage: r.user?.profileImage || null,
-         comment: r.comment || null,
+         description: r.description || null,
        };
      }));
      return {
