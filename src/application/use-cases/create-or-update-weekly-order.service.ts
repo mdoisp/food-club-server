@@ -31,7 +31,6 @@ export class CreateOrUpdateWeeklyOrderService {
     }
 
     const existingOrder = await this.employeeWeeklyOrdersRepository.findByEmployeeAndDay(employeeWeeklyOrder.employeeId,employeeWeeklyOrder.dayOfWeek);
-    console.log('existingOrder', existingOrder);
     if (existingOrder) {
       const orderItems = await this.orderItemRepository.create(employeeWeeklyOrder.order);
       individualOrder.orderItemId = orderItems.id;
@@ -42,7 +41,6 @@ export class CreateOrUpdateWeeklyOrderService {
       }
       return updatedWeeklyOrder;
     }else{
-      console.log('individualOrder', employeeWeeklyOrder.order);
       const orderItems = await this.orderItemRepository.create(employeeWeeklyOrder.order);
       individualOrder.orderItemId = orderItems.id;      
     const newOrder = await this.employeeWeeklyOrdersRepository.create(individualOrder);

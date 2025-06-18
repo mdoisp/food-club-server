@@ -24,7 +24,13 @@ module.exports = {
       userType: {
         type: DataTypes.ENUM('company', 'employee', 'restaurant'),
         allowNull: false,
-        field: 'user_type', // Para manter o padrão snake_case no banco
+        field: 'userType',
+      },
+      profileImage: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+        field: 'profile_image',
+        comment: 'Caminho ou URL da imagem de perfil do usuário',
       },
       verificationToken: {
         type: DataTypes.STRING(100),

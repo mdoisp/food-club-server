@@ -37,6 +37,10 @@ await queryInterface.createTable('dish_rating', {
           max: 5,
         },
       },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     });
   },
 
