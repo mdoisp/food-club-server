@@ -13,6 +13,8 @@ import { AuthService } from "../../application/use-cases/login.service";
 import { JwtService } from "@nestjs/jwt";
 import { AuthModule } from './auth.module';
 import { CreateEmployeeService } from "src/application/use-cases/create-employee.service";
+import { CreateRestaurantService } from "src/application/use-cases/create-restaurant.service";
+import { CreateCompanyService } from "src/application/use-cases/create-company.service";
 
 @Module({
   imports: [
@@ -31,7 +33,9 @@ import { CreateEmployeeService } from "src/application/use-cases/create-employee
         GetUserByEmailService,
         AuthService,
         JwtService,
-        CreateEmployeeService
+        CreateEmployeeService,
+        CreateCompanyService,
+        CreateRestaurantService
     ],
     exports: [
         ListUsersService,
@@ -42,7 +46,9 @@ import { CreateEmployeeService } from "src/application/use-cases/create-employee
         GetUserByEmailService,
         AuthService,
         JwtService,
-        CreateEmployeeService
+        CreateEmployeeService,
+        CreateCompanyService,
+        CreateRestaurantService
     ]
 })
 export class UserModule {}

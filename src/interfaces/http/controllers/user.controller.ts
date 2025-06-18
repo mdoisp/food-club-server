@@ -89,6 +89,7 @@ export class UserController {
         type: Http400,
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
+        console.log('user',user);
         const { email, password, userType} = user;
         if (!(email && password && userType)) {
             throw new Error('Todos os campos são obrigatórios');
