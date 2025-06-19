@@ -37,6 +37,13 @@ export class UserEntity extends Model {
   userType: UserType;
 
   @Column({
+    type: DataType.STRING(255),
+    allowNull: true,
+    field: 'profile_image',
+  })
+  profileImage: string;
+
+  @Column({
     type: DataType.STRING(100),
     allowNull: true,
     field: 'verification_token',
