@@ -19,6 +19,7 @@ export interface UserInterface {
   cpf?: string;
   cnpj?: string;
   profileImage?: string;
+  name?: string;
   company?: CompanyEntityInterface;
   employee?: EmployeeEntityInterface;
   restaurant?: RestaurantEntityInterface;
