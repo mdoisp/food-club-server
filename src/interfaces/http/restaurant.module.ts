@@ -9,26 +9,34 @@ import { DatabaseModule } from 'src/infrastructure/database/database.module';
 import { restaurantProvider } from 'src/infrastructure/providers/restaurant.provider';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 import { ListRestaurantService } from '../../application/use-cases/list-restaurant.service';
+import { ListDishesByRestaurantService } from 'src/application/use-cases/list-dishes-by-restaurant.service';
+import { dishProvider } from 'src/infrastructure/providers/dish.provider';
+import { restaurantRatingProvider } from 'src/infrastructure/providers/restaurant-rating.provider';
+import { dishRatingProvider } from 'src/infrastructure/providers/dish-rating.provider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [RestaurantController],
   providers: [
     ...restaurantProvider,
-    // ...restaurantDishProvider,
+    ...dishProvider,
+    ...restaurantRatingProvider,
+    ...dishRatingProvider,
     RestaurantRepository,
     ListRestaurantService,
     GetRestaurantByIdService, 
     CreateRestaurantService, 
     UpdateRestaurantService, 
-    DeleteRestaurantService
+    DeleteRestaurantService,
+    ListDishesByRestaurantService
   ],
   exports: [
     ListRestaurantService,
     GetRestaurantByIdService, 
     CreateRestaurantService, 
     UpdateRestaurantService, 
-    DeleteRestaurantService
+    DeleteRestaurantService,
+    ListDishesByRestaurantService
   ]
 })
 export class RestaurantModule {}
