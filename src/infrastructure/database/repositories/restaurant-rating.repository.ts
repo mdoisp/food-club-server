@@ -25,7 +25,7 @@ export class RestaurantRatingRepository {
     return await rating.update(ratingData);
   }
 
-  async listByRestaurant(restaurantId: number): Promise<any[]> {
+  async listByRestaurant(restaurantId: number): Promise<RestaurantRatingEntityInterface[]> {
     const { UserEntity } = require('../entities/user.entity');
     return await this.restaurantRatingEntity.findAll({ 
       where: { restaurantId },
