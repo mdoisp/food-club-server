@@ -4,6 +4,7 @@ import { EmployeeEntityInterface } from "./employee.interface";
 export interface CompanyEntityInterface {
   id: number;
   userId: number;
+  restaurantId: number;
   name: string;
   cnpj: string;
   cep: string;

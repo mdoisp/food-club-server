@@ -11,6 +11,7 @@ module.exports = {
         name: 'João da Silva',
         cpf: '123.456.789-00',
         birthDate: '1990-01-01',
+        vacation: false,
       }
     ]);
   },
