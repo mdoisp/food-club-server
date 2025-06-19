@@ -3,6 +3,7 @@ import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.int
 
 export interface DishInterface {
   id: number;
+  restaurantName?: string;
   restaurantId: number;
   name: string;
   description: string;

@@ -4,6 +4,7 @@ import { DishRepository } from '../../infrastructure/database/repositories/dish.
 import { DishRatingRepository } from 'src/infrastructure/database/repositories/dish-rating.repository';
 import { DishRatingEntityInterface } from 'src/domain/repositories/dish-rating.interface';
 import { EmployeeRepository } from '../../infrastructure/database/repositories/employee.repository';
+import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 
 @Injectable()
 export class GetDishByIdService {
@@ -13,10 +14,13 @@ export class GetDishByIdService {
     @Inject('DISH_RATING_REPOSITORY')
     private readonly dishRatingRepository: DishRatingRepository,
     @Inject('EMPLOYEE_REPOSITORY')
-    private readonly employeeRepository: EmployeeRepository
+    private readonly employeeRepository: EmployeeRepository,
+    @Inject('RESTAURANT_REPOSITORY')
+    private readonly restaurantRepository: RestaurantRepository
   ){}
   async execute(id: number): Promise<any> {
      const dish = await this.dishRepository.getById(id);
+     const restaurant = await this.restaurantRepository.getById(dish.restaurantId);
      const ratings = await this.dishRatingRepository.listByDish(dish.id);
      const ratingCount = ratings.length;
      const averageRating = ratingCount > 0 ? ratings.reduce((sum, r) => sum + r.rating, 0) / ratingCount : 0;
@@ -35,6 +39,7 @@ export class GetDishByIdService {
      }));
      return {
       restaurantId: dish.restaurantId,
+      restaurantName: restaurant.name,
       name: dish.name,
       description: dish.description,
       price: dish.price,
