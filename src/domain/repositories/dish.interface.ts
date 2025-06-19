@@ -4,6 +4,7 @@ import { OrderItemEntityInterface } from "./order-item.interface";
 export interface DishEntityInterface {
   id: number;
   restaurantId: number;
+  restaurantName?: string;
   name: string;
   description: string;
   price: number;
