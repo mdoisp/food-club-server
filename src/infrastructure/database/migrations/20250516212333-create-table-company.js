@@ -19,6 +19,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      restaurantId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'restaurant',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       name: {
         type: DataTypes.STRING(100),
         allowNull: false,

@@ -7,6 +7,7 @@ module.exports = {
       {
         id: 1,
         userId: 2,
+        restaurantId: 1,
         name: 'Food Club',
         cnpj: '12.345.678/0001-90',
         cep: '12345-678',

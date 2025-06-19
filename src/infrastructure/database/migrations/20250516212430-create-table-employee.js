@@ -38,6 +38,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      vacation: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+        field: 'vacation',
+      },
       birthDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
