@@ -24,7 +24,7 @@ module.exports = {
       userType: {
         type: DataTypes.ENUM('company', 'employee', 'restaurant'),
         allowNull: false,
-        field: 'userType',
+        field: 'user_type',
       },
       profileImage: {
         type: DataTypes.STRING(255),

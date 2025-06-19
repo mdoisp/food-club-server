@@ -1,9 +1,9 @@
 import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
-import { DishEntity } from './dish.entity';
+import { RestaurantEntity } from './restaurant.entity';
 import { UserEntity } from './user.entity';
 
-@Table({ tableName: 'dish_rating', timestamps: false })
-export class DishRatingEntity extends Model {
+@Table({ tableName: 'restaurant_rating', timestamps: false })
+export class RestaurantRatingEntity extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -11,15 +11,15 @@ export class DishRatingEntity extends Model {
   })
   id: number;
 
-  @ForeignKey(() => DishEntity) 
+  @ForeignKey(() => RestaurantEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'dishId',
+    field: 'restaurantId',
   })
-  dishId: number;
+  restaurantId: number;
 
-  @ForeignKey(() => UserEntity) 
+  @ForeignKey(() => UserEntity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -38,18 +38,18 @@ export class DishRatingEntity extends Model {
   rating: number;
 
   @Column({
-    type: DataType.STRING(255),
-    allowNull: true,
+    type: DataType.STRING,
+    allowNull: false,
   })
   description: string;
 
-  @BelongsTo(() => DishEntity, {
-    foreignKey: 'dishId'
+  @BelongsTo(() => RestaurantEntity, {
+    foreignKey: 'restaurantId'
   })
-  dish: DishEntity;
+  restaurant: RestaurantEntity;
 
   @BelongsTo(() => UserEntity, {
-    foreignKey: 'userId' 
+    foreignKey: 'userId'
   })
   user: UserEntity;
-}
+} 

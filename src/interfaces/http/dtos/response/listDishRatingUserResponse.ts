@@ -23,5 +23,5 @@ export class ListDishRatingUserResponse {
     description: 'Comentário do usuário',
     example: 'Muito bom!',
   })
-  comment: string;
+  description: string;
 }
