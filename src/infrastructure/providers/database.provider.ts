@@ -10,6 +10,7 @@ import { CompanyAffiliateRestaurantEntity } from "../database/entities/company-a
 import { IndividualOrderEntity } from "../database/entities/individual-order.entity";
 import { EmployeeWeeklyOrdersEntity } from "../database/entities/employee-weekly-orders.entity";
 import { CompanyOrderEntity } from "../database/entities/company-order.entity";
+import { RestaurantRatingEntity } from "../database/entities/restaurant-rating.entity";
 
 export const databaseProvider = [
     {
@@ -21,7 +22,8 @@ export const databaseProvider = [
             });
 
             sequelize.addModels([DishEntity, CompanyEntity, EmployeeEntity, RestaurantEntity, UserEntity, DishRatingEntity, OrderItemEntity,
-                                 CompanyAffiliateRestaurantEntity, IndividualOrderEntity, EmployeeWeeklyOrdersEntity, CompanyOrderEntity]);
+                                 CompanyAffiliateRestaurantEntity, IndividualOrderEntity, EmployeeWeeklyOrdersEntity, CompanyOrderEntity,
+                                 RestaurantRatingEntity]);
             return sequelize;
         }
     }
