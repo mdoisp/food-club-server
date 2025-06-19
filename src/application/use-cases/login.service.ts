@@ -62,21 +62,36 @@ export class AuthService {
       case 'company':
         const company = await this.companyRepository.findByUserId(user.id);
         return {
-          ...user,
+          id: user.id,
+          email: user.email,
+          userType: user.userType,
+          profileImage: user.profileImage,
+          name: company.name,
           password: undefined, // Remove a senha dos detalhes retornados
           company,
         };
       case 'employee':
         const employee = await this.employeeRepository.findByUserId(user.id);
-        return {
-          ...user,
+        console.log('employee', employee);
+        const userDetails = {
+          id: user.id,
+          email: user.email,
+          userType: user.userType,
+          profileImage: user.profileImage,
+          name: employee.name,
           password: undefined,
           employee,
         };
+        console.log('userDetails', userDetails);
+        return userDetails;
       case 'restaurant':
         const restaurant = await this.restaurantRepository.findByUserId(user.id);
         return {
-          ...user,
+          id: user.id,
+          email: user.email,
+          userType: user.userType,
+          profileImage: user.profileImage,
+          name: restaurant.name,
           password: undefined,
           restaurant,
         };
