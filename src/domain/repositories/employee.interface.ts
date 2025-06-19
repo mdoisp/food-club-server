@@ -8,6 +8,7 @@ export interface EmployeeEntityInterface {
   name: string;
   cpf: string;
   birthDate: Date;
+  vacation: boolean;
   individualOrders?: IndividualOrderEntityInterface[];
   // weeklyOrders?: EmployeeWeeklyOrdersEntityInterface[];
 }

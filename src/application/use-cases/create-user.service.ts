@@ -42,6 +42,7 @@ export class CreateUserService {
                 userId: data.id,
                 cep: data.company.cep,
                 number: data.company.number,
+                restaurantId: data.restaurant.id,
             });
             if (!validate) {
                 throw new BadRequestException('CNPJ já cadastrado');
@@ -68,6 +69,7 @@ export class CreateUserService {
                 companyId: data.company.id,
                 userId: data.id,
                 birthDate: data.employee.birthDate,
+                vacation: data.employee.vacation,
             });
         }
         if(data.userType === 'company'){
@@ -78,6 +80,7 @@ export class CreateUserService {
                 userId: data.id,
                 cep: data.company.cep,
                 number: data.company.number,
+                restaurantId: data.restaurant.id,
             });
         }
         if(data.userType === 'restaurant'){

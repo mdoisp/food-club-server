@@ -72,8 +72,7 @@ export class AuthService {
         };
       case 'employee':
         const employee = await this.employeeRepository.findByUserId(user.id);
-        console.log('employee', employee);
-        const userDetails = {
+        return {
           id: user.id,
           email: user.email,
           userType: user.userType,
@@ -82,8 +81,6 @@ export class AuthService {
           password: undefined,
           employee,
         };
-        console.log('userDetails', userDetails);
-        return userDetails;
       case 'restaurant':
         const restaurant = await this.restaurantRepository.findByUserId(user.id);
         return {
