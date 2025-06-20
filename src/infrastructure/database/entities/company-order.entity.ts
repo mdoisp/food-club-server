@@ -2,7 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from '
 import { CompanyEntity } from './company.entity';
 import { RestaurantEntity } from './restaurant.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
-import { CompanyOrderStatus } from '../../../domain/repositories/company-order.interface';
+import { CompanyOrderStatus } from '../../../domain/repositories/company-order.repository.interface';
 
 @Table({ tableName: 'company_order', timestamps: false })
 export class CompanyOrderEntity extends Model {

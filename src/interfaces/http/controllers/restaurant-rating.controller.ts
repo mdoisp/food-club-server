@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Param, Post, Res, Put, Delete } from "@nestjs/common";
 import { Response } from "express";
-import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.interface";
-import { GetListByRestaurantService } from "../../../application/use-cases/list-byrestaurant.service";
-import { CreateRestaurantRatingService } from "../../../application/use-cases/create-restaurant-rating.service";
-import { GetByRestaurantAndUserService } from "../../../application/use-cases/get-byrestaurant-and-user.service";
-import { UpdateRestaurantRatingService } from "../../../application/use-cases/update-restaurant-rating.service";
-import { DeleteRestaurantRatingService } from "../../../application/use-cases/delete-restaurant-rating.service";
+import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.repository.interface";
+import { GetListByRestaurantService } from "../../../application/use-cases/list-byrestaurant.use-cases";
+import { CreateRestaurantRatingService } from "../../../application/use-cases/create-restaurant-rating.use-cases";
+import { GetByRestaurantAndUserService } from "../../../application/use-cases/get-byrestaurant-and-user.use-cases";
+import { UpdateRestaurantRatingService } from "../../../application/use-cases/update-restaurant-rating.use-cases";
+import { DeleteRestaurantRatingService } from "../../../application/use-cases/delete-restaurant-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRatingDtoResponse";
-import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRatingDto";
+import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRating.dto";
+import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRating.dto";
 
 @ApiTags('Restaurant Rating API')
 @Controller('restaurant-rating')
