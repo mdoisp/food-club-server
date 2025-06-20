@@ -21,10 +21,6 @@ export class CreateCompanyService {
             throw new BadRequestException('Usuário não encontrado');
         }
 
-        // if (!validateCNPJ(cnpj)) {
-        //     throw new BadRequestException('CNPJ inválido');
-        // }
-
         const validate = await this.validateUserCreateCompany(company);
         if(!validate){
             throw new BadRequestException('Já existe uma empresa cadastrada com este CNPJ');
