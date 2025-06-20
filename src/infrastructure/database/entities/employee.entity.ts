@@ -49,6 +49,14 @@ export class EmployeeEntity extends Model {
   })
   birthDate: Date;
 
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    field: 'vacation',
+    defaultValue: false,
+  })
+  vacation: boolean;
+
   @BelongsTo(() => UserEntity)
   user: UserEntity;
 

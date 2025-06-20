@@ -1,12 +1,12 @@
 import { Controller, Post, Get, Delete, Body, Param, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { CreateEmployeeWeeklyOrderDto } from 'src/interfaces/http/dtos/request/createEmployeeWeeklyOrderDto';
-import { EmployeeWeeklyOrderResponse } from 'src/interfaces/http/dtos/response/employeeWeeklyOrderResponse';
-import { CreateOrUpdateWeeklyOrderService } from '../../../application/use-cases/create-or-update-weekly-order.service'; 
-import { GetWeeklyOrdersByEmployeeService } from '../../../application/use-cases/get-weekly-orders-by-employee.service';
-import { DeleteWeeklyOrderService } from '../../../application/use-cases/delete-weekly-order.service';
-import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.interface';
-import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.interface';
+import { CreateEmployeeWeeklyOrderDto } from 'src/interfaces/http/dtos/request/createEmployeeWeeklyOrder.dto';
+import { EmployeeWeeklyOrderResponse } from 'src/interfaces/http/dtos/response/employeeWeeklyOrder.dto';
+import { CreateOrUpdateWeeklyOrderService } from '../../../application/use-cases/create-or-update-weekly-order.use-cases'; 
+import { GetWeeklyOrdersByEmployeeService } from '../../../application/use-cases/get-weekly-orders-by-employee.use-cases';
+import { DeleteWeeklyOrderService } from '../../../application/use-cases/delete-weekly-order.use-cases';
+import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.repository.interface';
+import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.repository.interface';
 
 @ApiTags('Pedidos Semanais dos Funcionários')
 @Controller('employee-weekly-orders')

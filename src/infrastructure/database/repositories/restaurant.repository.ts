@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { RestaurantEntity } from '../entities/restaurant.entity';
-import { RestaurantEntityInterface } from '../../../domain/repositories/restaurant.interface';
+import { RestaurantEntityInterface } from '../../../domain/repositories/restaurant.repository.interface';
 
 @Injectable()
 export class RestaurantRepository {

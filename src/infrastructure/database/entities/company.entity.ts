@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from '
 import { UserEntity } from './user.entity';
 import { EmployeeEntity } from './employee.entity';
 import { CompanyAffiliateRestaurantEntity } from './company-affiliate-restaurant.entity';
+import { RestaurantEntity } from './restaurant.entity';
 
 @Table({ tableName: 'company', timestamps: false })
 export class CompanyEntity extends Model {
@@ -44,6 +45,14 @@ export class CompanyEntity extends Model {
     allowNull: false,
   })
   number: string;
+
+  @ForeignKey(() => RestaurantEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'restaurantId',
+  })
+  restaurantId: number;
 
   @BelongsTo(() => UserEntity)
   user: UserEntity;

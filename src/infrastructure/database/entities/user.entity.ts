@@ -2,7 +2,7 @@ import { Table, Model, Column, DataType, HasOne } from 'sequelize-typescript';
 import { CompanyEntity } from './company.entity';
 import { EmployeeEntity } from './employee.entity';
 import { RestaurantEntity } from './restaurant.entity';
-import { UserType } from '../../../domain/repositories/user.interface';
+import { UserType } from '../../../domain/repositories/user.repository.interface';
 
 @Table({ tableName: 'user', timestamps: false })
 export class UserEntity extends Model {
@@ -35,6 +35,13 @@ export class UserEntity extends Model {
     field: 'user_type',
   })
   userType: UserType;
+
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: true,
+    field: 'profile_image',
+  })
+  profileImage: string;
 
   @Column({
     type: DataType.STRING(100),

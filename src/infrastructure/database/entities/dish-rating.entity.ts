@@ -37,6 +37,12 @@ export class DishRatingEntity extends Model {
   })
   rating: number;
 
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: true,
+  })
+  description: string;
+
   @BelongsTo(() => DishEntity, {
     foreignKey: 'dishId'
   })

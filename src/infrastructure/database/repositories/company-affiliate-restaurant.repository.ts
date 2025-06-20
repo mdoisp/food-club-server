@@ -1,6 +1,6 @@
 // repositories/
 import { Inject, Injectable } from '@nestjs/common';
-import { CompanyAffiliateRestaurantEntityInterface } from '../../../domain/repositories/company-affiliate-restaurant.interface';
+import { CompanyAffiliateRestaurantEntityInterface } from '../../../domain/repositories/company-affiliate-restaurant.repository.interface';
 import { CompanyAffiliateRestaurantEntity } from '../entities/company-affiliate-restaurant.entity';
 
 @Injectable()

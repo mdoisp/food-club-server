@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IndividualOrderEntity } from '../entities/individual-order.entity';
-import { IndividualOrderEntityInterface } from '../../../domain/repositories/individual-order.interface';
+import { IndividualOrderEntityInterface } from '../../../domain/repositories/individual-order.repository.interface';
 
 @Injectable()
 export class IndividualOrderRepository {
