@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DishEntity } from '../entities/dish.entity';
-import { DishEntityInterface } from '../../../domain/repositories/dish.interface';
+import { DishEntityInterface } from '../../../domain/repositories/dish.repository.interface';
 
 @Injectable()
 export class DishRepository {
