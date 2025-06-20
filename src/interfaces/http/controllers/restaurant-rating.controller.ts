@@ -7,8 +7,8 @@ import { GetByRestaurantAndUserService } from "../../../application/use-cases/ge
 import { UpdateRestaurantRatingService } from "../../../application/use-cases/update-restaurant-rating.use-cases";
 import { DeleteRestaurantRatingService } from "../../../application/use-cases/delete-restaurant-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRatingDtoResponse";
-import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRatingDto";
+import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRating.dto";
+import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRating.dto";
 
 @ApiTags('Restaurant Rating API')
 @Controller('restaurant-rating')

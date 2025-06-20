@@ -9,14 +9,14 @@ import { Response } from 'express';
 import { DishEntityInterface } from 'src/domain/repositories/dish.repository.interface';
 import { ListDishesService } from '../../../application/use-cases/list-dishes.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDishDtoResponse';
+import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDish.dto';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
-import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDishDto';
+import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDish.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { ListDishesByRestaurantService } from '../../../application/use-cases/list-dishes-by-restaurant.use-cases';
 import { AverageRatingByRestaurantService } from '../../../application/use-cases/average-rating-by-restaurant.use-cases';
 import { AverageRatingDishInterface } from '../../../domain/models/average-rating-dish.model';
-import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRatingDtoResponse';
+import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRating.dto';
 
 @ApiTags('Dish API')
 @Controller('Dish')

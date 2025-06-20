@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { DayOfWeek } from "src/domain/repositories/employee-weekly-orders.repository.interface";
 import { OrderItemEntityInterface } from "src/domain/repositories/order-item.repository.interface";
-import { CreateOrderItemDto } from "./createOrderItemDto";
+import { CreateOrderItemDto } from "./createOrderItem.dto";
 
 export class CreateEmployeeWeeklyOrderDto {
     @ApiProperty({

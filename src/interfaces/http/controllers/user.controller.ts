@@ -6,13 +6,13 @@ import { ListUsersService } from "../../../application/use-cases/list-users.use-
 import { UpdateUserService } from "../../../application/use-cases/update-user.use-cases";
 import { Response } from "express";
 import { ApiBody, ApiParam, ApiResponse, ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
-import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserDtoResponse";
-import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
+import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUser.dto";
+import { CreateUserDto } from "src/interfaces/http/dtos/request/createUser.dto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
 import { UserInterface } from "src/domain/models/user.model";
-import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
-import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
+import { LoginDto } from "src/interfaces/http/dtos/request/login.dto";
+import { LoginResponseDto } from "src/interfaces/http/dtos/response/login.dto";
 import { AuthService } from "../../../application/use-cases/login.use-cases";
 import { JwtAuthGuard } from "../../../infrastructure/guards/jwt-auth.guard";
 import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.use-cases";

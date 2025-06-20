@@ -7,8 +7,8 @@ import { GetByDishAndUserService } from "../../../application/use-cases/get-bydi
 import { UpdateDishRatingService } from "../../../application/use-cases/update-dish-rating.use-cases";
 import { DeleteDishRatingService } from "../../../application/use-cases/delete-dish-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRatingDtoResponse';
-import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRatingDto';
+import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRating.dto';
+import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRating.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 

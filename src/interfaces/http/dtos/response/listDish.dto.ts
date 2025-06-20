@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { CompanyEntityInterface } from "src/domain/repositories/company.repository.interface";
 import { DishRatingEntityInterface } from "src/domain/repositories/dish-rating.repository.interface";
-import { ListDishRatingUserResponse } from "./listDishRatingUserResponse";
+import { ListDishRatingUserResponse } from "./listDishRatingUser.dto";
 
 export class ListDishDtoResponse {
     @ApiProperty({

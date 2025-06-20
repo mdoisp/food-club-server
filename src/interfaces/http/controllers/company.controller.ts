@@ -8,10 +8,10 @@ import { CompanyInterface } from 'src/domain/models/company.model';
 import { CompanyEntityInterface } from 'src/domain/repositories/company.repository.interface';
 import { ListCompaniesService } from '../../../application/use-cases/list-companies.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ListCompanyDtoResponse } from 'src/interfaces/http/dtos/response/listCompanyDtoResponse';
+import { ListCompanyDtoResponse } from 'src/interfaces/http/dtos/response/listCompany.dto';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
-import { CreateCompanyDto } from 'src/interfaces/http/dtos/request/createCompanyDto';
+import { CreateCompanyDto } from 'src/interfaces/http/dtos/request/createCompany.dto';
 
 @ApiTags('Company API')
 @Controller('company')

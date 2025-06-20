@@ -9,8 +9,8 @@ import { Response } from 'express';
 import { EmployeeEntityInterface } from 'src/domain/repositories/employee.repository.interface';
 import { ListEmployeesService } from '../../../application/use-cases/list-employees.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ListEmployeeDtoResponse } from 'src/interfaces/http/dtos/response/listEmployeeDtoResponse';
-import { CreateEmployeeDto } from 'src/interfaces/http/dtos/request/createEmployeeDto';
+import { ListEmployeeDtoResponse } from 'src/interfaces/http/dtos/response/listEmployee.dto';
+import { CreateEmployeeDto } from 'src/interfaces/http/dtos/request/createEmployee.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 

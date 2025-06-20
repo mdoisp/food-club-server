@@ -7,9 +7,9 @@ import { DeleteRestaurantService } from '../../../application/use-cases/delete-r
 import { Response } from 'express';
 import { RestaurantInterface } from 'src/domain/models/restaurant.model';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ListRestaurantDtoResponse } from 'src/interfaces/http/dtos/response/listRestaurantDtoResponse';
+import { ListRestaurantDtoResponse } from 'src/interfaces/http/dtos/response/listRestaurant.dto';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
-import { CreateRestaurantDto } from 'src/interfaces/http/dtos/request/createRestaurantDto';
+import { CreateRestaurantDto } from 'src/interfaces/http/dtos/request/createRestaurant.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { ListRestaurantService } from '../../../application/use-cases/list-restaurant.use-cases';
 
