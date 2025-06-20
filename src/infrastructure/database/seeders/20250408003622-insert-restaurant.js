@@ -7,11 +7,11 @@ module.exports = {
       {
         id: 1,
         userId: 1,
-        name: 'Restaurante Exemplo',
+        name: 'Sabores do Chef',
         cnpj: '12.345.678/0001-90',
         cep: '12345-678',
         number: '123',
-        image: 'https://exemplo.com/imagem.jpg',
+        image: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
       },
       {
         id: 2,
