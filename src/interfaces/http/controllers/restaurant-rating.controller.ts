@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Res, Put, Delete } from "@nestjs/common";
 import { Response } from "express";
-import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.interface";
+import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.repository.interface";
 import { GetListByRestaurantService } from "../../../application/use-cases/list-byrestaurant.use-cases";
 import { CreateRestaurantRatingService } from "../../../application/use-cases/create-restaurant-rating.use-cases";
 import { GetByRestaurantAndUserService } from "../../../application/use-cases/get-byrestaurant-and-user.use-cases";

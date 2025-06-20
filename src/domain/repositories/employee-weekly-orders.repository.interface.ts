@@ -1,6 +1,6 @@
-import { DishEntityInterface } from "./dish.interface";
-import { IndividualOrderEntityInterface } from "./individual-order.interface";
-import { OrderItemEntityInterface } from "./order-item.interface";
+import { DishEntityInterface } from "./dish.repository.interface";
+import { IndividualOrderEntityInterface } from "./individual-order.repository.interface";
+import { OrderItemEntityInterface } from "./order-item.repository.interface";
 
 export type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 

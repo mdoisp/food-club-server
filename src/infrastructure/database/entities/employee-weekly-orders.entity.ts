@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import { EmployeeEntity } from './employee.entity';
 import { IndividualOrderEntity } from './individual-order.entity';
-import { DayOfWeek } from '../../../domain/repositories/employee-weekly-orders.interface';
+import { DayOfWeek } from '../../../domain/repositories/employee-weekly-orders.repository.interface';
 import { OrderItemEntity } from './order-item.entity';
 
 @Table({ tableName: 'employee_weekly_orders', timestamps: false })

@@ -10,7 +10,7 @@ import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserD
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUserDto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
-import { UserInterface } from "src/domain/models/user.interface";
+import { UserInterface } from "src/domain/models/user.model";
 import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
 import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
 import { AuthService } from "../../../application/use-cases/login.use-cases";

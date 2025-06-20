@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/infrastructure/database/repositories/user.repository';
-import { UserInterface } from '../../domain/models/user.interface';
+import { UserInterface } from '../../domain/models/user.model';
 import { AuthService } from './login.use-cases';
 import { CreateEmployeeService } from './create-employee.use-cases';
 import { CreateCompanyService } from './create-company.use-cases';
 import { CreateRestaurantService } from './create-restaurant.use-cases';
-import { EmployeeInterface } from 'src/domain/models/employee.interface';
+import { EmployeeInterface } from 'src/domain/models/employee.model';
 
 @Injectable()
 export class CreateUserService {

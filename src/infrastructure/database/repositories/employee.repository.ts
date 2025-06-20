@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EmployeeEntity } from '../entities/employee.entity';
-import { EmployeeEntityInterface } from '../../../domain/repositories/employee.interface';
+import { EmployeeEntityInterface } from '../../../domain/repositories/employee.repository.interface';
 
 @Injectable()
 export class EmployeeRepository {

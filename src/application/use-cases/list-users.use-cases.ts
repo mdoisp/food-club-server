@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { UserEntityInterface } from "../../domain/repositories/user.interface";
+import { UserEntityInterface } from "../../domain/repositories/user.repository.interface";
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
 
 @Injectable()

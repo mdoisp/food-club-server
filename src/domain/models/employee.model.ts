@@ -1,5 +1,5 @@
-import { EmployeeWeeklyOrdersEntityInterface } from "src/domain/repositories/employee-weekly-orders.interface";
-import { IndividualOrderEntityInterface } from "src/domain/repositories/individual-order.interface";
+import { EmployeeWeeklyOrdersEntityInterface } from "src/domain/repositories/employee-weekly-orders.repository.interface";
+import { IndividualOrderEntityInterface } from "src/domain/repositories/individual-order.repository.interface";
 
 export interface EmployeeInterface {
     id: number;

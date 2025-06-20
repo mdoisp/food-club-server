@@ -4,7 +4,7 @@ import { EmployeeWeeklyOrderResponse } from 'src/interfaces/http/dtos/response/e
 import { EmployeeWeeklyOrdersRepository } from '../../infrastructure/database/repositories/employee-weekly-orders.repository';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { OrderItemRepository } from 'src/infrastructure/database/repositories/order-item.repository';
-import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.interface';
+import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.repository.interface';
 import { DishRepository } from 'src/infrastructure/database/repositories/dish.repository';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DishInterface } from '../../domain/models/dish.interface';
+import { DishInterface } from '../../domain/models/dish.model';
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 

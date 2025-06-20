@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { CompanyAffiliateRestaurantEntityInterface } from "src/domain/repositories/company-affiliate-restaurant.interface";
-import { EmployeeEntityInterface } from "src/domain/repositories/employee.interface";
+import { CompanyAffiliateRestaurantEntityInterface } from "src/domain/repositories/company-affiliate-restaurant.repository.interface";
+import { EmployeeEntityInterface } from "src/domain/repositories/employee.repository.interface";
 
 export class CreateCompanyDto {    
     @ApiProperty({

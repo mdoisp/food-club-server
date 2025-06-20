@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
 import { GetEmployeeByIdService } from '../../../application/use-cases/get-employee-byid.use-cases';
-import { EmployeeInterface } from 'src/domain/models/employee.interface';
+import { EmployeeInterface } from 'src/domain/models/employee.model';
 import { CreateEmployeeService } from '../../../application/use-cases/create-employee.use-cases';
 import { UpdateEmployeeService } from '../../../application/use-cases/update-employee.use-cases';
 import { DeleteEmployeeService } from '../../../application/use-cases/delete-employee.use-cases';
 import { Response } from 'express';
-import { EmployeeEntityInterface } from 'src/domain/repositories/employee.interface';
+import { EmployeeEntityInterface } from 'src/domain/repositories/employee.repository.interface';
 import { ListEmployeesService } from '../../../application/use-cases/list-employees.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListEmployeeDtoResponse } from 'src/interfaces/http/dtos/response/listEmployeeDtoResponse';

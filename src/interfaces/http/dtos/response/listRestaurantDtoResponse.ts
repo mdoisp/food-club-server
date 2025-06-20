@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { DishInterface } from "src/domain/models/dish.interface";
-import { RestaurantRatingInterface } from "src/domain/models/restaurant-rating.interface";
+import { DishInterface } from "src/domain/models/dish.model";
+import { RestaurantRatingInterface } from "src/domain/models/restaurant-rating.model";
 
 export class ListRestaurantDtoResponse {
     @ApiProperty({

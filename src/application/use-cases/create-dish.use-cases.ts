@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
-import { DishInterface } from '../../domain/models/dish.interface';
+import { DishInterface } from '../../domain/models/dish.model';
 
 @Injectable()
 export class CreateDishService {

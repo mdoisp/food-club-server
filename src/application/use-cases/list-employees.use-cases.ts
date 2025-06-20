@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { EmployeeEntityInterface } from 'src/domain/repositories/employee.interface';
+import { EmployeeEntityInterface } from 'src/domain/repositories/employee.repository.interface';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 
 @Injectable()

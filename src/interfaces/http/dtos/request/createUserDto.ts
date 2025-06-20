@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { UserType } from "src/domain/repositories/user.interface";
+import { UserType } from "src/domain/repositories/user.repository.interface";
 
 export class CreateUserDto {
     @ApiProperty({

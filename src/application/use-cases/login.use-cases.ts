@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { GetUserByEmailService } from './get-byemail.use-cases';
-import { UserInterface } from '../../domain/models/user.interface';
+import { UserInterface } from '../../domain/models/user.model';
 import { CompanyRepository } from 'src/infrastructure/database/repositories/company.repository';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';

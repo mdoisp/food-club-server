@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.interface";
+import { RestaurantRatingEntityInterface } from "src/domain/repositories/restaurant-rating.repository.interface";
 import { RestaurantRatingRepository } from "src/infrastructure/database/repositories/restaurant-rating.repository";
 
 @Injectable()

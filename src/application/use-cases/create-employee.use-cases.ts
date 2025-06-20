@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import { EmployeeInterface } from "../../domain/models/employee.interface";
+import { EmployeeInterface } from "../../domain/models/employee.model";
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Res, Put, Delete } from "@nestjs/common";
 import { Response } from "express";
-import { DishRatingEntityInterface } from "src/domain/repositories/dish-rating.interface";
+import { DishRatingEntityInterface } from "src/domain/repositories/dish-rating.repository.interface";
 import { GetListByDishService } from "../../../application/use-cases/list-bydish.use-cases";
 import { CreateDishRatingService } from "../../../application/use-cases/create-dish-rating.use-cases";
 import { GetByDishAndUserService } from "../../../application/use-cases/get-bydish-and-user.use-cases";

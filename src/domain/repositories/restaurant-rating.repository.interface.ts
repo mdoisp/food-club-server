@@ -1,4 +1,4 @@
-import { UserEntityInterface } from "./user.interface";
+import { UserEntityInterface } from "./user.repository.interface";
 
 export interface RestaurantRatingEntityInterface {
   id: number;

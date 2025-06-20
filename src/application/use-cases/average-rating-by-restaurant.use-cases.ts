@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DishInterface } from '../../domain/models/dish.interface';
+import { DishInterface } from '../../domain/models/dish.model';
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
 import { DishRatingRepository } from '../../infrastructure/database/repositories/dish-rating.repository';
-import { AverageRatingDishInterface } from '../../domain/models/average-rating-dish.interface';
+import { AverageRatingDishInterface } from '../../domain/models/average-rating-dish.model';
 
 @Injectable()
 export class AverageRatingByRestaurantService {

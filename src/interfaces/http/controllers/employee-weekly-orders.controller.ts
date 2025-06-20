@@ -5,8 +5,8 @@ import { EmployeeWeeklyOrderResponse } from 'src/interfaces/http/dtos/response/e
 import { CreateOrUpdateWeeklyOrderService } from '../../../application/use-cases/create-or-update-weekly-order.use-cases'; 
 import { GetWeeklyOrdersByEmployeeService } from '../../../application/use-cases/get-weekly-orders-by-employee.use-cases';
 import { DeleteWeeklyOrderService } from '../../../application/use-cases/delete-weekly-order.use-cases';
-import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.interface';
-import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.interface';
+import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.repository.interface';
+import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.repository.interface';
 
 @ApiTags('Pedidos Semanais dos Funcionários')
 @Controller('employee-weekly-orders')

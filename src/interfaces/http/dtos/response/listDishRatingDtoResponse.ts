@@ -1,4 +1,4 @@
-import { DishRatingEntityInterface } from '../../../../domain/repositories/dish-rating.interface';
+import { DishRatingEntityInterface } from '../../../../domain/repositories/dish-rating.repository.interface';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ListDishRatingDtoResponse {

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { RestaurantInterface } from "../../domain/models/restaurant.interface";
+import { RestaurantInterface } from "../../domain/models/restaurant.model";
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 
 @Injectable()

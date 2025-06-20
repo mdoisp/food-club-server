@@ -3,8 +3,8 @@ import { Inject } from '@nestjs/common';
 import { EmployeeWeeklyOrdersRepository } from '../../infrastructure/database/repositories/employee-weekly-orders.repository';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { IndividualOrderRepository } from 'src/infrastructure/database/repositories/individual-order.repository';
-import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.interface';
-import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.interface';
+import { EmployeeWeeklyOrdersEntityInterface } from 'src/domain/repositories/employee-weekly-orders.repository.interface';
+import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.repository.interface';
 import { OrderItemRepository } from 'src/infrastructure/database/repositories/order-item.repository';
 
 @Injectable()

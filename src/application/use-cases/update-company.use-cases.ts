@@ -1,5 +1,5 @@
 import { Inject, Injectable, BadRequestException } from "@nestjs/common";
-import { CompanyEntityInterface } from "../../domain/repositories/company.interface";
+import { CompanyEntityInterface } from "../../domain/repositories/company.repository.interface";
 import { CompanyRepository } from '../../infrastructure/database/repositories/company.repository';
 import { UserRepository } from 'src/infrastructure/database/repositories/user.repository';
 import { validateCNPJ } from '../../domain/utils/cnpj-validator';

@@ -1,4 +1,4 @@
-import { DayOfWeek } from "src/domain/repositories/employee-weekly-orders.interface";
+import { DayOfWeek } from "src/domain/repositories/employee-weekly-orders.repository.interface";
 
 export interface EmployeeWeeklyOrderInterface {
   id: number;

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DishInterface } from '../../domain/models/dish.interface';
+import { DishInterface } from '../../domain/models/dish.model';
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
 import { DishRatingRepository } from '../../infrastructure/database/repositories/dish-rating.repository';
 import { ListDishRatingDtoResponse } from '../../interfaces/http/dtos/response/listDishRatingDtoResponse';
-import { DishRatingEntityInterface } from '../../domain/repositories/dish-rating.interface';
+import { DishRatingEntityInterface } from '../../domain/repositories/dish-rating.repository.interface';
 
 @Injectable()
 export class ListDishesByRestaurantService {

@@ -1,4 +1,4 @@
-import { IndividualOrderEntityInterface } from "./individual-order.interface";
+import { IndividualOrderEntityInterface } from "./individual-order.repository.interface";
 
 export interface OrderItemEntityInterface {
   id: number;

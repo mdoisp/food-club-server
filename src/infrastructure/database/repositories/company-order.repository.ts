@@ -1,6 +1,6 @@
 // repositories/company-order.repository.ts
 import { Inject, Injectable } from '@nestjs/common';
-import { CompanyOrderEntityInterface } from '../../../domain/repositories/company-order.interface';
+import { CompanyOrderEntityInterface } from '../../../domain/repositories/company-order.repository.interface';
 import { CompanyOrderEntity } from '../entities/company-order.entity';
 
 @Injectable()

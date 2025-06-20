@@ -1,5 +1,5 @@
-import { DishRatingEntityInterface } from 'src/domain/repositories/dish-rating.interface';
-import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.interface';
+import { DishRatingEntityInterface } from 'src/domain/repositories/dish-rating.repository.interface';
+import { OrderItemEntityInterface } from 'src/domain/repositories/order-item.repository.interface';
 
 export interface DishInterface {
   id: number;

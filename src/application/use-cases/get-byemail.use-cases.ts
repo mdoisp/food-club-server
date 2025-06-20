@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { UserRepository } from "src/infrastructure/database/repositories/user.repository";
-import { UserInterface } from '../../domain/models/user.interface';
+import { UserInterface } from '../../domain/models/user.model';
 
 @Injectable()
 export class GetUserByEmailService {
