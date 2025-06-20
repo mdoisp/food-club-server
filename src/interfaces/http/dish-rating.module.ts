@@ -2,11 +2,11 @@ import { Module } from "@nestjs/common";
 import { DatabaseModule } from "src/infrastructure/database/database.module";
 import { dishRatingProvider } from "src/infrastructure/providers/dish-rating.provider";
 import { DishRatingControlller } from "./controllers/dish-rating.controller";
-import { UpdateDishRatingService } from "../../application/use-cases/update-dish-rating.service";
-import { DeleteDishRatingService } from "../../application/use-cases/delete-dish-rating.service";
-import { CreateDishRatingService } from "../../application/use-cases/create-dish-rating.service";
-import { GetByDishAndUserService } from "../../application/use-cases/get-bydish-and-user.service";
-import { GetListByDishService } from "../../application/use-cases/list-bydish.service";
+import { UpdateDishRatingService } from "../../application/use-cases/update-dish-rating.use-cases";
+import { DeleteDishRatingService } from "../../application/use-cases/delete-dish-rating.use-cases";
+import { CreateDishRatingService } from "../../application/use-cases/create-dish-rating.use-cases";
+import { GetByDishAndUserService } from "../../application/use-cases/get-bydish-and-user.use-cases";
+import { GetListByDishService } from "../../application/use-cases/list-bydish.use-cases";
 
 @Module({
     imports: [DatabaseModule],

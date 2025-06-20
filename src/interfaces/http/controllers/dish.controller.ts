@@ -1,20 +1,20 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetDishByIdService } from '../../../application/use-cases/get-dish-byid.service';
+import { GetDishByIdService } from '../../../application/use-cases/get-dish-byid.use-cases';
 import { DishInterface } from 'src/domain/models/dish.interface';
-import { CreateDishService } from '../../../application/use-cases/create-dish.service';
-import { UpdateDishService } from '../../../application/use-cases/update-dish.service';
-import { DeleteDishService } from '../../../application/use-cases/delete-dish.service';
+import { CreateDishService } from '../../../application/use-cases/create-dish.use-cases';
+import { UpdateDishService } from '../../../application/use-cases/update-dish.use-cases';
+import { DeleteDishService } from '../../../application/use-cases/delete-dish.use-cases';
 import { Response } from 'express';
 import { DishEntityInterface } from 'src/domain/repositories/dish.interface';
-import { ListDishesService } from '../../../application/use-cases/list-dishes.service';
+import { ListDishesService } from '../../../application/use-cases/list-dishes.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListDishDtoResponse } from 'src/interfaces/http/dtos/response/listDishDtoResponse';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateDishDto } from 'src/interfaces/http/dtos/request/createDishDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
-import { ListDishesByRestaurantService } from '../../../application/use-cases/list-dishes-by-restaurant.service';
-import { AverageRatingByRestaurantService } from '../../../application/use-cases/average-rating-by-restaurant.service';
+import { ListDishesByRestaurantService } from '../../../application/use-cases/list-dishes-by-restaurant.use-cases';
+import { AverageRatingByRestaurantService } from '../../../application/use-cases/average-rating-by-restaurant.use-cases';
 import { AverageRatingDishInterface } from '../../../domain/models/average-rating-dish.interface';
 import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRatingDtoResponse';
 

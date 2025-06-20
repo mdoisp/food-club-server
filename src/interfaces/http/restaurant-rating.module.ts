@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { RestaurantRatingController } from './controllers/restaurant-rating.controller';
-import { CreateRestaurantRatingService } from '../../application/use-cases/create-restaurant-rating.service';
-import { GetListByRestaurantService } from '../../application/use-cases/list-byrestaurant.service';
-import { GetByRestaurantAndUserService } from '../../application/use-cases/get-byrestaurant-and-user.service';
-import { UpdateRestaurantRatingService } from '../../application/use-cases/update-restaurant-rating.service';
-import { DeleteRestaurantRatingService } from '../../application/use-cases/delete-restaurant-rating.service';
+import { CreateRestaurantRatingService } from '../../application/use-cases/create-restaurant-rating.use-cases';
+import { GetListByRestaurantService } from '../../application/use-cases/list-byrestaurant.use-cases';
+import { GetByRestaurantAndUserService } from '../../application/use-cases/get-byrestaurant-and-user.use-cases';
+import { UpdateRestaurantRatingService } from '../../application/use-cases/update-restaurant-rating.use-cases';
+import { DeleteRestaurantRatingService } from '../../application/use-cases/delete-restaurant-rating.use-cases';
 import { restaurantRatingProvider } from '../../infrastructure/providers/restaurant-rating.provider';
 import { DatabaseModule } from 'src/infrastructure/database/database.module';
 import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';

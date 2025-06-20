@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post, Res, Put, Delete } from "@nestjs/common";
 import { Response } from "express";
 import { DishRatingEntityInterface } from "src/domain/repositories/dish-rating.interface";
-import { GetListByDishService } from "../../../application/use-cases/list-bydish.service";
-import { CreateDishRatingService } from "../../../application/use-cases/create-dish-rating.service";
-import { GetByDishAndUserService } from "../../../application/use-cases/get-bydish-and-user.service";
-import { UpdateDishRatingService } from "../../../application/use-cases/update-dish-rating.service";
-import { DeleteDishRatingService } from "../../../application/use-cases/delete-dish-rating.service";
+import { GetListByDishService } from "../../../application/use-cases/list-bydish.use-cases";
+import { CreateDishRatingService } from "../../../application/use-cases/create-dish-rating.use-cases";
+import { GetByDishAndUserService } from "../../../application/use-cases/get-bydish-and-user.use-cases";
+import { UpdateDishRatingService } from "../../../application/use-cases/update-dish-rating.use-cases";
+import { DeleteDishRatingService } from "../../../application/use-cases/delete-dish-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRatingDtoResponse';
 import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRatingDto';

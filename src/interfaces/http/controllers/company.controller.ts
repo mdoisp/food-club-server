@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetCompanyByIdService } from '../../../application/use-cases/get-company-byid.service'
-import { CreateCompanyService } from '../../../application/use-cases/create-company.service';
-import { UpdateCompanyService } from '../../../application/use-cases/update-company.service';
-import { DeleteCompanyService } from '../../../application/use-cases/delete-company.service';
+import { GetCompanyByIdService } from '../../../application/use-cases/get-company-byid.use-cases'
+import { CreateCompanyService } from '../../../application/use-cases/create-company.use-cases';
+import { UpdateCompanyService } from '../../../application/use-cases/update-company.use-cases';
+import { DeleteCompanyService } from '../../../application/use-cases/delete-company.use-cases';
 import { Response } from 'express';
 import { CompanyInterface } from 'src/domain/models/company.interface';
 import { CompanyEntityInterface } from 'src/domain/repositories/company.interface';
-import { ListCompaniesService } from '../../../application/use-cases/list-companies.service';
+import { ListCompaniesService } from '../../../application/use-cases/list-companies.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListCompanyDtoResponse } from 'src/interfaces/http/dtos/response/listCompanyDtoResponse';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';

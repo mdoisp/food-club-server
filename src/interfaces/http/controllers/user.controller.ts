@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UseGuards } from "@nestjs/common";
-import { CreateUserService } from "../../../application/use-cases/create-user.service";
-import { DeleteUserService } from "../../../application/use-cases/delete-user.service";
-import { GetUserByIdService } from "../../../application/use-cases/get-user-byid.service";
-import { ListUsersService } from "../../../application/use-cases/list-users.service";
-import { UpdateUserService } from "../../../application/use-cases/update-user.service";
+import { CreateUserService } from "../../../application/use-cases/create-user.use-cases";
+import { DeleteUserService } from "../../../application/use-cases/delete-user.use-cases";
+import { GetUserByIdService } from "../../../application/use-cases/get-user-byid.use-cases";
+import { ListUsersService } from "../../../application/use-cases/list-users.use-cases";
+import { UpdateUserService } from "../../../application/use-cases/update-user.use-cases";
 import { Response } from "express";
 import { ApiBody, ApiParam, ApiResponse, ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUserDtoResponse";
@@ -13,9 +13,9 @@ import { Http404 } from "src/interfaces/http/dtos/response/http404";
 import { UserInterface } from "src/domain/models/user.interface";
 import { LoginDto } from "src/interfaces/http/dtos/request/loginDto";
 import { LoginResponseDto } from "src/interfaces/http/dtos/response/loginDtoResponse";
-import { AuthService } from "../../../application/use-cases/login.service";
+import { AuthService } from "../../../application/use-cases/login.use-cases";
 import { JwtAuthGuard } from "../../../infrastructure/guards/jwt-auth.guard";
-import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.service";
+import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.use-cases";
 
 @ApiTags('User API')
 @Controller('user')

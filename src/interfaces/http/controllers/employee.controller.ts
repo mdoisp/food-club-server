@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetEmployeeByIdService } from '../../../application/use-cases/get-employee-byid.service';
+import { GetEmployeeByIdService } from '../../../application/use-cases/get-employee-byid.use-cases';
 import { EmployeeInterface } from 'src/domain/models/employee.interface';
-import { CreateEmployeeService } from '../../../application/use-cases/create-employee.service';
-import { UpdateEmployeeService } from '../../../application/use-cases/update-employee.service';
-import { DeleteEmployeeService } from '../../../application/use-cases/delete-employee.service';
+import { CreateEmployeeService } from '../../../application/use-cases/create-employee.use-cases';
+import { UpdateEmployeeService } from '../../../application/use-cases/update-employee.use-cases';
+import { DeleteEmployeeService } from '../../../application/use-cases/delete-employee.use-cases';
 import { Response } from 'express';
 import { EmployeeEntityInterface } from 'src/domain/repositories/employee.interface';
-import { ListEmployeesService } from '../../../application/use-cases/list-employees.service';
+import { ListEmployeesService } from '../../../application/use-cases/list-employees.use-cases';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListEmployeeDtoResponse } from 'src/interfaces/http/dtos/response/listEmployeeDtoResponse';
 import { CreateEmployeeDto } from 'src/interfaces/http/dtos/request/createEmployeeDto';

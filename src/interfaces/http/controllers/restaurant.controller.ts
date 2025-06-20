@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
 
-import { GetRestaurantByIdService } from '../../../application/use-cases/get-restaurant-byid.service'
-import { CreateRestaurantService } from '../../../application/use-cases/create-restaurant.service';
-import { UpdateRestaurantService } from '../../../application/use-cases/update-restaurant.service';
-import { DeleteRestaurantService } from '../../../application/use-cases/delete-restaurant.service';
+import { GetRestaurantByIdService } from '../../../application/use-cases/get-restaurant-byid.use-cases'
+import { CreateRestaurantService } from '../../../application/use-cases/create-restaurant.use-cases';
+import { UpdateRestaurantService } from '../../../application/use-cases/update-restaurant.use-cases';
+import { DeleteRestaurantService } from '../../../application/use-cases/delete-restaurant.use-cases';
 import { Response } from 'express';
 import { RestaurantInterface } from 'src/domain/models/restaurant.interface';
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -11,7 +11,7 @@ import { ListRestaurantDtoResponse } from 'src/interfaces/http/dtos/response/lis
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateRestaurantDto } from 'src/interfaces/http/dtos/request/createRestaurantDto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
-import { ListRestaurantService } from '../../../application/use-cases/list-restaurant.service';
+import { ListRestaurantService } from '../../../application/use-cases/list-restaurant.use-cases';
 
 @ApiTags('Restaurant API')
 @Controller('Restaurant')
