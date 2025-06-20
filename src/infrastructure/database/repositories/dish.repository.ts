@@ -11,7 +11,6 @@ export class DishRepository {
 
   async list(): Promise<DishEntityInterface[]> {
     return await this.dishEntity.findAll({
-      // include: ['ratings'],
     });
   }
   async create(dish: Omit<DishEntityInterface, 'id'>): Promise<DishEntityInterface> {
@@ -28,7 +27,6 @@ export class DishRepository {
 
   async getById(id: number): Promise<DishEntityInterface | null> {
     return await this.dishEntity.findByPk(id, {
-      // include: ['ratings'],
     });
   }
 

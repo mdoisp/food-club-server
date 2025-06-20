@@ -65,7 +65,4 @@ export class EmployeeEntity extends Model {
 
   @HasMany(() => IndividualOrderEntity)
   individualOrders: IndividualOrderEntity[];
-
-  // @HasMany(() => EmployeeWeeklyOrdersEntity)
-  // weeklyOrders: EmployeeWeeklyOrdersEntity[];
 }

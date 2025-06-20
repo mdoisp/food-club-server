@@ -1,4 +1,3 @@
-// migrations/XXXXXX-create-employee-weekly-orders.js
 const { DataTypes } = require('sequelize');
 
 module.exports = {
