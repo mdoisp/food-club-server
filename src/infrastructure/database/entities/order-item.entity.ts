@@ -15,14 +15,6 @@ export class OrderItemEntity extends Model {
   })
   id: number;
 
-  // @ForeignKey(() => IndividualOrderEntity)
-  // @Column({
-  //   type: DataType.INTEGER,
-  //   allowNull: false,
-  //   field: 'individual_order_id',
-  // })
-  // individualOrderId: number;
-
   @ForeignKey(() => DishEntity)
   @Column({
     type: DataType.INTEGER,
@@ -37,12 +29,6 @@ export class OrderItemEntity extends Model {
     defaultValue: 1,
   })
   quantity: number;
-
-  // @BelongsTo(() => IndividualOrderEntity, {
-  //   foreignKey: 'individual_order_id',
-  //   as: 'individualOrder'
-  // })
-  // individualOrder: IndividualOrderEntity;
 
   @BelongsTo(() => DishEntity, {
     foreignKey: 'dishId',

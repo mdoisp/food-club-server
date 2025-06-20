@@ -10,5 +10,4 @@ export interface EmployeeEntityInterface {
   birthDate: Date;
   vacation: boolean;
   individualOrders?: IndividualOrderEntityInterface[];
-  // weeklyOrders?: EmployeeWeeklyOrdersEntityInterface[];
 }

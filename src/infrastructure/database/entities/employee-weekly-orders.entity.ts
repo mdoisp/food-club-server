@@ -35,16 +35,9 @@ export class EmployeeWeeklyOrdersEntity extends Model {
     field: 'orderItemId',
   })
   orderItemId: number;
-  // @Column({
-  //   type: DataType.INTEGER,
-  //   allowNull: true,
-  //   field: 'individual_order_id',
-  // })
-  // individualOrderId: number;
+
 
   @BelongsTo(() => EmployeeEntity)
   employee: EmployeeEntity;
 
-  // @BelongsTo(() => IndividualOrderEntity, 'individual_order_id')
-  // individualOrder: IndividualOrderEntity;
 }
