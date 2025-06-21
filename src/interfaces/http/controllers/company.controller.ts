@@ -88,8 +88,8 @@ export class CompanyController {
   })
   async create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { userId, name, cnpj, cep, number, restaurantId } = company;
-    if(!(userId && name && cnpj && cep && number && restaurantId)){
+    const { userId, name, cnpj, cep, number } = company;
+    if(!(userId && name && cnpj && cep && number)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'

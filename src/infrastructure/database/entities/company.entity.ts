@@ -49,7 +49,7 @@ export class CompanyEntity extends Model {
   @ForeignKey(() => RestaurantEntity)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: 'restaurantId',
   })
   restaurantId: number;
