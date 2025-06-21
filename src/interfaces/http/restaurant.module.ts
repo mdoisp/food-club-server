@@ -13,6 +13,7 @@ import { DeleteRestaurantService } from 'src/application/use-cases/delete-restau
 import { GetRestaurantByIdService } from 'src/application/use-cases/get-restaurant-byid.use-cases';
 import { ListDishesByRestaurantService } from 'src/application/use-cases/list-dishes-by-restaurant.use-cases';
 import { ListRestaurantService } from 'src/application/use-cases/list-restaurant.use-cases';
+import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';
 
 @Module({
   imports: [DatabaseModule],
@@ -23,6 +24,7 @@ import { ListRestaurantService } from 'src/application/use-cases/list-restaurant
     ...restaurantRatingProvider,
     ...dishRatingProvider,
     RestaurantRepository,
+    RestaurantRatingRepository,
     ListRestaurantService,
     GetRestaurantByIdService, 
     CreateRestaurantService, 
@@ -31,6 +33,8 @@ import { ListRestaurantService } from 'src/application/use-cases/list-restaurant
     ListDishesByRestaurantService
   ],
   exports: [
+    RestaurantRepository,
+    RestaurantRatingRepository,
     ListRestaurantService,
     GetRestaurantByIdService, 
     CreateRestaurantService, 

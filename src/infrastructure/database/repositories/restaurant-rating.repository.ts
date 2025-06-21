@@ -17,6 +17,10 @@ export class RestaurantRatingRepository {
     return await this.restaurantRatingEntity.findOne({ where: { restaurantId, userId } });
   }
 
+  async getByRestaurantId(restaurantId: number): Promise<RestaurantRatingEntityInterface[]> {
+    return await this.restaurantRatingEntity.findAll({ where: { restaurantId } });
+  }
+
   async update(
     id: number,
     ratingData: Partial<Omit<RestaurantRatingEntityInterface, 'id'>>,
