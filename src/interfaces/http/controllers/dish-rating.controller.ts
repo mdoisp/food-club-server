@@ -8,6 +8,7 @@ import { UpdateDishRatingService } from "../../../application/use-cases/update-d
 import { DeleteDishRatingService } from "../../../application/use-cases/delete-dish-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRating.dto';
+import { DishRatingSummaryDtoResponse } from 'src/interfaces/http/dtos/response/dishRatingSummary.dto';
 import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRating.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
@@ -27,8 +28,7 @@ export class DishRatingControlller {
     @ApiResponse({
         status: 200,
         description: 'Consulta realizada com sucesso',
-        isArray: true,
-        type: ListDishAverageRatingDtoResponse,
+        type: DishRatingSummaryDtoResponse,
     })
     @ApiResponse({
         status: 500,
@@ -127,12 +127,26 @@ export class DishRatingControlller {
         @Body() ratingData: Partial<DishRatingEntityInterface>,
         @Res() res: Response
     ) {
-        try {
-            const updated = await this.updateDishRatingService.execute(Number(id), ratingData);
-            res.status(200).json(updated);
-        } catch (error) {
-            res.status(400).json({ success: false, message: error.message });
+        const expectedFields = ['userId', 'dishId', 'rating', 'description'];
+        const receivedFields = Object.keys(ratingData);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        const dish = await this.updateDishRatingService.execute(Number(id), ratingData);
+
+        if (invalidFields.length > 0) {
+        res.status(400).json({
+            success: false,
+            message: `Campos inválidos: ${invalidFields.join(', ')}`,
+        });
+        return;
         }
+        if (!dish) {
+        res.status(404).json({
+            success: false,
+            message: 'Avaliação não encontrada',
+        });
+        return;
+        }
+        res.status(200).json(dish);
     }
 
     @Delete(":id")

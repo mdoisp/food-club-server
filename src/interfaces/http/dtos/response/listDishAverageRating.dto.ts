@@ -2,33 +2,56 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ListDishAverageRatingDtoResponse {
   @ApiProperty({
-    description: 'ID do prato',
-    example: 1,
+    description: 'ID da avaliação',
+    example: 4,
   })
   id: number;
 
   @ApiProperty({
-    description: 'Nome do prato',
-    example: 'Prato X',
+    description: 'Nota da avaliação',
+    example: 5,
   })
-  name: string;
+  rating: number;
+
+  @ApiProperty({
+    description: 'Descrição da avaliação',
+    example: 'Melhores tacos que já comi',
+  })
+  description: string;
+
+  @ApiProperty({
+    description: 'ID do prato',
+    example: 6,
+  })
+  dishId: number;
+
+  @ApiProperty({
+    description: 'Nome do prato',
+    example: 'Tacos al Pastor',
+  })
+  dishName: string;
 
   @ApiProperty({
     description: 'ID do restaurante',
-    example: 1,
+    example: 3,
   })
   restaurantId: number;
 
   @ApiProperty({
-    description: 'Preço do prato',
-    example: 25.5,
+    description: 'Nome do restaurante',
+    example: 'Cantina Mexicana',
   })
-  price: number;
+  restaurantName: string;
 
   @ApiProperty({
-    description: 'Média das avaliações do prato',
-    example: 4.5,
-    nullable: true,
+    description: 'ID do usuário',
+    example: 13,
   })
-  averageRating: number | null;
+  userId: number;
+
+  @ApiProperty({
+    description: 'Nome do funcionário',
+    example: 'Ana Costa',
+  })
+  employeeName: string;
 } 

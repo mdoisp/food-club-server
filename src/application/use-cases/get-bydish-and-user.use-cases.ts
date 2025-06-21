@@ -22,10 +22,10 @@ export class GetByDishAndUserService {
         const dishRating = await this.dishRatingRepository.getByDishAndUser(userId)
         const dishName = await Promise.all(dishRating.map(async (r: DishRatingEntityInterface) => {
             const dish = await this.dishRepository.getById(r.dishId);
-            return dish.name;
+            return {id: dish.id, name: dish.name, restaurantId: dish.restaurantId};
         }));
-        const restaurantName = await Promise.all(dishRating.map(async (r: DishRatingEntityInterface) => {
-            const restaurant = await this.restaurantRepository.getById(r.dishId);
+        const restaurantName = await Promise.all(dishName.map(async (r: {id: number, name: string, restaurantId: number}) => {
+            const restaurant = await this.restaurantRepository.getById(r.restaurantId);
             return  {id: restaurant.id, name: restaurant.name};
         }));
         const employeeName = await Promise.all(dishRating.map(async () => {
@@ -37,7 +37,7 @@ export class GetByDishAndUserService {
             rating: r.rating,
             description: r.description,
             dishId: r.dishId,
-            dishName: dishName[index],
+            dishName: dishName[index].name,
             restaurantId: restaurantName[index].id,
             restaurantName: restaurantName[index].name,
             userId: r.userId,
