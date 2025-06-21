@@ -88,7 +88,7 @@ export class UserController {
 ---
 
 ### 1. Funcionário (employee)
-- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`, \`profileImage\`
 - O campo \`employee\` deve conter: \`name\`, \`birthDate\`
 - O campo \`company\` deve conter: \`id\` (ID da empresa)
 
@@ -99,6 +99,7 @@ export class UserController {
   "email": "joao.silva@email.com",
   "password": "senha123",
   "userType": "employee",
+  "profileImage": "https://exemplo.com/joao.jpg",
   "cpf": "12345678901",
   "employee": {
     "name": "João da Silva",
@@ -113,7 +114,7 @@ export class UserController {
 ---
 
 ### 2. Restaurante (restaurant)
-- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`restaurant\`
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`profileImage\`, \`cnpj\`, \`restaurant\`
 - O campo \`restaurant\` deve conter: \`name\`, \`cep\`, \`number\`
 
 **Exemplo:**
@@ -123,6 +124,7 @@ export class UserController {
   "email": "restaurante@email.com",
   "password": "senha123",
   "userType": "restaurant",
+  "profileImage": "https://exemplo.com/restaurante.jpg",
   "cnpj": "98765432000188",
   "restaurant": {
     "name": "Restaurante Saboroso",
@@ -135,7 +137,7 @@ export class UserController {
 ---
 
 ### 3. Empresa (company)
-- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`company\`
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`profileImage\`, \`cnpj\`, \`company\`
 - O campo \`company\` deve conter: \`name\`, \`cep\`, \`number\`
 
 **Exemplo:**
@@ -145,6 +147,7 @@ export class UserController {
   "email": "empresa@email.com",
   "password": "senha123",
   "userType": "company",
+  "profileImage": "https://exemplo.com/empresa.jpg",
   "cnpj": "12345678000199",
   "company": {
     "name": "Empresa ABC Ltda",
@@ -172,6 +175,7 @@ export class UserController {
                         email: "joao.silva@email.com",
                         password: "senha123",
                         userType: "employee",
+                        profileImage: "https://exemplo.com/joao.jpg",
                         cpf: "12345678901",
                         employee: {
                             name: "João da Silva",
@@ -190,6 +194,7 @@ export class UserController {
                         email: "restaurante@email.com",
                         password: "senha123",
                         userType: "restaurant",
+                        profileImage: "https://exemplo.com/restaurante.jpg",
                         cnpj: "98765432000188",
                         restaurant: {
                             name: "Restaurante Saboroso",
@@ -206,6 +211,7 @@ export class UserController {
                         email: "empresa@email.com",
                         password: "senha123",
                         userType: "company",
+                        profileImage: "https://exemplo.com/empresa.jpg",
                         cnpj: "12345678000199",
                         company: {
                             name: "Empresa ABC Ltda",
@@ -228,8 +234,8 @@ export class UserController {
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
         console.log('user',user);
-        const { email, password, userType} = user;
-        if (!(email && password && userType)) {
+        const { email, password, userType, profileImage} = user;
+        if (!(email && password && userType && profileImage)) {
             throw new Error('Todos os campos são obrigatórios');
         }
         await this.createUserService.execute(user);

@@ -86,11 +86,13 @@ export class EmployeeController {
   })
   async create(
     @Body() employee: EmployeeInterface, @Res() res: Response) {
-      const { userId, companyId, name, cpf, birthDate } = employee;
-      if(!(userId && companyId && name && cpf && birthDate)) {
+      const expectedFields = ['userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation', 'profileImage'];
+      const receivedFields = Object.keys(employee);
+      const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+      if(invalidFields.length > 0) {
       res.status(400).json({
         sucess: false,
-        message: 'Todos os campos são obrigatórios'
+        message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`
       });
       return;
     }
@@ -122,7 +124,7 @@ export class EmployeeController {
     type: Http404,
   })
   async update(@Param('id') id: string, @Body() employeeData: EmployeeInterface, @Res() res:Response): Promise<EmployeeInterface> {
-    const expectedFields = ['userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation'];
+    const expectedFields = ['userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation', 'profileImage'];
     const receivedFields = Object.keys(employeeData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const user = await this.updateEmployeeService.execute(Number(id), employeeData);

@@ -25,7 +25,7 @@ export class ListRestaurantService {
       cnpj: restaurant.cnpj,
       cep: restaurant.cep,
       number: restaurant.number,
-      image: restaurant.image,
+      profileImage: restaurant.profileImage,
       averageRating: restaurantRatings[index].averageRating
     }));
     return restaurantsWithAverageRating;

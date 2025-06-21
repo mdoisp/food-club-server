@@ -132,7 +132,7 @@ export class RestaurantController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface,@Res() res: Response): Promise<RestaurantInterface> {
-    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'image'];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'profileImage'];
     const receivedFields = Object.keys(restaurantData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const restaurant = await this.updateRestaurantService.execute(Number(id), restaurantData);

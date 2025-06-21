@@ -16,6 +16,12 @@ export class UpdateCompanyService {
         id: number,
         companyData: Partial<Omit<CompanyEntityInterface, 'id'>>
     ): Promise<CompanyEntityInterface> {
+        if(companyData.profileImage){
+            const user = await this.userRepository.updateImage(companyData.userId, {profileImage: companyData.profileImage});
+            if(!user){
+                throw new BadRequestException('Usuário não encontrado');
+            }
+        }
         if (companyData.userId) {
             const user = await this.userRepository.getById(companyData.userId);
             if (!user) {
@@ -34,6 +40,16 @@ export class UpdateCompanyService {
             }
         }
 
-        return await this.companyRepository.update(id, companyData);
+        const company = await this.companyRepository.update(id, companyData);
+        return {
+            id: company.id,
+            userId: company.userId,
+            name: company.name,
+            cnpj: company.cnpj,
+            cep: company.cep,
+            number: company.number,
+            restaurantId: company.restaurantId,
+            profileImage: companyData.profileImage
+        }
     }
 }

@@ -63,7 +63,7 @@ module.exports = {
         email: 'company@tech.com',
         password: hashedPasswordCompany,
         user_type: 'company',
-        profile_Image:'https://br.freepik.com/vetores/logo-empresa'
+        profile_Image:'https://img.freepik.com/vetores-gratis/logotipo-abstrato-em-forma-de-chama_1043-44.jpg?ga=GA1.1.269589911.1750534321&semt=ais_hybrid&w=740'
       },
       {
         id: 8,
@@ -86,7 +86,7 @@ module.exports = {
         email: 'employee@tech.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://unsplash.com/pt-br/s/fotografias/profile'
+        profile_Image:'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
       },
       {
         id: 11,

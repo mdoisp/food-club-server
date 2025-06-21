@@ -38,4 +38,10 @@ export class CreateEmployeeDto {
         type: Boolean,
     })
     vacation: boolean;
+
+    @ApiProperty({
+        description: 'Imagem de perfil do funcionário',
+        example: 'https://example.com/profile.jpg',
+    })
+    profileImage: string;
 }
