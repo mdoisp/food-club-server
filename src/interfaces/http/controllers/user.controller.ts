@@ -95,7 +95,6 @@ export class UserController {
 **Exemplo:**
 \`\`\`json
 {
-  "name": "João da Silva",
   "email": "joao.silva@email.com",
   "password": "senha123",
   "userType": "employee",
@@ -115,12 +114,11 @@ export class UserController {
 
 ### 2. Restaurante (restaurant)
 - **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`profileImage\`, \`cnpj\`, \`restaurant\`
-- O campo \`restaurant\` deve conter: \`name\`, \`cep\`, \`number\`
+- O campo \`restaurant\` deve conter: \`name\`, \`cep\`, \`rua\`, \`cidade\`, \`estado\`, \`number\`, \`complemento\` (opcional)
 
 **Exemplo:**
 \`\`\`json
 {
-  "name": "Restaurante Saboroso",
   "email": "restaurante@email.com",
   "password": "senha123",
   "userType": "restaurant",
@@ -129,7 +127,11 @@ export class UserController {
   "restaurant": {
     "name": "Restaurante Saboroso",
     "cep": "87654321",
-    "number": "200"
+    "rua": "Rua das Flores",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "number": "200",
+    "complemento": "Sala 101"
   }
 }
 \`\`\`
@@ -143,7 +145,6 @@ export class UserController {
 **Exemplo:**
 \`\`\`json
 {
-  "name": "Empresa ABC Ltda",
   "email": "empresa@email.com",
   "password": "senha123",
   "userType": "company",
@@ -172,7 +173,6 @@ export class UserController {
                     summary: 'Criar funcionário',
                     description: 'Exemplo para criar um funcionário',
                     value: {
-                        name: "João da Silva",
                         email: "joao.silva@email.com",
                         password: "senha123",
                         userType: "employee",
@@ -191,7 +191,6 @@ export class UserController {
                     summary: 'Criar restaurante',
                     description: 'Exemplo para criar um restaurante',
                     value: {
-                        name: "Restaurante Saboroso",
                         email: "restaurante@email.com",
                         password: "senha123",
                         userType: "restaurant",
@@ -200,7 +199,11 @@ export class UserController {
                         restaurant: {
                             name: "Restaurante Saboroso",
                             cep: "87654321",
-                            number: "200"
+                            rua: "Rua das Flores",
+                            cidade: "São Paulo",
+                            estado: "SP",
+                            number: "200",
+                            complemento: "Sala 101"
                         }
                     }
                 },
@@ -208,7 +211,6 @@ export class UserController {
                     summary: 'Criar empresa',
                     description: 'Exemplo para criar uma empresa',
                     value: {
-                        name: "Empresa ABC Ltda",
                         email: "empresa@email.com",
                         password: "senha123",
                         userType: "company",
