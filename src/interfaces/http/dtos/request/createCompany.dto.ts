@@ -37,4 +37,11 @@ export class CreateCompanyDto {
     example: '123',
     })
     number: string;
+
+    @ApiProperty({
+    description: 'ID do restaurante associado à empresa',
+    type: Number,
+    example: 1,
+    })
+    restaurantId: number;
     }

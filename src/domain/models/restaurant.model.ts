@@ -10,6 +10,7 @@ export interface RestaurantInterface {
     cep: string;
     number: string;
     image?: string;
+    averageRating?: number;
     dishes?: DishEntityInterface[];
     companyOrders?: CompanyOrderEntityInterface[];
     restaurantRatings?: RestaurantRatingInterface[];

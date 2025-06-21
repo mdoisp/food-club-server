@@ -12,7 +12,7 @@ export class CreateRestaurantDto {
     @ApiProperty({
         description: 'Nome do restaurante',
         type: String,
-        example: 'Restaurante Exemplo',
+        example: 'Sabores do Chef',
     })
     name: string;
 
@@ -40,7 +40,7 @@ export class CreateRestaurantDto {
     @ApiProperty({
         description: 'URL da imagem do restaurante',
         type: String,
-        example: 'https://exemplo.com/imagem.jpg',
+        example: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
         required: false,
     })
     image?: string;

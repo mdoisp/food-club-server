@@ -11,7 +11,7 @@ module.exports = {
         cnpj: '12.345.678/0001-90',
         cep: '12345-678',
         number: '123',
-        image: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
+        image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/d9/aa/99/nova-unidade-do-sabores.jpg?w=900&h=-1&s=1',
       },
       {
         id: 2,
@@ -20,7 +20,7 @@ module.exports = {
         cnpj: '23.456.789/0001-01',
         cep: '23456-789',
         number: '456',
-        image: 'https://bomgourmet.com/bomgourmet/restaurantes/osteria-trattoria-ristorante-diferencas-locais-tipicos-italia/',
+        image: 'https://resize.casapino.com.br/?u=https://cms-bomgourmet.s3.amazonaws.com/bomgourmet/2019/01/201901/osteria-trattoria-ristorante-italia-18ceab70.jpg&w=480',
       },
       {
         id: 3,

@@ -21,7 +21,7 @@ export class UserRepository {
     return await this.userEntity.findOne({ where: { email } });
   }
 
-  async update(
+  async updateImage(
     id: number,
     userData: Partial<Omit<UserEntityInterface, 'id'>>,
   ): Promise<UserEntityInterface> {
