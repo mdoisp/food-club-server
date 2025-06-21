@@ -40,10 +40,38 @@ export class ListRestaurantDtoResponse {
 
     @ApiProperty({
         type: 'string',
+        description: 'Rua do restaurante',
+        example: 'Rua das Flores',
+    })
+    rua?: string;
+
+    @ApiProperty({
+        type: 'string',
+        description: 'Cidade do restaurante',
+        example: 'São Paulo',
+    })
+    cidade?: string;
+
+    @ApiProperty({
+        type: 'string',
+        description: 'Estado do restaurante (sigla)',
+        example: 'SP',
+    })
+    estado?: string;
+
+    @ApiProperty({
+        type: 'string',
         description: 'Número do restaurante',
         example: '123',
     })
     number?: string;
+
+    @ApiProperty({
+        type: 'string',
+        description: 'Complemento do endereço',
+        example: 'Sala 101',
+    })
+    complemento?: string;
 
     @ApiProperty({
         type: 'string',

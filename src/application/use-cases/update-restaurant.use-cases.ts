@@ -23,7 +23,11 @@ export class UpdateRestaurantService {
       name: restaurant.name,
       cnpj: restaurant.cnpj,
       cep: restaurant.cep,
+      rua: restaurant.rua,
+      cidade: restaurant.cidade,
+      estado: restaurant.estado,
       number: restaurant.number,
+      complemento: restaurant.complemento,
       profileImage: restaurantData.profileImage
     }
   }
