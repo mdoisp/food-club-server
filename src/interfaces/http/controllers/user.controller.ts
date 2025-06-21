@@ -153,8 +153,7 @@ export class UserController {
   "company": {
     "name": "Empresa ABC Ltda",
     "cep": "12345678",
-    "number": "100",
-    "restaurantId": 1
+    "number": "100"
   }
 }
 \`\`\`
@@ -219,8 +218,7 @@ export class UserController {
                         company: {
                             name: "Empresa ABC Ltda",
                             cep: "12345678",
-                            number: "100",
-                            restaurantId:1
+                            number: "100"
                         }
                     }
                 }
