@@ -45,6 +45,7 @@ export class CreateCompanyService {
     }
 
     async validateUserCreateCompany(company: CompanyEntityInterface): Promise<boolean> {
+        console.log('company',company);
         const companies = await this.companyRepository.list();
         const existingCompany = companies.find(c => c.cnpj === company.cnpj);
         if(existingCompany){
