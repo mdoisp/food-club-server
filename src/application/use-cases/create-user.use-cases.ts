@@ -35,6 +35,7 @@ export class CreateUserService {
             }
         }
         if(data.userType === 'company'){
+            console.log('data.company',data.company);
             const validate = await this.createCompanyService.validateUserCreateCompany({
                 id: undefined,
                 name: data.company.name,
@@ -42,8 +43,9 @@ export class CreateUserService {
                 userId: data.id,
                 cep: data.company.cep,
                 number: data.company.number,
-                restaurantId: data.restaurant.id,
+                restaurantId: data.company.restaurantId,
             });
+            console.log('validate',validate);
             if (!validate) {
                 throw new BadRequestException('CNPJ já cadastrado');
             }
@@ -58,7 +60,9 @@ export class CreateUserService {
                 number: data.restaurant.number,
             });
         }
+        console.log('dataS',data);
         const user = await this.userRepository.create(data);
+        console.log('user',user);
         data.id = user.id;
         
         if(data.userType === 'employee'){
@@ -80,7 +84,7 @@ export class CreateUserService {
                 userId: data.id,
                 cep: data.company.cep,
                 number: data.company.number,
-                restaurantId: data.restaurant.id,
+                restaurantId: data.company.restaurantId,
             });
         }
         if(data.userType === 'restaurant'){

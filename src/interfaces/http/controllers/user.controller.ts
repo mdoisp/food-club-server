@@ -88,9 +88,9 @@ export class UserController {
 ---
 
 ### 1. Funcionário (employee)
-- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`, \`profileImage\`
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`
 - O campo \`employee\` deve conter: \`name\`, \`birthDate\`
-- O campo \`company\` deve conter: \`id\` (ID da empresa)
+- O campo \`company\` deve co, \`profileImage\`nter: \`id\` (ID da empresa)
 
 **Exemplo:**
 \`\`\`json
@@ -152,7 +152,8 @@ export class UserController {
   "company": {
     "name": "Empresa ABC Ltda",
     "cep": "12345678",
-    "number": "100"
+    "number": "100",
+    "restaurantId": 1
   }
 }
 \`\`\`
@@ -216,7 +217,8 @@ export class UserController {
                         company: {
                             name: "Empresa ABC Ltda",
                             cep: "12345678",
-                            number: "100"
+                            number: "100",
+                            restaurantId:1
                         }
                     }
                 }
@@ -234,8 +236,8 @@ export class UserController {
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
         console.log('user',user);
-        const { email, password, userType, profileImage} = user;
-        if (!(email && password && userType && profileImage)) {
+        const { email, password, userType} = user;
+        if (!(email && password && userType)) {
             throw new Error('Todos os campos são obrigatórios');
         }
         await this.createUserService.execute(user);
