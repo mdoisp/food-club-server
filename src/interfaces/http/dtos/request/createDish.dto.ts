@@ -28,4 +28,11 @@ export class CreateDishDto {
     example: 12.99,
   })
   price: number;
+
+  @ApiProperty({
+    description: 'Image of the dish',
+    type: String,
+    example: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLgvmB2VTV_c3jF2jr9TJqJlZunjoWldt_YA&s',
+  })
+  image: string;
 }

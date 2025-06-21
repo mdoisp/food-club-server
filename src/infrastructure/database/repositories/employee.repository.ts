@@ -29,6 +29,9 @@ export class EmployeeRepository {
     return await this.employeeEntity.findByPk(id, {
     });
   }
+  async getByUserId(userId: number): Promise<EmployeeEntityInterface | null> {
+    return await this.employeeEntity.findOne({ where: { userId } });
+  }
 
   async listByCompany(companyId: number): Promise<EmployeeEntityInterface[]> {
     return await this.employeeEntity.findAll({ where: { companyId } });

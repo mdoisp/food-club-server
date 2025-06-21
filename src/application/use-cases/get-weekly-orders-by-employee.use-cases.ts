@@ -45,6 +45,20 @@ export class GetWeeklyOrdersByEmployeeService {
       });
     }
 
-     return result;
+     return result.map(order => ({
+      id: order.id,
+      employeeId: order.employeeId,
+      dayOfWeek: order.dayOfWeek,
+      orderItemId: order.orderItemId,
+      order: order.order,
+      dish: {
+        id: order.dish.id,
+        restaurantId: order.dish.restaurantId,
+        name: order.dish.name,
+        description: order.dish.description,
+        price: order.dish.price,
+        image: order.dish.image,
+      },
+     }));
   }
 } 

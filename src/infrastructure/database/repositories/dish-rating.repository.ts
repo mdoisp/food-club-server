@@ -13,8 +13,8 @@ export class DishRatingRepository {
     return await this.dishRatingEntity.create(rating);
   }
 
-  async getByDishAndUser(dishId: number, userId: number): Promise<DishRatingEntityInterface | null> {
-    return await this.dishRatingEntity.findOne({ where: { dishId, userId } });
+  async getByDishAndUser(userId: number): Promise<DishRatingEntityInterface[] | null> {
+    return await this.dishRatingEntity.findAll({ where: { userId } });
   }
 
   async update(
