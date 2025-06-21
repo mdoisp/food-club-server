@@ -10,6 +10,9 @@ import { DeleteCompanyService } from 'src/application/use-cases/delete-company.u
 import { GetCompanyByIdService } from 'src/application/use-cases/get-company-byid.use-cases';
 import { ListCompaniesService } from 'src/application/use-cases/list-companies.use-cases';
 import { UpdateCompanyService } from 'src/application/use-cases/update-company.use-cases';
+import { ListEmployeesByCompanyService } from 'src/application/use-cases/list-employees-by-company.use-cases';
+import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
+import { employeeProvider } from 'src/infrastructure/providers/employee.provider';
 
 @Module({
   imports: [DatabaseModule],
@@ -17,20 +20,24 @@ import { UpdateCompanyService } from 'src/application/use-cases/update-company.u
   providers: [
     ...companyProvider,
     ...userProvider,
+    ...employeeProvider,
     CompanyRepository,
     UserRepository,
+    EmployeeRepository,
     ListCompaniesService,
     GetCompanyByIdService, 
     CreateCompanyService, 
     UpdateCompanyService, 
-    DeleteCompanyService
+    DeleteCompanyService,
+    ListEmployeesByCompanyService
   ],
   exports: [
     ListCompaniesService,
     GetCompanyByIdService,
     CreateCompanyService,
     UpdateCompanyService,
-    DeleteCompanyService
+    DeleteCompanyService,
+    ListEmployeesByCompanyService
   ]
 })
 export class CompanyModule {}

@@ -12,6 +12,8 @@ import { ListCompanyDtoResponse } from 'src/interfaces/http/dtos/response/listCo
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { CreateCompanyDto } from 'src/interfaces/http/dtos/request/createCompany.dto';
+import { ListEmployeesByCompanyService } from '../../../application/use-cases/list-employees-by-company.use-cases';
+import { ListEmployeeWithProfileImageDto } from 'src/interfaces/http/dtos/response/listEmployeeWithProfileImage.dto';
 
 @ApiTags('Company API')
 @Controller('company')
@@ -21,7 +23,8 @@ export class CompanyController {
     private getCompanyByIdService: GetCompanyByIdService,
     private createCompanyService: CreateCompanyService,
     private updateCompanyService: UpdateCompanyService,
-    private deleteCompanyService: DeleteCompanyService
+    private deleteCompanyService: DeleteCompanyService,
+    private listEmployeesByCompanyService: ListEmployeesByCompanyService
   ) {}
 
    @Get()
@@ -190,5 +193,35 @@ export class CompanyController {
       success: true,
       message: 'Empresa deletada com sucesso',
     });
+  }
+
+  @Get(':id/employees')
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Funcionários da empresa encontrados',
+    isArray: true,
+    type: ListEmployeeWithProfileImageDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  async getEmployeesByCompany(@Param('id') id: string, @Res() res: Response): Promise<ListEmployeeWithProfileImageDto[]> {
+    const company = await this.getCompanyByIdService.execute(Number(id));
+    if (!company) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
+
+    const employees = await this.listEmployeesByCompanyService.execute(Number(id));
+    res.status(200).json(employees);
   }
 }

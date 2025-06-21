@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EmployeeEntity } from '../entities/employee.entity';
 import { EmployeeEntityInterface } from '../../../domain/repositories/employee.repository.interface';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class EmployeeRepository {
   constructor(
     @Inject('EMPLOYEE_ENTITY')
     private readonly employeeEntity: typeof EmployeeEntity,
+    @Inject('USER_ENTITY')
+    private readonly userEntity: typeof UserEntity,
   ) {}
 
   async list(): Promise<EmployeeEntityInterface[]> {
@@ -35,6 +38,31 @@ export class EmployeeRepository {
 
   async listByCompany(companyId: number): Promise<EmployeeEntityInterface[]> {
     return await this.employeeEntity.findAll({ where: { companyId } });
+  }
+
+  async listByCompanyWithProfileImage(companyId: number): Promise<any[]> {
+    const employees = await this.employeeEntity.findAll({
+      where: { companyId },
+      include: [
+        {
+          model: this.userEntity,
+          as: 'user',
+          attributes: ['profileImage'],
+        },
+      ],
+      attributes: ['id', 'userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation'],
+    });
+
+    return employees.map(employee => ({
+      id: employee.id,
+      userId: employee.userId,
+      companyId: employee.companyId,
+      name: employee.name,
+      cpf: employee.cpf,
+      birthDate: employee.birthDate,
+      vacation: employee.vacation,
+      profileImage: employee.user?.profileImage || null,
+    }));
   }
 
   async delete(id: number): Promise<void> {
