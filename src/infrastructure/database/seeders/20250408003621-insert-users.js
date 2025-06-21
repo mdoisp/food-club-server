@@ -33,7 +33,7 @@ module.exports = {
         email: 'mexican@restaurant.com',
         password: hashedPasswordRestarant,
         user_type: 'restaurant',
-        profile_Image:'https://m.yelp.com/biz/la-cantina-mexicana-sevilla'
+        profile_Image:'https://s3-media0.fl.yelpcdn.com/bphoto/x3K3E8xCcUuQkLjRvilM6Q/o.jpg'
       },
       {
         id: 4,
@@ -47,14 +47,14 @@ module.exports = {
         email: 'vegan@restaurant.com',
         password: hashedPasswordRestarant,
         user_type: 'restaurant',
-        profile_Image:'https://simonde.com.br/teva-vegetal-sao-paulo-restaurante-vegano-gastronomico-onde-carnistas-nao-sentem-falta-de-comer-animais-organicos-onde-comer/'
+        profile_Image:'https://images.adsttc.com/media/images/5bf3/5d1c/08a5/e509/1100/014e/newsletter/FEATURE_IMAGE.jpg?1542675707'
       },
       {
         id: 6,
         email: 'bbq@restaurant.com',
         password: hashedPasswordRestarant,
         user_type: 'restaurant',
-        profile_Image:'https://www.dbresciachurrascaria.com.br/unidades/guarulhos/'
+        profile_Image:'https://www.dbresciachurrascaria.com.br/wp-content/uploads/2022/09/MG_4347.jpg'
       },
       
       // Companies (3)
@@ -70,14 +70,14 @@ module.exports = {
         email: 'foodlovers@company.com',
         password: hashedPasswordCompany,
         user_type: 'company',
-        profile_Image:'https://br.freepik.com/vetores/logotipos-empresa/2'
+        profile_Image:'https://img.freepik.com/vetores-gratis/logotipo-abstrato-feito-com-quadrados-arredondados_1043-52.jpg?ga=GA1.1.269589911.1750534321&semt=ais_hybrid&w=740'
       },
       {
         id: 9,
         email: 'gourmet@company.com',
         password: hashedPasswordCompany,
         user_type: 'company',
-        profile_Image:'https://cincodias.elpais.com/cincodias/2015/05/08/pyme/1431098283_691735.html'
+        profile_Image:'https://img.freepik.com/vetores-premium/logotipo-de-negocios-design-profissional-de-marca-corporativa-logotipo-de-empresa-moderna_591968-323.jpg?ga=GA1.1.269589911.1750534321&semt=ais_hybrid&w=740'
       },
       
       // Employees (6)
@@ -93,35 +93,35 @@ module.exports = {
         email: 'maria@employee.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://www.gettyimages.com.br/fotos/profile-picture'
+        profile_Image:'https://media.gettyimages.com/id/1437816897/pt/foto/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring-or.jpg?s=612x612&w=0&k=20&c=OsiL-G3rU8NzppNGl3Yh9exwYzoSfCrRb9gxawy1VR4='
       },
       {
         id: 12,
         email: 'carlos@employee.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://unsplash.com/pt-br/s/fotografias/pessoa-sorrindo'
+        profile_Image:'https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVzc29hJTIwc29ycmluZG98ZW58MHx8MHx8fDA%3D'
       },
       {
         id: 13,
         email: 'ana@employee.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://br.freepik.com/fotos/perfil-de-pessoas'
+        profile_Image:'https://media.gettyimages.com/id/1487465664/pt/foto/portrait-employee-and-asian-woman-with-happiness-selfie-and-confident-entrepreneur-with.jpg?s=612x612&w=0&k=20&c=kQw3fH-glSiyK7963vnebaAm59nLl6CIx8Ov_yNEKV8='
       },
       {
         id: 14,
         email: 'pedro@employee.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://unsplash.com/pt-br/s/fotografias/random-person'
+        profile_Image:'https://media.istockphoto.com/id/2192499195/pt/foto/studio-portrait-of-happy-multiracial-mid-adult-man-wearing-brown-shirt-toothy-smile.webp?a=1&b=1&s=612x612&w=0&k=20&c=JnxZiI5qV47Jl7_DscjBnFBEdtNlWYVmgSczJcf0C_I='
       },
       {
         id: 15,
         email: 'lucia@employee.com',
         password: hashedPasswordEmployee,
         user_type: 'employee',
-        profile_Image:'https://www.pexels.com/pt-br/procurar/pessoa%20feliz/'
+        profile_Image:'https://media.gettyimages.com/id/1305462732/pt/foto/headshot-studio-portrait-of-a-woman-in-profile-looking-at-the-camera.jpg?s=612x612&w=0&k=20&c=X7uJWxc-eqzPg762gKSAKR0Isxn_xLYSyZ0VxCfD8Qo='
       }
     ]);
   },
