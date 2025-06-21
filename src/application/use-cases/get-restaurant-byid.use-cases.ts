@@ -5,6 +5,7 @@ import { DishRepository } from 'src/infrastructure/database/repositories/dish.re
 import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';
 import { RestaurantRatingInterface } from 'src/domain/models/restaurant-rating.model';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
+import { UserRepository } from 'src/infrastructure/database/repositories/user.repository';
 
 @Injectable()
 export class GetRestaurantByIdService {
@@ -15,7 +16,9 @@ export class GetRestaurantByIdService {
     @Inject('RESTAURANT_RATING_REPOSITORY')
     private readonly restaurantRatingRepository: RestaurantRatingRepository,
     @Inject('EMPLOYEE_REPOSITORY')
-    private readonly employeeRepository: EmployeeRepository
+    private readonly employeeRepository: EmployeeRepository,
+    @Inject('USER_REPOSITORY')
+    private readonly userRepository: UserRepository
   ){}
   async execute(id: number): Promise<RestaurantInterface> {
     const restaurant = await this.restaurantRepository.getById(id);
@@ -42,7 +45,7 @@ export class GetRestaurantByIdService {
     }))
     
     const averageRating = restaurantRatings.length > 0 ? restaurantRatings.reduce((sum, rating) => sum + rating.rating, 0) / restaurantRatings.length : 0
-
+    const user = await this.userRepository.getById(restaurant.userId)
     const restaurantWithDishes = {
       id: restaurant.id,
       userId: restaurant.userId,
@@ -50,7 +53,11 @@ export class GetRestaurantByIdService {
       cnpj: restaurant.cnpj,
       cep: restaurant.cep,
       number: restaurant.number,
-      image: restaurant.image,
+      rua: restaurant.rua,
+      cidade: restaurant.cidade,
+      estado: restaurant.estado,
+      complemento: restaurant.complemento,
+      profileImage: user.profileImage,
       dishes: dishes,
       restaurantRatings: restaurantRatingsWithEmployeeName,
       averageRating: averageRating

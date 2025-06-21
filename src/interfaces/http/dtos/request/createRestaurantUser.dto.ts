@@ -42,12 +42,20 @@ export class CreateRestaurantUserDto {
         example: {
             name: "Restaurante Saboroso",
             cep: "87654321",
-            number: "200"
+            rua: "Rua das Flores",
+            cidade: "São Paulo",
+            estado: "SP",
+            number: "200",
+            complemento: "Sala 101"
         },
     })
     restaurant: {
         name: string;
         cep: string;
+        rua: string;
+        cidade: string;
+        estado: string;
         number: string;
+        complemento?: string;
     };
 } 

@@ -41,10 +41,34 @@ export class RestaurantEntity extends Model {
   cep: string;
 
   @Column({
+    type: DataType.STRING(200),
+    allowNull: false,
+  })
+  rua: string;
+
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: false,
+  })
+  cidade: string;
+
+  @Column({
+    type: DataType.STRING(2),
+    allowNull: false,
+  })
+  estado: string;
+
+  @Column({
     type: DataType.STRING(10),
     allowNull: false,
   })
   number: string;
+
+  @Column({
+    type: DataType.STRING(200),
+    allowNull: true,
+  })
+  complemento: string;
 
   @Column({
     type: DataType.STRING(200),
