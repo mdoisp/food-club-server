@@ -16,6 +16,9 @@ import { LoginResponseDto } from "src/interfaces/http/dtos/response/login.dto";
 import { AuthService } from "../../../application/use-cases/login.use-cases";
 import { JwtAuthGuard } from "../../../infrastructure/guards/jwt-auth.guard";
 import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.use-cases";
+import { UserLoginEntityInterface } from "src/domain/repositories/user-login.repository.interface";
+import { UpdateUserImageDto } from "../dtos/request/updateUserImage.dto";
+import { UpdateUserPasswordDto } from "../dtos/request/updateUserPassword.dto";
 
 @ApiTags('User API')
 @Controller('user')
@@ -42,7 +45,7 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async list(): Promise<UserInterface[]> {
+    async list(): Promise<UserLoginEntityInterface[]> {
         return await this.listUsersService.execute();
     }
 
@@ -69,7 +72,7 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async getById(@Param('id') id: number): Promise<UserInterface> {
+    async getById(@Param('id') id: number): Promise<UserLoginEntityInterface> {
         return await this.getUserByIdService.execute(id);
     }
 
@@ -98,7 +101,7 @@ export class UserController {
         res.send();
     }
 
-    @Put(':id')
+    @Put('image/:id')
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth('JWT-auth')
     @ApiParam({
@@ -109,7 +112,7 @@ export class UserController {
     })
     @ApiBody({
         description: 'Dados do usuário',
-        type: CreateUserDto,
+        type: UpdateUserImageDto,
     })
     @ApiResponse({
         status: 200,
@@ -124,8 +127,80 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async update(@Param('id') id: number, @Body() user: UserInterface): Promise<void> {
-        await this.updateUserService.execute(id, user);
+    async updateImage(@Param('id') id: number, @Body() user: UserInterface, @Res() res: Response): Promise<void> {
+        const expectedFields = ['profileImage'];
+        const receivedFields = Object.keys(user);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        const userUpdated = await this.updateUserService.execute(Number(id), user);
+        if (!userUpdated) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
+        if (invalidFields.length > 0) {
+            res.status(400).json({
+                success: false,
+                message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
+            });
+            return;
+        }
+        res.status(200).json(userUpdated);
+    }
+
+    @Put('password/:id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
+    @ApiParam({
+        name: 'id',
+        required: true,
+        description: 'ID do usuário',
+        schema: { type: 'number' },
+    })
+    @ApiBody({
+        description: 'Dados do usuário',
+        type: UpdateUserPasswordDto,
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Senha atualizada com sucesso',
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Usuário não encontrado',
+        type: Http404,
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Erro ao atualizar senha',
+        type: Http400,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
+    async updatePassword(@Param('id') id: number, @Body() user: UserInterface, @Res() res: Response): Promise<void> {
+        const expectedFields = ['password'];
+        const receivedFields = Object.keys(user);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        if (invalidFields.length > 0) {
+            res.status(400).json({
+                success: false,
+                message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
+            });
+            return;
+        }
+        const userData = await this.getUserByIdService.execute(Number(id));
+        if (!userData) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
+        const userUpdated = await this.updateUserService.execute(Number(id), { password: user.password });
+        res.status(200).json(userUpdated);
     }
 
     @Delete(':id')

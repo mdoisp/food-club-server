@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { UserEntityInterface } from "../../domain/repositories/user.repository.interface";
+import { UserLoginEntityInterface } from "../../domain/repositories/user-login.repository.interface";
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
 
 @Injectable()
@@ -9,7 +9,13 @@ export class ListUsersService {
         private readonly userRepository: UserRepository
     ) {}
 
-    async execute(): Promise<UserEntityInterface[]> {
-        return await this.userRepository.list();
+    async execute(): Promise<UserLoginEntityInterface[]> {
+        const users = await this.userRepository.list();
+        return users.map(user => ({
+            id: user.id,
+            email: user.email,
+            userType: user.userType,
+            profileImage: user.profileImage,
+        }));
     }
 }

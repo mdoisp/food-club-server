@@ -4,30 +4,30 @@ export class ListUserDtoResponse {
     @ApiProperty({
         type: 'number',
         description: 'ID do usuário',
-        example: 1,
+        example: 2,
     })
   id: number;
 
     @ApiProperty({
         type: 'string',
         description: 'Tipo de usuário',
-        example: 'admin',
+        example: 'restaurant',
     })
-  user_type: string;
-
-    @ApiProperty({
-        type: 'string',
-        description: 'Senha do usuário',
-        example: 'password123',
-    })
-  password: string;
+  userType: string;
 
     @ApiProperty({
         type: 'string',
         description: 'Email do usuário',
-        example: 'admin@tech.com',
+        example: 'italian@restaurant.com',
     })
   email: string;
+
+    @ApiProperty({
+        type: 'string',
+        description: 'URL da imagem de perfil do usuário',
+        example: 'https://bomgourmet.com/bomgourmet/restaurantes/osteria-trattoria-ristorante-diferencas-locais-tipicos-italia/',
+    })
+  profileImage: string;
 }
 
 // funcionario
