@@ -43,5 +43,5 @@ export class CreateRestaurantDto {
         example: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
         required: false,
     })
-    image?: string;
+    profileImage?: string;
 }

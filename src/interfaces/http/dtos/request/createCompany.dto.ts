@@ -44,4 +44,11 @@ export class CreateCompanyDto {
     example: 1,
     })
     restaurantId: number;
+
+    @ApiProperty({
+    description: 'Imagem de perfil da empresa',
+    type: String,
+    example: 'https://example.com/profile.jpg',
+    })
+    profileImage: string;
     }

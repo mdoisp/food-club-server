@@ -10,4 +10,5 @@ export interface EmployeeInterface {
     birthDate: Date;
     vacation: boolean;
     individualOrders?: IndividualOrderEntityInterface[];
+    profileImage?: string;
 }
