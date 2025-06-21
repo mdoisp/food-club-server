@@ -14,6 +14,10 @@ import { GetRestaurantByIdService } from 'src/application/use-cases/get-restaura
 import { ListDishesByRestaurantService } from 'src/application/use-cases/list-dishes-by-restaurant.use-cases';
 import { ListRestaurantService } from 'src/application/use-cases/list-restaurant.use-cases';
 import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';
+import { ListOrdersByRestaurantUseCase } from 'src/application/use-cases/list-orders-by-restaurant.use-case';
+import { SendOrdersUseCase } from 'src/application/use-cases/send-orders.use-case';
+import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
+import { individualOrderProvider } from 'src/infrastructure/providers/individual-order.provider';
 
 @Module({
   imports: [DatabaseModule],
@@ -23,6 +27,7 @@ import { RestaurantRatingRepository } from 'src/infrastructure/database/reposito
     ...dishProvider,
     ...restaurantRatingProvider,
     ...dishRatingProvider,
+    ...individualOrderProvider,
     RestaurantRepository,
     RestaurantRatingRepository,
     ListRestaurantService,
@@ -30,7 +35,10 @@ import { RestaurantRatingRepository } from 'src/infrastructure/database/reposito
     CreateRestaurantService, 
     UpdateRestaurantService, 
     DeleteRestaurantService,
-    ListDishesByRestaurantService
+    ListDishesByRestaurantService,
+    ListOrdersByRestaurantUseCase,
+    SendOrdersUseCase,
+    CreateCompanyOrderUseCase
   ],
   exports: [
     RestaurantRepository,
@@ -40,7 +48,10 @@ import { RestaurantRatingRepository } from 'src/infrastructure/database/reposito
     CreateRestaurantService, 
     UpdateRestaurantService, 
     DeleteRestaurantService,
-    ListDishesByRestaurantService
+    ListDishesByRestaurantService,
+    ListOrdersByRestaurantUseCase,
+    SendOrdersUseCase,
+    CreateCompanyOrderUseCase
   ]
 })
 export class RestaurantModule {}

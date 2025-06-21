@@ -2,6 +2,7 @@ import { Table, Model, Column, DataType, BelongsTo, HasMany, ForeignKey } from '
 import { EmployeeEntity } from './employee.entity';
 import { OrderItemEntity } from './order-item.entity';
 import { CompanyOrderEntity } from './company-order.entity';
+import { DishEntity } from './dish.entity';
 
 @Table({ tableName: 'individual_order', timestamps: false })
 export class IndividualOrderEntity extends Model {
@@ -28,10 +29,21 @@ export class IndividualOrderEntity extends Model {
   })
   employeeId: number;
 
+  @ForeignKey(() => DishEntity)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    field: 'dish_id',
+  })
+  dishId: number;
+
   @BelongsTo(() => CompanyOrderEntity)
   companyOrder: CompanyOrderEntity;
 
   @BelongsTo(() => EmployeeEntity)
   employee: EmployeeEntity;
+
+  @BelongsTo(() => DishEntity)
+  dish: DishEntity;
 
 }
