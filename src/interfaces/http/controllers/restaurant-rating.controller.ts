@@ -8,6 +8,7 @@ import { UpdateRestaurantRatingService } from "../../../application/use-cases/up
 import { DeleteRestaurantRatingService } from "../../../application/use-cases/delete-restaurant-rating.use-cases";
 import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRating.dto";
+import { ListRestaurantAverageRatingByUserDtoResponse } from "../dtos/response/listRestaurantAverageRatingByUser.dto";
 import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRating.dto";
 
 @ApiTags('Restaurant Rating API')
@@ -49,12 +50,7 @@ export class RestaurantRatingController {
         res.status(200).json(restaurantRating);
     }
 
-    @Get(':restaurantId/:userId')
-    @ApiParam({
-        name: 'restaurantId',
-        description: 'ID do restaurante',
-        type: ListRestaurantAverageRatingDtoResponse,
-    })
+    @Get('/user/:userId')
     @ApiParam({
         name: 'userId',
         description: 'ID do usuário',
@@ -62,16 +58,17 @@ export class RestaurantRatingController {
     @ApiResponse({
         status: 200,
         description: 'Consulta realizada com sucesso',
+        isArray: true,
+        type: ListRestaurantAverageRatingByUserDtoResponse,
     })
     @ApiResponse({
         status: 404,
         description: 'Avaliação do usuário do restaurante não encontrada',
     })
     async getRatingByRestaurantAndUser(
-        @Param('restaurantId') restaurantId: string, 
         @Param('userId') userId: string,
         @Res() res: Response){
-            const restaurantRating = await this.getByRestaurantAndUserService.execute(Number(restaurantId), Number(userId));
+            const restaurantRating = await this.getByRestaurantAndUserService.execute(Number(userId));
         if (!restaurantRating) {
             res.status(404).json({
                 success: false,
