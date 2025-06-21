@@ -31,4 +31,11 @@ export class CreateEmployeeDto {
         type: String,
     })
     birthDate: Date;
+
+    @ApiProperty({
+        description: 'Status de férias do funcionário',
+        example: false,
+        type: Boolean,
+    })
+    vacation: boolean;
 }
