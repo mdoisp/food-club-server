@@ -8,6 +8,9 @@ import { Response } from "express";
 import { ApiBody, ApiParam, ApiResponse, ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUser.dto";
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUser.dto";
+import { CreateEmployeeUserDto } from "src/interfaces/http/dtos/request/createEmployeeUser.dto";
+import { CreateRestaurantUserDto } from "src/interfaces/http/dtos/request/createRestaurantUser.dto";
+import { CreateCompanyUserDto } from "src/interfaces/http/dtos/request/createCompanyUser.dto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
 import { UserInterface } from "src/domain/models/user.model";
@@ -78,9 +81,86 @@ export class UserController {
 
     @Post()
     @HttpCode(201)
+    @ApiOperation({ 
+        summary: 'Criar usuário', 
+        description: `Cria um novo usuário no sistema. Existem 3 tipos de usuários:
+
+**1. Funcionário (employee):**
+- Campos obrigatórios: name, email, password, cpf, employee, company
+- O campo 'employee' deve conter: name, birthDate
+- O campo 'company' deve conter: id (ID da empresa)
+
+**2. Restaurante (restaurant):**
+- Campos obrigatórios: name, email, password, cnpj, restaurant
+- O campo 'restaurant' deve conter: name, cep, number
+
+**3. Empresa (company):**
+- Campos obrigatórios: name, email, password, cnpj, company
+- O campo 'company' deve conter: name, cep, number
+
+Veja os exemplos abaixo para cada tipo.`
+    })
     @ApiBody({
-        description: 'Dados do usuário',
-        type: CreateUserDto,
+        description: 'Dados do usuário - Escolha um dos 3 tipos disponíveis',
+        schema: {
+            oneOf: [
+                { $ref: '#/components/schemas/CreateRestaurantUserDto' },
+                { $ref: '#/components/schemas/CreateEmployeeUserDto' },
+                { $ref: '#/components/schemas/CreateCompanyUserDto' }
+            ],
+            examples: {
+                employee: {
+                    summary: 'Criar funcionário',
+                    description: 'Exemplo para criar um funcionário',
+                    value: {
+                        name: "João da Silva",
+                        email: "joao.silva@email.com",
+                        password: "senha123",
+                        userType: "employee",
+                        cpf: "12345678901",
+                        employee: {
+                            name: "João da Silva",
+                            birthDate: "1990-05-10"
+                        },
+                        company: {
+                            id: 1
+                        }
+                    }
+                },
+                restaurant: {
+                    summary: 'Criar restaurante',
+                    description: 'Exemplo para criar um restaurante',
+                    value: {
+                        name: "Restaurante Saboroso",
+                        email: "restaurante@email.com",
+                        password: "senha123",
+                        userType: "restaurant",
+                        cnpj: "98765432000188",
+                        restaurant: {
+                            name: "Restaurante Saboroso",
+                            cep: "87654321",
+                            number: "200"
+                        }
+                    }
+                },
+                company: {
+                    summary: 'Criar empresa',
+                    description: 'Exemplo para criar uma empresa',
+                    value: {
+                        name: "Empresa ABC Ltda",
+                        email: "empresa@email.com",
+                        password: "senha123",
+                        userType: "company",
+                        cnpj: "12345678000199",
+                        company: {
+                            name: "Empresa ABC Ltda",
+                            cep: "12345678",
+                            number: "100"
+                        }
+                    }
+                }
+            }
+        }
     })
     @ApiResponse({
         status: 201,
@@ -88,7 +168,7 @@ export class UserController {
     })
     @ApiResponse({
         status: 400,
-        description: 'Erro ao criar usuário',
+        description: 'Erro ao criar usuário - Verifique se todos os campos obrigatórios foram preenchidos corretamente',
         type: Http400,
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
