@@ -21,7 +21,7 @@ module.exports = {
       },
       restaurantId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'restaurant',
           key: 'id',
