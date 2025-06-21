@@ -25,6 +25,10 @@ export class ListRestaurantService {
       cnpj: restaurant.cnpj,
       cep: restaurant.cep,
       number: restaurant.number,
+      rua: restaurant.rua,
+      cidade: restaurant.cidade,
+      estado: restaurant.estado,
+      complemento: restaurant.complemento,
       profileImage: restaurant.profileImage,
       averageRating: restaurantRatings[index].averageRating
     }));

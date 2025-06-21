@@ -31,11 +31,40 @@ export class CreateRestaurantDto {
     cep: string;
 
     @ApiProperty({
+        description: 'Rua do restaurante',
+        type: String,
+        example: 'Rua das Flores',
+    })
+    rua: string;
+
+    @ApiProperty({
+        description: 'Cidade do restaurante',
+        type: String,
+        example: 'São Paulo',
+    })
+    cidade: string;
+
+    @ApiProperty({
+        description: 'Estado do restaurante (sigla)',
+        type: String,
+        example: 'SP',
+    })
+    estado: string;
+
+    @ApiProperty({
         description: 'Número do restaurante',
         type: String,
         example: '123',
     })
     number: string;
+
+    @ApiProperty({
+        description: 'Complemento do endereço',
+        type: String,
+        example: 'Sala 101',
+        required: false,
+    })
+    complemento?: string;
 
     @ApiProperty({
         description: 'URL da imagem do restaurante',

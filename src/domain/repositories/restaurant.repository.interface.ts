@@ -8,7 +8,11 @@ export interface RestaurantEntityInterface {
   name: string;
   cnpj: string;
   cep: string;
+  rua: string;
+  cidade: string;
+  estado: string;
   number: string;
+  complemento?: string;
   image?: string;
   dishes?: DishEntityInterface[];
   companyOrders?: CompanyOrderEntityInterface[];

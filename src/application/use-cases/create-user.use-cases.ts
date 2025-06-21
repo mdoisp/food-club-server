@@ -57,7 +57,11 @@ export class CreateUserService {
                 cnpj: data.cnpj,
                 userId: data.id,
                 cep: data.restaurant.cep,
+                rua: data.restaurant.rua,
+                cidade: data.restaurant.cidade,
+                estado: data.restaurant.estado,
                 number: data.restaurant.number,
+                complemento: data.restaurant.complemento,
             });
         }
         console.log('dataS',data);
@@ -94,7 +98,11 @@ export class CreateUserService {
                 cnpj: data.cnpj,
                 userId: data.id,
                 cep: data.restaurant.cep,
+                rua: data.restaurant.rua,
+                cidade: data.restaurant.cidade,
+                estado: data.restaurant.estado,
                 number: data.restaurant.number,
+                complemento: data.restaurant.complemento,
             });
         }
         return data;

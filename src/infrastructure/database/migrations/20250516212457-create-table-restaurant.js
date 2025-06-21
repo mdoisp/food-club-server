@@ -32,9 +32,25 @@ module.exports = {
         type: DataTypes.STRING(10),
         allowNull: false,
       },
+      rua: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+      },
+      cidade: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
+      estado: {
+        type: DataTypes.STRING(2),
+        allowNull: false,
+      },
       number: {
         type: DataTypes.STRING(10),
         allowNull: false,
+      },
+      complemento: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
       },
       image: {
         type: DataTypes.STRING(200),

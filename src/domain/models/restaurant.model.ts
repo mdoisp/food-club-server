@@ -8,7 +8,11 @@ export interface RestaurantInterface {
     name: string;
     cnpj: string;
     cep: string;
+    rua: string;
+    cidade: string;
+    estado: string;
     number: string;
+    complemento?: string;
     profileImage?: string;
     averageRating?: number;
     dishes?: DishEntityInterface[];
