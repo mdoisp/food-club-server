@@ -85,20 +85,75 @@ export class UserController {
         summary: 'Criar usuário', 
         description: `Cria um novo usuário no sistema. Existem 3 tipos de usuários:
 
-**1. Funcionário (employee):**
-- Campos obrigatórios: name, email, password, cpf, employee, company
-- O campo 'employee' deve conter: name, birthDate
-- O campo 'company' deve conter: id (ID da empresa)
+---
 
-**2. Restaurante (restaurant):**
-- Campos obrigatórios: name, email, password, cnpj, restaurant
-- O campo 'restaurant' deve conter: name, cep, number
+### 1. Funcionário (employee)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`
+- O campo \`employee\` deve conter: \`name\`, \`birthDate\`
+- O campo \`company\` deve conter: \`id\` (ID da empresa)
 
-**3. Empresa (company):**
-- Campos obrigatórios: name, email, password, cnpj, company
-- O campo 'company' deve conter: name, cep, number
+**Exemplo:**
+\`\`\`json
+{
+  "name": "João da Silva",
+  "email": "joao.silva@email.com",
+  "password": "senha123",
+  "userType": "employee",
+  "cpf": "12345678901",
+  "employee": {
+    "name": "João da Silva",
+    "birthDate": "1990-05-10"
+  },
+  "company": {
+    "id": 1
+  }
+}
+\`\`\`
 
-Veja os exemplos abaixo para cada tipo.`
+---
+
+### 2. Restaurante (restaurant)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`restaurant\`
+- O campo \`restaurant\` deve conter: \`name\`, \`cep\`, \`number\`
+
+**Exemplo:**
+\`\`\`json
+{
+  "name": "Restaurante Saboroso",
+  "email": "restaurante@email.com",
+  "password": "senha123",
+  "userType": "restaurant",
+  "cnpj": "98765432000188",
+  "restaurant": {
+    "name": "Restaurante Saboroso",
+    "cep": "87654321",
+    "number": "200"
+  }
+}
+\`\`\`
+
+---
+
+### 3. Empresa (company)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`company\`
+- O campo \`company\` deve conter: \`name\`, \`cep\`, \`number\`
+
+**Exemplo:**
+\`\`\`json
+{
+  "name": "Empresa ABC Ltda",
+  "email": "empresa@email.com",
+  "password": "senha123",
+  "userType": "company",
+  "cnpj": "12345678000199",
+  "company": {
+    "name": "Empresa ABC Ltda",
+    "cep": "12345678",
+    "number": "100"
+  }
+}
+\`\`\`
+`
     })
     @ApiBody({
         description: 'Dados do usuário - Escolha um dos 3 tipos disponíveis',
