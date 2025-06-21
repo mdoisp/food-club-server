@@ -6,6 +6,13 @@ import { ListDishRatingUserResponse } from "./listDishRatingUser.dto";
 export class ListDishDtoResponse {
     @ApiProperty({
         type: 'number',
+        description: 'ID do prato',
+        example: 1,
+    })
+    id: number;
+
+    @ApiProperty({
+        type: 'number',
         description: 'ID do restaurante',
         example: 1,
     })
@@ -56,7 +63,7 @@ export class ListDishDtoResponse {
 
     @ApiProperty({
         description: 'Avaliações do prato',
-        type: [Object],
+        type: [ListDishRatingUserResponse],
         required: false,
       })
       ratings?: ListDishRatingUserResponse[];

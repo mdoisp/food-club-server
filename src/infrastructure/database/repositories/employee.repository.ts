@@ -11,7 +11,6 @@ export class EmployeeRepository {
 
   async list(): Promise<EmployeeEntityInterface[]> {
     return await this.employeeEntity.findAll({
-      // include: ['weeklyOrders'],
     });
   }
   async create(employee: Omit<EmployeeEntityInterface, 'id'>): Promise<EmployeeEntityInterface> {
@@ -28,8 +27,10 @@ export class EmployeeRepository {
 
   async getById(id: number): Promise<EmployeeEntityInterface | null> {
     return await this.employeeEntity.findByPk(id, {
-      // include: ['weeklyOrders'],
     });
+  }
+  async getByUserId(userId: number): Promise<EmployeeEntityInterface | null> {
+    return await this.employeeEntity.findOne({ where: { userId } });
   }
 
   async listByCompany(companyId: number): Promise<EmployeeEntityInterface[]> {

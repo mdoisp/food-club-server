@@ -85,8 +85,8 @@ export class CompanyController {
   })
   async create(
     @Body() company: CompanyInterface, @Res() res: Response) {
-    const { userId, name, cnpj, cep, number } = company;
-    if(!(userId && name && cnpj && cep && number)){
+    const { userId, name, cnpj, cep, number, restaurantId } = company;
+    if(!(userId && name && cnpj && cep && number && restaurantId)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'
@@ -132,7 +132,7 @@ export class CompanyController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
-    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'restaurantId'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     

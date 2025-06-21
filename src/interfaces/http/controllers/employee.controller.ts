@@ -122,7 +122,7 @@ export class EmployeeController {
     type: Http404,
   })
   async update(@Param('id') id: string, @Body() employeeData: EmployeeInterface, @Res() res:Response): Promise<EmployeeInterface> {
-    const expectedFields = ['employee_name', 'company_id'];
+    const expectedFields = ['userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation'];
     const receivedFields = Object.keys(employeeData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const user = await this.updateEmployeeService.execute(Number(id), employeeData);

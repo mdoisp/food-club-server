@@ -5,6 +5,7 @@ import { DishRatingRepository } from 'src/infrastructure/database/repositories/d
 import { DishRatingEntityInterface } from 'src/domain/repositories/dish-rating.repository.interface';
 import { EmployeeRepository } from '../../infrastructure/database/repositories/employee.repository';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
+import { DishEmployeeEntityInterface } from 'src/domain/repositories/dish-employee.respository.interface';
 
 @Injectable()
 export class GetDishByIdService {
@@ -18,7 +19,7 @@ export class GetDishByIdService {
     @Inject('RESTAURANT_REPOSITORY')
     private readonly restaurantRepository: RestaurantRepository
   ){}
-  async execute(id: number): Promise<any> {
+  async execute(id: number): Promise<DishEmployeeEntityInterface> {
      const dish = await this.dishRepository.getById(id);
      const restaurant = await this.restaurantRepository.getById(dish.restaurantId);
      const ratings = await this.dishRatingRepository.listByDish(dish.id);
@@ -31,6 +32,7 @@ export class GetDishByIdService {
          if (employee && employee.name) employeeName = employee.name;
        }
        return {
+         id: r.id,
          name: employeeName,
          rating: r.rating,
          profileImage: r.user?.profileImage || null,
@@ -38,6 +40,7 @@ export class GetDishByIdService {
        };
      }));
      return {
+      id: dish.id,
       restaurantId: dish.restaurantId,
       restaurantName: restaurant.name,
       name: dish.name,

@@ -9,16 +9,6 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      // individualOrderId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: 'individual_order',
-      //     key: 'id',
-      //   },
-      //   onUpdate: 'CASCADE',
-      //   onDelete: 'CASCADE',
-      // },
       dishId: {
         type: DataTypes.INTEGER,
         allowNull: false,

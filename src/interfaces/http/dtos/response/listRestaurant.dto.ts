@@ -13,9 +13,16 @@ export class ListRestaurantDtoResponse {
     @ApiProperty({
         type: 'string',
         description: 'Nome do restaurante',
-        example: 'Pizzaria do João',
+        example: 'Sabores do Chef',
     })
-    restaurant_name: string;
+    name: string;
+
+    @ApiProperty({
+        type: 'number',
+        description: 'ID do usuário do restaurante',
+        example: 1,
+    })
+    userId: number;
 
     @ApiProperty({
         type: 'string',
@@ -26,10 +33,10 @@ export class ListRestaurantDtoResponse {
 
     @ApiProperty({
         type: 'string',
-        description: 'Rua do restaurante',
-        example: 'Rua das Flores',
+        description: 'CEP do restaurante',
+        example: '12345-678',
     })
-    street?: string;
+    cep?: string;
 
     @ApiProperty({
         type: 'string',
@@ -40,36 +47,17 @@ export class ListRestaurantDtoResponse {
 
     @ApiProperty({
         type: 'string',
-        description: 'CEP do restaurante',
-        example: '12345-678',
+        description: 'URL da imagem do restaurante',
+        example: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
     })
-    zip_code?: string;
+    image?: string;
 
     @ApiProperty({
-        type: 'string',
-        description: 'Cidade do restaurante',
-        example: 'São Paulo',
+        type: 'number',
+        description: 'Avaliação média do restaurante',
+        example: 4.5,
     })
-    city?: string;
+    averageRating?: number;
 
-    @ApiProperty({
-        type: 'string',
-        description: 'Estado do restaurante',
-        example: 'SP',
-    })
-    state?: string;
 
-    @ApiProperty({
-        type: 'array',
-        items: { type: 'object' },
-        description: 'Lista de pratos do restaurante',
-    })
-    dishes?: DishInterface[];
-
-    @ApiProperty({
-        type: 'array',
-        items: { type: 'object' },
-        description: 'Lista de avaliações do restaurante',
-    })
-    restaurantRatings?: RestaurantRatingInterface[];
 }

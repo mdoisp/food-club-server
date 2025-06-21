@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { UserEntityInterface } from "../../domain/repositories/user.repository.interface";
 import { UserRepository } from '../../infrastructure/database/repositories/user.repository';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UpdateUserService {
@@ -13,6 +14,10 @@ export class UpdateUserService {
         id: number,
         userData: Partial<Omit<UserEntityInterface, 'id'>>
     ): Promise<UserEntityInterface> {
-        return await this.userRepository.update(id, userData);
+        if (userData.password) {
+            const hashedPassword = await bcrypt.hash(userData.password, 10);
+            userData.password = hashedPassword;
+        }
+        return await this.userRepository.updateImage(id, userData);
     }
 }

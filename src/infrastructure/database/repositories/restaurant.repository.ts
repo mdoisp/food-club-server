@@ -24,6 +24,9 @@ export class RestaurantRepository {
   async getById(id: number): Promise<RestaurantEntityInterface | null> {
     return await this.restaurantEntity.findByPk(id);
   }
+  async getByDishId(dishId: number): Promise<RestaurantEntityInterface | null> {
+    return await this.restaurantEntity.findOne({ where: { dishId } });
+  }
 
   async list(): Promise<RestaurantEntityInterface[]> {
     return await this.restaurantEntity.findAll();

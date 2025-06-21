@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { CreateEmployeeUserDto } from './interfaces/http/dtos/request/createEmployeeUser.dto';
+import { CreateRestaurantUserDto } from './interfaces/http/dtos/request/createRestaurantUser.dto';
+import { CreateCompanyUserDto } from './interfaces/http/dtos/request/createCompanyUser.dto';
 
 async function bootstrap() {
   const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
@@ -36,7 +39,9 @@ async function bootstrap() {
     )
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {
+    extraModels: [CreateEmployeeUserDto, CreateRestaurantUserDto, CreateCompanyUserDto]
+  });
   SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       persistAuthorization: true,

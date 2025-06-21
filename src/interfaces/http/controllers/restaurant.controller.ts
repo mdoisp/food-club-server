@@ -6,14 +6,16 @@ import { UpdateRestaurantService } from '../../../application/use-cases/update-r
 import { DeleteRestaurantService } from '../../../application/use-cases/delete-restaurant.use-cases';
 import { Response } from 'express';
 import { RestaurantInterface } from 'src/domain/models/restaurant.model';
-import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListRestaurantDtoResponse } from 'src/interfaces/http/dtos/response/listRestaurant.dto';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
 import { CreateRestaurantDto } from 'src/interfaces/http/dtos/request/createRestaurant.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { ListRestaurantService } from '../../../application/use-cases/list-restaurant.use-cases';
+import { RestaurantDetailDtoResponse, RestaurantDetailDishDto, RestaurantDetailRatingDto } from 'src/interfaces/http/dtos/response/restaurant-detail.dto';
 
 @ApiTags('Restaurant API')
+@ApiExtraModels(RestaurantDetailDtoResponse, RestaurantDetailDishDto, RestaurantDetailRatingDto)
 @Controller('Restaurant')
 export class RestaurantController {
   constructor(
@@ -48,7 +50,7 @@ export class RestaurantController {
   @ApiResponse({
     status: 200,
     description: 'Consulta realizada com sucesso',
-    type: ListRestaurantDtoResponse,
+    type: RestaurantDetailDtoResponse,
   })
   @ApiResponse({
     status: 404,
@@ -121,7 +123,7 @@ export class RestaurantController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() restaurantData: RestaurantInterface,@Res() res: Response): Promise<RestaurantInterface> {
-    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number'];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'image'];
     const receivedFields = Object.keys(restaurantData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     const restaurant = await this.updateRestaurantService.execute(Number(id), restaurantData);

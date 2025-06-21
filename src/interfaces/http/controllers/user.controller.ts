@@ -8,6 +8,9 @@ import { Response } from "express";
 import { ApiBody, ApiParam, ApiResponse, ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { ListUserDtoResponse } from "src/interfaces/http/dtos/response/listUser.dto";
 import { CreateUserDto } from "src/interfaces/http/dtos/request/createUser.dto";
+import { CreateEmployeeUserDto } from "src/interfaces/http/dtos/request/createEmployeeUser.dto";
+import { CreateRestaurantUserDto } from "src/interfaces/http/dtos/request/createRestaurantUser.dto";
+import { CreateCompanyUserDto } from "src/interfaces/http/dtos/request/createCompanyUser.dto";
 import { Http400 } from "src/interfaces/http/dtos/response/http400";
 import { Http404 } from "src/interfaces/http/dtos/response/http404";
 import { UserInterface } from "src/domain/models/user.model";
@@ -16,6 +19,9 @@ import { LoginResponseDto } from "src/interfaces/http/dtos/response/login.dto";
 import { AuthService } from "../../../application/use-cases/login.use-cases";
 import { JwtAuthGuard } from "../../../infrastructure/guards/jwt-auth.guard";
 import { GetUserByEmailService } from "../../../application/use-cases/get-byemail.use-cases";
+import { UserLoginEntityInterface } from "src/domain/repositories/user-login.repository.interface";
+import { UpdateUserImageDto } from "../dtos/request/updateUserImage.dto";
+import { UpdateUserPasswordDto } from "../dtos/request/updateUserPassword.dto";
 
 @ApiTags('User API')
 @Controller('user')
@@ -42,7 +48,7 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async list(): Promise<UserInterface[]> {
+    async list(): Promise<UserLoginEntityInterface[]> {
         return await this.listUsersService.execute();
     }
 
@@ -69,15 +75,147 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async getById(@Param('id') id: number): Promise<UserInterface> {
+    async getById(@Param('id') id: number): Promise<UserLoginEntityInterface> {
         return await this.getUserByIdService.execute(id);
     }
 
     @Post()
     @HttpCode(201)
+    @ApiOperation({ 
+        summary: 'Criar usuário', 
+        description: `Cria um novo usuário no sistema. Existem 3 tipos de usuários:
+
+---
+
+### 1. Funcionário (employee)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cpf\`, \`employee\`, \`company\`
+- O campo \`employee\` deve conter: \`name\`, \`birthDate\`
+- O campo \`company\` deve conter: \`id\` (ID da empresa)
+
+**Exemplo:**
+\`\`\`json
+{
+  "name": "João da Silva",
+  "email": "joao.silva@email.com",
+  "password": "senha123",
+  "userType": "employee",
+  "cpf": "12345678901",
+  "employee": {
+    "name": "João da Silva",
+    "birthDate": "1990-05-10"
+  },
+  "company": {
+    "id": 1
+  }
+}
+\`\`\`
+
+---
+
+### 2. Restaurante (restaurant)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`restaurant\`
+- O campo \`restaurant\` deve conter: \`name\`, \`cep\`, \`number\`
+
+**Exemplo:**
+\`\`\`json
+{
+  "name": "Restaurante Saboroso",
+  "email": "restaurante@email.com",
+  "password": "senha123",
+  "userType": "restaurant",
+  "cnpj": "98765432000188",
+  "restaurant": {
+    "name": "Restaurante Saboroso",
+    "cep": "87654321",
+    "number": "200"
+  }
+}
+\`\`\`
+
+---
+
+### 3. Empresa (company)
+- **Campos obrigatórios:** \`name\`, \`email\`, \`password\`, \`cnpj\`, \`company\`
+- O campo \`company\` deve conter: \`name\`, \`cep\`, \`number\`
+
+**Exemplo:**
+\`\`\`json
+{
+  "name": "Empresa ABC Ltda",
+  "email": "empresa@email.com",
+  "password": "senha123",
+  "userType": "company",
+  "cnpj": "12345678000199",
+  "company": {
+    "name": "Empresa ABC Ltda",
+    "cep": "12345678",
+    "number": "100"
+  }
+}
+\`\`\`
+`
+    })
     @ApiBody({
-        description: 'Dados do usuário',
-        type: CreateUserDto,
+        description: 'Dados do usuário - Escolha um dos 3 tipos disponíveis',
+        schema: {
+            oneOf: [
+                { $ref: '#/components/schemas/CreateRestaurantUserDto' },
+                { $ref: '#/components/schemas/CreateEmployeeUserDto' },
+                { $ref: '#/components/schemas/CreateCompanyUserDto' }
+            ],
+            examples: {
+                employee: {
+                    summary: 'Criar funcionário',
+                    description: 'Exemplo para criar um funcionário',
+                    value: {
+                        name: "João da Silva",
+                        email: "joao.silva@email.com",
+                        password: "senha123",
+                        userType: "employee",
+                        cpf: "12345678901",
+                        employee: {
+                            name: "João da Silva",
+                            birthDate: "1990-05-10"
+                        },
+                        company: {
+                            id: 1
+                        }
+                    }
+                },
+                restaurant: {
+                    summary: 'Criar restaurante',
+                    description: 'Exemplo para criar um restaurante',
+                    value: {
+                        name: "Restaurante Saboroso",
+                        email: "restaurante@email.com",
+                        password: "senha123",
+                        userType: "restaurant",
+                        cnpj: "98765432000188",
+                        restaurant: {
+                            name: "Restaurante Saboroso",
+                            cep: "87654321",
+                            number: "200"
+                        }
+                    }
+                },
+                company: {
+                    summary: 'Criar empresa',
+                    description: 'Exemplo para criar uma empresa',
+                    value: {
+                        name: "Empresa ABC Ltda",
+                        email: "empresa@email.com",
+                        password: "senha123",
+                        userType: "company",
+                        cnpj: "12345678000199",
+                        company: {
+                            name: "Empresa ABC Ltda",
+                            cep: "12345678",
+                            number: "100"
+                        }
+                    }
+                }
+            }
+        }
     })
     @ApiResponse({
         status: 201,
@@ -85,7 +223,7 @@ export class UserController {
     })
     @ApiResponse({
         status: 400,
-        description: 'Erro ao criar usuário',
+        description: 'Erro ao criar usuário - Verifique se todos os campos obrigatórios foram preenchidos corretamente',
         type: Http400,
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
@@ -98,7 +236,7 @@ export class UserController {
         res.send();
     }
 
-    @Put(':id')
+    @Put('image/:id')
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth('JWT-auth')
     @ApiParam({
@@ -109,7 +247,7 @@ export class UserController {
     })
     @ApiBody({
         description: 'Dados do usuário',
-        type: CreateUserDto,
+        type: UpdateUserImageDto,
     })
     @ApiResponse({
         status: 200,
@@ -124,8 +262,80 @@ export class UserController {
         status: 401,
         description: 'Não autorizado',
     })
-    async update(@Param('id') id: number, @Body() user: UserInterface): Promise<void> {
-        await this.updateUserService.execute(id, user);
+    async updateImage(@Param('id') id: number, @Body() user: UserInterface, @Res() res: Response): Promise<void> {
+        const expectedFields = ['profileImage'];
+        const receivedFields = Object.keys(user);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        const userUpdated = await this.updateUserService.execute(Number(id), user);
+        if (!userUpdated) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
+        if (invalidFields.length > 0) {
+            res.status(400).json({
+                success: false,
+                message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
+            });
+            return;
+        }
+        res.status(200).json(userUpdated);
+    }
+
+    @Put('password/:id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
+    @ApiParam({
+        name: 'id',
+        required: true,
+        description: 'ID do usuário',
+        schema: { type: 'number' },
+    })
+    @ApiBody({
+        description: 'Dados do usuário',
+        type: UpdateUserPasswordDto,
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Senha atualizada com sucesso',
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Usuário não encontrado',
+        type: Http404,
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Erro ao atualizar senha',
+        type: Http400,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Não autorizado',
+    })
+    async updatePassword(@Param('id') id: number, @Body() user: UserInterface, @Res() res: Response): Promise<void> {
+        const expectedFields = ['password'];
+        const receivedFields = Object.keys(user);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        if (invalidFields.length > 0) {
+            res.status(400).json({
+                success: false,
+                message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}`,
+            });
+            return;
+        }
+        const userData = await this.getUserByIdService.execute(Number(id));
+        if (!userData) {
+            res.status(404).json({
+                success: false,
+                message: 'Usuário não encontrado',
+            });
+            return;
+        }
+        const userUpdated = await this.updateUserService.execute(Number(id), { password: user.password });
+        res.status(200).json(userUpdated);
     }
 
     @Delete(':id')
