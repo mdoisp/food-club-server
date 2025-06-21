@@ -17,6 +17,8 @@ import { ListDishesByRestaurantService } from '../../../application/use-cases/li
 import { AverageRatingByRestaurantService } from '../../../application/use-cases/average-rating-by-restaurant.use-cases';
 import { AverageRatingDishInterface } from '../../../domain/models/average-rating-dish.model';
 import { ListDishRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishRating.dto';
+import { DishEmployeeEntityInterface } from 'src/domain/repositories/dish-employee.respository.interface';
+import { ListDishAverageRatingDtoResponse } from 'src/interfaces/http/dtos/response/listDishAverageRating.dto';
 
 @ApiTags('Dish API')
 @Controller('Dish')
@@ -42,7 +44,7 @@ export class DishController {
     status: 500,
     description: 'Erro interno do servidor',
   })
-  async list(): Promise<DishEntityInterface[]> {
+  async list(): Promise<DishEmployeeEntityInterface[]> {
     const dishList = await this.listDishesService.execute();
 
     return dishList;
@@ -93,8 +95,8 @@ export class DishController {
   })
   create(
     @Body() dish: DishInterface, @Res() res: Response) {
-    const { restaurantId, name, description, price } = dish;
-    if(!(restaurantId && name && description && price)){
+    const { restaurantId, name, description, price, image } = dish;
+    if(!(restaurantId && name && description && price && image)){
       res.status(400).json({
         sucess: false,
         message: 'Todos os campos são obrigatórios'
@@ -207,19 +209,7 @@ export class DishController {
     status: 200,
     description: 'Lista de pratos do restaurante com média das avaliações',
     isArray: true,
-    schema: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          id: { type: 'number', example: 1 },
-          restaurantId: { type: 'number', example: 1 },
-          name: { type: 'string', example: 'Prato X' },
-          price: { type: 'number', example: 25.5 },
-          averageRating: { type: 'number', example: 4.5, nullable: true },
-        },
-      },
-    },
+    type: ListDishAverageRatingDtoResponse,
   })
   async averageRatingByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<void> {
     const dishes: AverageRatingDishInterface[] = await this.averageRatingByRestaurantService.execute(Number(restaurantId));
