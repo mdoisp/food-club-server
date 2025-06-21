@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { EmployeeInterface } from '../../domain/models/employee.model';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { UserRepository } from 'src/infrastructure/database/repositories/user.repository';
@@ -12,7 +12,22 @@ export class UpdateEmployeeService {
     private readonly userRepository: UserRepository
   ) {}
   async execute(id: number, employeeData: EmployeeInterface): Promise<EmployeeInterface> {
-    this.userRepository.updateImage(employeeData.userId, {profileImage: employeeData.profileImage});
-    return await this.employeeRepository.update(id, employeeData);
+    if(employeeData.profileImage){
+      const user = await this.userRepository.updateImage(employeeData.userId, {profileImage: employeeData.profileImage});
+      if(!user){
+        throw new BadRequestException('Usuário não encontrado');
+      }
+    }
+    const employee = await this.employeeRepository.update(id, employeeData);
+    return {
+      id: employee.id,
+      userId: employee.userId,
+      companyId: employee.companyId,
+      name: employee.name,
+      cpf: employee.cpf,
+      birthDate: employee.birthDate,
+      vacation: employee.vacation,
+      profileImage: employeeData.profileImage
+    };
   }
 }

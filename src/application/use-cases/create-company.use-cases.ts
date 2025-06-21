@@ -15,7 +15,12 @@ export class CreateCompanyService {
 
     async execute(company: CompanyEntityInterface): Promise<CompanyEntityInterface> {
         const { userId, cnpj } = company;
-        
+        if(company.profileImage){
+            const user = await this.userRepository.updateImage(userId, {profileImage: company.profileImage});
+            if(!user){
+                throw new BadRequestException('Usuário não encontrado');
+            }
+        }
         const user = await this.userRepository.getById(userId);
         if (!user) {
             throw new BadRequestException('Usuário não encontrado');
@@ -26,7 +31,17 @@ export class CreateCompanyService {
             throw new BadRequestException('Já existe uma empresa cadastrada com este CNPJ');
         }
 
-        return await this.companyRepository.create(company);
+        const companyCreated = await this.companyRepository.create(company);
+        return {
+            id: companyCreated.id,
+            userId: companyCreated.userId,
+            name: companyCreated.name,
+            cnpj: companyCreated.cnpj,
+            cep: companyCreated.cep,
+            number: companyCreated.number,
+            restaurantId: companyCreated.restaurantId,
+            profileImage: company.profileImage
+        }
     }
 
     async validateUserCreateCompany(company: CompanyEntityInterface): Promise<boolean> {

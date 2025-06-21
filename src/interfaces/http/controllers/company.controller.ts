@@ -132,7 +132,7 @@ export class CompanyController {
     type: Http400,
   })
   async update(@Param('id') id: string, @Body() companyData: CompanyInterface, @Res() res: Response): Promise<CompanyInterface> {
-    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'restaurantId'];
+    const expectedFields = ['userId', 'name', 'cnpj', 'cep', 'number', 'restaurantId', 'profileImage'];
     const receivedFields = Object.keys(companyData);
     const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
     

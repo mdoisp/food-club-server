@@ -11,4 +11,5 @@ export interface CompanyEntityInterface {
   number: string;
   employees?: EmployeeEntityInterface[];
   affiliateRestaurants?: CompanyAffiliateRestaurantEntityInterface[];
+  profileImage?: string;
 }
