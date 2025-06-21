@@ -4,5 +4,5 @@ export interface IndividualOrderEntityInterface {
   id: number;
   companyOrderId: number;
   employeeId: number;
-  
+  dishId?: number;
 }
