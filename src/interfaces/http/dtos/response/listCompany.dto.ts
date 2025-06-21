@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class ListCompanyDtoResponse {
    @ApiProperty({
-    description: 'ID do usuário proprietário da empresa',
+    description: 'ID da empresa',
     type: Number,   
     example: 1,
     })
@@ -42,4 +42,11 @@ export class ListCompanyDtoResponse {
     example: '123',
     })
     number: string;
+
+    @ApiProperty({
+    description: 'ID do restaurante associado à empresa',
+    type: Number,
+    example: 1,
+    })
+    restaurantId: number;
 }

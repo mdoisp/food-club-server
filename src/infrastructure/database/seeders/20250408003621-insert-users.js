@@ -19,14 +19,14 @@ module.exports = {
         email: 'admin@tech.com',
         password: hashedPasswordRestarant,
         user_type: 'restaurant',
-        profile_Image:''
+        profile_Image:'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/d9/aa/99/nova-unidade-do-sabores.jpg?w=900&h=-1&s=1'
       },
       {
         id: 2,
         email: 'italian@restaurant.com',
         password: hashedPasswordRestarant,
         user_type: 'restaurant',
-        profile_Image:'https://bomgourmet.com/bomgourmet/restaurantes/osteria-trattoria-ristorante-diferencas-locais-tipicos-italia/'
+        profile_Image:'https://resize.casapino.com.br/?u=https://cms-bomgourmet.s3.amazonaws.com/bomgourmet/2019/01/201901/osteria-trattoria-ristorante-italia-18ceab70.jpg&w=480'
       },
       {
         id: 3,

@@ -24,9 +24,9 @@ export class UpdateCompanyService {
         }
 
         if (companyData.cnpj) {
-            if (!validateCNPJ(companyData.cnpj)) {
-                throw new BadRequestException('CNPJ inválido');
-            }
+            // if (!validateCNPJ(companyData.cnpj)) {
+            //     throw new BadRequestException('CNPJ inválido');
+            // }
 
             const existingCompany = await this.companyRepository.findByCnpj(companyData.cnpj);
             if (existingCompany && existingCompany.id !== id) {
