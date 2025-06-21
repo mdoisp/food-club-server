@@ -17,7 +17,6 @@ export class CompanyOrderEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'company_id',
   })
   companyId: number;
 
@@ -25,7 +24,6 @@ export class CompanyOrderEntity extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'restaurant_id',
   })
   restaurantId: number;
 
