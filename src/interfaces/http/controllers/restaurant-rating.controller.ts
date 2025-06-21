@@ -109,7 +109,6 @@ export class RestaurantRatingController {
     @ApiParam({
         name: 'id',
         description: 'ID da avaliação',
-        type: CreateRestaurantRatingDto,
     })
     @ApiBody({
         description: 'Dados para atualizar a avaliação',
@@ -128,12 +127,19 @@ export class RestaurantRatingController {
         @Body() ratingData: Partial<RestaurantRatingEntityInterface>,
         @Res() res: Response
     ) {
-        try {
-            const updated = await this.updateRestaurantRatingService.execute(Number(id), ratingData);
-            res.status(200).json(updated);
-        } catch (error) {
-            res.status(400).json({ success: false, message: error.message });
+        const expectedFields = ['restaurantId', 'userId', 'rating', 'description'];
+        const receivedFields = Object.keys(ratingData);
+        const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));
+        if (invalidFields.length > 0) {
+            res.status(400).json({ success: false, message: `Os seguintes campos são inválidos: ${invalidFields.join(', ')}` });
+            return;
         }
+        const updated = await this.updateRestaurantRatingService.execute(Number(id), ratingData);
+        if (!updated) {
+            res.status(404).json({ success: false, message: 'Avaliação não encontrada' });
+            return;
+        }
+        res.status(200).json(updated);
     }
 
     @Delete(":id")
