@@ -23,7 +23,7 @@ export class DishRatingControlller {
         private readonly deleteDishRatingService: DeleteDishRatingService
     ) {}
 
-    @Get()
+    @Get('dish/:dishId')
     @ApiResponse({
         status: 200,
         description: 'Consulta realizada com sucesso',
@@ -34,8 +34,8 @@ export class DishRatingControlller {
         status: 500,
         description: 'Erro interno do servidor',
     })
-    async listByDish(@Param('id') id: string, @Res() res: Response): Promise<DishRatingEntityInterface>{
-        const dishRating = await this.getListByDish.execute(Number(id));
+    async listByDish(@Param('dishId') dishId: string, @Res() res: Response): Promise<DishRatingEntityInterface>{
+        const dishRating = await this.getListByDish.execute(Number(dishId));
         if (!dishRating) {
             res.status(404).json({
                 success: false,
@@ -46,11 +46,7 @@ export class DishRatingControlller {
         res.status(200).json(dishRating);
     }
 
-    @Get(':dishId/:userId')
-    @ApiParam({
-        name: 'dishId',
-        description: 'ID do prato',
-    })
+    @Get('user/:userId')
     @ApiParam({
         name: 'userId',
         description: 'ID do usuário',
@@ -66,10 +62,9 @@ export class DishRatingControlller {
         type: Http404,
     })
     async getRatingByDishAndUser(
-        @Param('dishId') dishId: string, 
         @Param('userId') userId: string,
         @Res() res: Response){
-            const dishRating = await this.getByDishAndUserService.execute(Number(dishId), Number(userId));
+            const dishRating = await this.getByDishAndUserService.execute(Number(userId));
         if (!dishRating) {
             res.status(404).json({
                 success: false,

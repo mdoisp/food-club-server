@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateEmployeeDto {
     @ApiProperty({
         description: 'ID do usuário associado ao funcionário',
-        example: 1,
+        example: 10,
     })
     userId: number;
 

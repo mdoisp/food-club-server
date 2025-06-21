@@ -30,6 +30,7 @@ export class ListDishesByRestaurantService {
             if (employee && employee.name) employeeName = employee.name;
           }
           return {
+            id: r.id,
             name: employeeName,
             rating: r.rating,
             profileImage: r.user?.profileImage || null,
