@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IndividualOrderEntity } from '../entities/individual-order.entity';
-import { IndividualOrderEntityInterface } from '../../../domain/repositories/individual-order.repository.interface';
+import { IndividualOrderEntityInterface, IndividualOrderStatus } from '../../../domain/repositories/individual-order.repository.interface';
 
 @Injectable()
 export class IndividualOrderRepository {
@@ -28,5 +28,40 @@ export class IndividualOrderRepository {
   async delete(id: number): Promise<void> {
     const order = await this.individualOrderEntity.findByPk(id);
     await order.destroy();
+  }
+
+  async updateStatus(id: number, status: IndividualOrderStatus): Promise<IndividualOrderEntityInterface> {
+    const order = await this.individualOrderEntity.findByPk(id);
+    if (!order) {
+      throw new Error('Pedido individual não encontrado');
+    }
+    return await order.update({ status });
+  }
+
+  async areAllOrdersCompleted(companyOrderId: number): Promise<boolean> {
+    const orders = await this.individualOrderEntity.findAll({ 
+      where: { 
+        companyOrderId,
+        status: IndividualOrderStatus.PREPARING 
+      } 
+    });
+    return orders.length === 0;
+  }
+
+  async getCompletedOrdersCount(companyOrderId: number): Promise<number> {
+    const completedOrders = await this.individualOrderEntity.count({ 
+      where: { 
+        companyOrderId,
+        status: IndividualOrderStatus.COMPLETED 
+      } 
+    });
+    return completedOrders;
+  }
+
+  async getTotalOrdersCount(companyOrderId: number): Promise<number> {
+    const totalOrders = await this.individualOrderEntity.count({ 
+      where: { companyOrderId } 
+    });
+    return totalOrders;
   }
 }

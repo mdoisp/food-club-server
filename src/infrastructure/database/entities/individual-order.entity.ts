@@ -4,6 +4,11 @@ import { OrderItemEntity } from './order-item.entity';
 import { CompanyOrderEntity } from './company-order.entity';
 import { DishEntity } from './dish.entity';
 
+export enum IndividualOrderStatus {
+  PREPARING = 'preparing',
+  COMPLETED = 'completed',
+}
+
 @Table({ tableName: 'individual_order', timestamps: false })
 export class IndividualOrderEntity extends Model {
   @Column({
@@ -36,6 +41,13 @@ export class IndividualOrderEntity extends Model {
     field: 'dish_id',
   })
   dishId: number;
+
+  @Column({
+    type: DataType.ENUM('preparing', 'completed'),
+    allowNull: false,
+    defaultValue: 'preparing',
+  })
+  status: IndividualOrderStatus;
 
   @BelongsTo(() => CompanyOrderEntity)
   companyOrder: CompanyOrderEntity;

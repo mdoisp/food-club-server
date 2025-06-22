@@ -7,6 +7,7 @@ import { EmployeeRepository } from '../../infrastructure/database/repositories/e
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
 import { CreateCompanyOrderDto } from '../../interfaces/http/dtos/request/create-company-order.dto';
 import { CompanyOrderStatus } from '../../domain/repositories/company-order.repository.interface';
+import { IndividualOrderStatus } from '../../domain/repositories/individual-order.repository.interface';
 
 @Injectable()
 export class CreateCompanyOrderUseCase {
@@ -67,6 +68,7 @@ export class CreateCompanyOrderUseCase {
         companyOrderId: companyOrder.id,
         employeeId: order.employeeId,
         dishId: order.dishId,
+        status: IndividualOrderStatus.PREPARING,
       });
     }
 
