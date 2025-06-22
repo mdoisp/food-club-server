@@ -19,9 +19,15 @@ import { SendOrdersUseCase } from 'src/application/use-cases/send-orders.use-cas
 import { SendOrdersDto } from 'src/interfaces/http/dtos/request/send-orders.dto';
 import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
 import { CreateCompanyOrderDto } from 'src/interfaces/http/dtos/request/create-company-order.dto';
+import { UpdateIndividualOrderStatusUseCase } from 'src/application/use-cases/update-individual-order-status.use-case';
+import { UpdateCompanyOrderStatusUseCase } from 'src/application/use-cases/update-company-order-status.use-case';
+import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-progress.use-case';
+import { UpdateIndividualOrderStatusDto } from 'src/interfaces/http/dtos/request/update-individual-order-status.dto';
+import { UpdateCompanyOrderStatusDto } from 'src/interfaces/http/dtos/request/update-company-order-status.dto';
+import { OrderProgressDto } from 'src/interfaces/http/dtos/response/order-progress.dto';
 
 @ApiTags('Restaurant API')
-@ApiExtraModels(RestaurantDetailDtoResponse, RestaurantDetailDishDto, RestaurantDetailRatingDto)
+@ApiExtraModels(RestaurantDetailDtoResponse, RestaurantDetailDishDto, RestaurantDetailRatingDto, OrderProgressDto)
 @Controller('Restaurant')
 export class RestaurantController {
   constructor(
@@ -33,6 +39,9 @@ export class RestaurantController {
     private listOrdersByRestaurantUseCase: ListOrdersByRestaurantUseCase,
     private sendOrdersUseCase: SendOrdersUseCase,
     private createCompanyOrderUseCase: CreateCompanyOrderUseCase,
+    private updateIndividualOrderStatusUseCase: UpdateIndividualOrderStatusUseCase,
+    private updateCompanyOrderStatusUseCase: UpdateCompanyOrderStatusUseCase,
+    private getOrderProgressUseCase: GetOrderProgressUseCase,
   ) {}
 
   @Get()
@@ -279,6 +288,194 @@ export class RestaurantController {
         success: true,
         message: result.message,
         orderId: result.id,
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        res.status(404).json({
+          success: false,
+          message: error.message,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: 'Erro interno do servidor',
+        });
+      }
+    }
+  }
+
+  @Put(':restaurantId/orders/:orderId/individual-orders/:individualOrderId/status')
+  @HttpCode(200)
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiParam({
+    name: 'orderId',
+    description: 'ID do pedido da empresa',
+  })
+  @ApiParam({
+    name: 'individualOrderId',
+    description: 'ID do pedido individual',
+  })
+  @ApiBody({
+    type: UpdateIndividualOrderStatusDto,
+    description: 'Dados para atualização do status do pedido individual',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Status do pedido individual atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Pedido não encontrado',
+    type: Http404,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao atualizar status',
+    type: Http400,
+  })
+  async updateIndividualOrderStatus(
+    @Param('restaurantId') restaurantId: string,
+    @Param('orderId') orderId: string,
+    @Param('individualOrderId') individualOrderId: string,
+    @Body() updateDto: UpdateIndividualOrderStatusDto,
+    @Res() res: Response,
+  ): Promise<void> {
+    try {
+      // Validar se o ID do pedido individual na URL corresponde ao do DTO
+      if (Number(individualOrderId) !== updateDto.id) {
+        res.status(400).json({
+          success: false,
+          message: 'ID do pedido individual na URL não corresponde ao ID no corpo da requisição',
+        });
+        return;
+      }
+
+      const result = await this.updateIndividualOrderStatusUseCase.execute(
+        Number(individualOrderId),
+        updateDto.status
+      );
+
+      res.status(200).json({
+        success: true,
+        message: result.message,
+        companyOrderUpdated: result.companyOrderUpdated || false,
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        res.status(404).json({
+          success: false,
+          message: error.message,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: 'Erro interno do servidor',
+        });
+      }
+    }
+  }
+
+  @Put(':restaurantId/orders/:orderId/status')
+  @HttpCode(200)
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiParam({
+    name: 'orderId',
+    description: 'ID do pedido da empresa',
+  })
+  @ApiBody({
+    type: UpdateCompanyOrderStatusDto,
+    description: 'Dados para atualização do status do pedido da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Status do pedido da empresa atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Pedido não encontrado',
+    type: Http404,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao atualizar status',
+    type: Http400,
+  })
+  async updateCompanyOrderStatus(
+    @Param('restaurantId') restaurantId: string,
+    @Param('orderId') orderId: string,
+    @Body() updateDto: UpdateCompanyOrderStatusDto,
+    @Res() res: Response,
+  ): Promise<void> {
+    try {
+      // Validar se o ID do pedido da empresa na URL corresponde ao do DTO
+      if (Number(orderId) !== updateDto.id) {
+        res.status(400).json({
+          success: false,
+          message: 'ID do pedido da empresa na URL não corresponde ao ID no corpo da requisição',
+        });
+        return;
+      }
+
+      const result = await this.updateCompanyOrderStatusUseCase.execute(
+        Number(orderId),
+        updateDto.status
+      );
+
+      res.status(200).json({
+        success: true,
+        message: result.message,
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        res.status(404).json({
+          success: false,
+          message: error.message,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: 'Erro interno do servidor',
+        });
+      }
+    }
+  }
+
+  @Get(':restaurantId/orders/:orderId/progress')
+  @ApiParam({
+    name: 'restaurantId',
+    description: 'ID do restaurante',
+  })
+  @ApiParam({
+    name: 'orderId',
+    description: 'ID do pedido da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Informações de progresso obtidas com sucesso',
+    type: OrderProgressDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Pedido não encontrado',
+    type: Http404,
+  })
+  async getOrderProgress(
+    @Param('restaurantId') restaurantId: string,
+    @Param('orderId') orderId: string,
+    @Res() res: Response,
+  ): Promise<void> {
+    try {
+      const progress = await this.getOrderProgressUseCase.execute(Number(orderId));
+
+      res.status(200).json({
+        success: true,
+        data: progress,
       });
     } catch (error) {
       if (error instanceof NotFoundException) {
