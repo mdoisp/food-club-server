@@ -18,6 +18,9 @@ import { ListOrdersByRestaurantUseCase } from 'src/application/use-cases/list-or
 import { SendOrdersUseCase } from 'src/application/use-cases/send-orders.use-case';
 import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
 import { individualOrderProvider } from 'src/infrastructure/providers/individual-order.provider';
+import { UpdateIndividualOrderStatusUseCase } from 'src/application/use-cases/update-individual-order-status.use-case';
+import { UpdateCompanyOrderStatusUseCase } from 'src/application/use-cases/update-company-order-status.use-case';
+import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-progress.use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -38,7 +41,10 @@ import { individualOrderProvider } from 'src/infrastructure/providers/individual
     ListDishesByRestaurantService,
     ListOrdersByRestaurantUseCase,
     SendOrdersUseCase,
-    CreateCompanyOrderUseCase
+    CreateCompanyOrderUseCase,
+    UpdateIndividualOrderStatusUseCase,
+    UpdateCompanyOrderStatusUseCase,
+    GetOrderProgressUseCase
   ],
   exports: [
     RestaurantRepository,
@@ -51,7 +57,10 @@ import { individualOrderProvider } from 'src/infrastructure/providers/individual
     ListDishesByRestaurantService,
     ListOrdersByRestaurantUseCase,
     SendOrdersUseCase,
-    CreateCompanyOrderUseCase
+    CreateCompanyOrderUseCase,
+    UpdateIndividualOrderStatusUseCase,
+    UpdateCompanyOrderStatusUseCase,
+    GetOrderProgressUseCase
   ]
 })
 export class RestaurantModule {}
