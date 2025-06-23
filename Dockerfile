@@ -36,6 +36,8 @@ COPY --from=builder /app/package*.json ./
 # Instala apenas as dependências de produção
 RUN npm ci --omit=dev || npm install --omit=dev
 
+ENV NODE_ENV=production
+
 # Expõe a porta da aplicação
 EXPOSE 3000
 
