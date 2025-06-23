@@ -42,4 +42,4 @@ ENV NODE_ENV=production
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
-CMD ["npm", "run", "start:prod"] 
+CMD npx sequelize-cli db:migrate --env production && npm run start:prod 
