@@ -17,8 +17,19 @@ export const databaseProvider = [
         provide: 'SEQUELIZE',
         useFactory: async () => {
             const sequelize = new Sequelize({
-                storage: './database.sqlite',
-                dialect: 'sqlite'
+                host: process.env.DB_HOST,
+                port: Number(process.env.DB_PORT),
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
+                dialect: 'postgres',
+                dialectOptions: {
+                    ssl: {
+                        require: true,
+                        rejectUnauthorized: false
+                    }
+                },
+                logging: false,
             });
 
             sequelize.addModels([DishEntity, CompanyEntity, EmployeeEntity, RestaurantEntity, UserEntity, DishRatingEntity, OrderItemEntity,
