@@ -17,6 +17,10 @@ import { ListEmployeeWithProfileImageDto } from 'src/interfaces/http/dtos/respon
 import { ListIndividualOrderByCompanyUseCase } from 'src/application/use-cases/list-individual-order-by-company.use-case';
 import { IndividualOrderEntityInterface } from 'src/domain/repositories/individual-order.repository.interface';
 import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
+import { ListWeeklyOrdersByCompanyService } from 'src/application/use-cases/list-weekly-orders-by-company.use-cases';
+import { CreateOrdersFromWeeklyOrdersUseCase } from 'src/application/use-cases/create-orders-from-weekly-orders.use-case';
+import { CompanyWeeklyOrdersResponse } from 'src/interfaces/http/dtos/response/companyWeeklyOrders.dto';
+import { CreateOrdersFromWeeklyResponse } from 'src/interfaces/http/dtos/response/createOrdersFromWeeklyResponse.dto';
 
 @ApiTags('Company API')
 @Controller('company')
@@ -29,7 +33,9 @@ export class CompanyController {
     private deleteCompanyService: DeleteCompanyService,
     private listEmployeesByCompanyService: ListEmployeesByCompanyService,
     private listIndividualOrderByCompanyUseCase: ListIndividualOrderByCompanyUseCase,
-    private createCompanyOrderUseCase: CreateCompanyOrderUseCase
+    private createCompanyOrderUseCase: CreateCompanyOrderUseCase,
+    private listWeeklyOrdersByCompanyService: ListWeeklyOrdersByCompanyService,
+    private createOrdersFromWeeklyOrdersUseCase: CreateOrdersFromWeeklyOrdersUseCase
   ) {}
 
    @Get()
@@ -263,6 +269,64 @@ export class CompanyController {
   })  
   async createOrder(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const result = await this.createCompanyOrderUseCase.execute(Number(id));
+    res.status(200).json(result);
+  }
+
+  @Get(':id/weekly-orders')
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Pedidos semanais dos funcionários da empresa para o dia atual',
+    type: CompanyWeeklyOrdersResponse,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  async getWeeklyOrdersByCompany(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    const company = await this.getCompanyByIdService.execute(Number(id));
+    if (!company) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
+
+    const weeklyOrders = await this.listWeeklyOrdersByCompanyService.execute(Number(id));
+    res.status(200).json(weeklyOrders);
+  }
+
+  @Post(':id/create-orders-from-weekly')
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Pedidos criados com sucesso baseados nos pedidos semanais do dia atual',
+    type: CreateOrdersFromWeeklyResponse,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  async createOrdersFromWeeklyOrders(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    const company = await this.getCompanyByIdService.execute(Number(id));
+    if (!company) {
+      res.status(404).json({
+        success: false,
+        message: 'Empresa não encontrada',
+      });
+      return;
+    }
+
+    const result = await this.createOrdersFromWeeklyOrdersUseCase.execute(Number(id));
     res.status(200).json(result);
   }
 }
