@@ -19,8 +19,7 @@ export class CreateUserService {
 
     async execute(data: UserInterface): Promise<UserInterface> {
         data.password = await this.authService.hashPassword(data.password);
-        if(data.userType === 'employee'){
-            console.log('dataemployee',data);
+        if(data.userType === 'employee'){   
             const validate = await this.createEmployeeService.validateUserCreateEmployee({
                 id: undefined,
                 name: data.employee.name,
@@ -29,13 +28,11 @@ export class CreateUserService {
                 userId: data.id,
                 birthDate: data.employee.birthDate,
             } as EmployeeInterface);
-            console.log('validate',validate);
             if (!validate) {
                 throw new BadRequestException('CPF já cadastrado');
             }
         }
         if(data.userType === 'company'){
-            console.log('data.company',data.company);
             const validate = await this.createCompanyService.validateUserCreateCompany({
                 id: undefined,
                 name: data.company.name,
@@ -45,7 +42,6 @@ export class CreateUserService {
                 number: data.company.number,
                 restaurantId: data.company.restaurantId,
             });
-            console.log('validate',validate);
             if (!validate) {
                 throw new BadRequestException('CNPJ já cadastrado');
             }
@@ -64,9 +60,7 @@ export class CreateUserService {
                 complemento: data.restaurant.complemento,
             });
         }
-        console.log('dataS',data);
         const user = await this.userRepository.create(data);
-        console.log('user',user);
         data.id = user.id;
         
         if(data.userType === 'employee'){
