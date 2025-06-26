@@ -21,6 +21,7 @@ import { ListWeeklyOrdersByCompanyService } from 'src/application/use-cases/list
 import { CreateOrdersFromWeeklyOrdersUseCase } from 'src/application/use-cases/create-orders-from-weekly-orders.use-case';
 import { CompanyWeeklyOrdersResponse } from 'src/interfaces/http/dtos/response/companyWeeklyOrders.dto';
 import { CreateOrdersFromWeeklyResponse } from 'src/interfaces/http/dtos/response/createOrdersFromWeeklyResponse.dto';
+import logger from 'src/infrastructure/utils/logger';
 
 @ApiTags('Company API')
 @Controller('company')
@@ -50,8 +51,9 @@ export class CompanyController {
       description: 'Erro interno do servidor',
     })
     async list(): Promise<CompanyEntityInterface[]> {
-      const employeeList = await this.listCompaniesService.execute();
-      return employeeList;
+        logger.info('Requisição recebida: Listar empresas');
+        const employeeList = await this.listCompaniesService.execute();
+        return employeeList;
     }
 
   @Get(':id')
@@ -70,6 +72,7 @@ export class CompanyController {
     type: Http404,
   })
   async getById(@Param('id') id: string, @Res() res: Response): Promise<ListCompanyDtoResponse> {
+    logger.info(`Requisição recebida: Buscar empresa por ID: ${id}`);
     const company = await this.getCompanyByIdService.execute(Number(id));
     if (!company) {
       res.status(404).json({
@@ -99,6 +102,7 @@ export class CompanyController {
   })
   async create(
     @Body() company: CompanyInterface, @Res() res: Response) {
+    logger.info(`Requisição recebida: Criar empresa - Dados: ${JSON.stringify(company)}`);
     const { userId, name, cnpj, cep, number } = company;
     if(!(userId && name && cnpj && cep && number)){
       res.status(400).json({

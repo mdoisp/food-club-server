@@ -12,6 +12,7 @@ import { DishRatingSummaryDtoResponse } from 'src/interfaces/http/dtos/response/
 import { CreateDishRatingDto } from 'src/interfaces/http/dtos/request/createDishRating.dto';
 import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { Http404 } from 'src/interfaces/http/dtos/response/http404';
+import logger from 'src/infrastructure/utils/logger';
 
 @ApiTags('Dish Rating API')
 @Controller('dish-rating')
@@ -35,6 +36,7 @@ export class DishRatingControlller {
         description: 'Erro interno do servidor',
     })
     async listByDish(@Param('dishId') dishId: string, @Res() res: Response): Promise<DishRatingEntityInterface>{
+        logger.info(`Requisição recebida: Listar avaliações de prato: ${dishId}`);
         const dishRating = await this.getListByDish.execute(Number(dishId));
         if (!dishRating) {
             res.status(404).json({
@@ -64,6 +66,7 @@ export class DishRatingControlller {
     async getRatingByDishAndUser(
         @Param('userId') userId: string,
         @Res() res: Response){
+            logger.info(`Requisição recebida: Buscar avaliação de prato por usuário: ${userId}`);
             const dishRating = await this.getByDishAndUserService.execute(Number(userId));
         if (!dishRating) {
             res.status(404).json({
@@ -90,7 +93,8 @@ export class DishRatingControlller {
         description: 'Erro ao criar avaliação',
         type: Http400,
     })
-    creat(@Body() dishRating: DishRatingEntityInterface, @Res() res: Response){
+    async create(@Body() dishRating: DishRatingEntityInterface, @Res() res: Response): Promise<void> {
+        logger.info(`Requisição recebida: Criar avaliação de prato - Dados: ${JSON.stringify(dishRating)}`);
         const { dishId, userId, rating } = dishRating;
         if(!(dishId && userId && rating)){
       res.status(400).json({
@@ -165,6 +169,7 @@ export class DishRatingControlller {
     })
     async delete(@Param("id") id: string, @Res() res: Response) {
         try {
+            logger.info(`Requisição recebida: Deletar avaliação: ${id}`);
             await this.deleteDishRatingService.execute(Number(id));
             res.status(204).send();
         } catch (error) {

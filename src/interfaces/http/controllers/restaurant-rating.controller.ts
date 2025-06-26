@@ -10,6 +10,7 @@ import { ApiTags, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { ListRestaurantAverageRatingDtoResponse } from "../dtos/response/listRestaurantAverageRating.dto";
 import { ListRestaurantAverageRatingByUserDtoResponse } from "../dtos/response/listRestaurantAverageRatingByUser.dto";
 import { CreateRestaurantRatingDto } from "../dtos/request/createRestaurantRating.dto";
+import logger from 'src/infrastructure/utils/logger';
 
 @ApiTags('Restaurant Rating API')
 @Controller('restaurant-rating')
@@ -39,6 +40,7 @@ export class RestaurantRatingController {
         description: 'Erro interno do servidor',
     })
     async listByRestaurant(@Param('restaurantId') restaurantId: string, @Res() res: Response): Promise<RestaurantRatingEntityInterface[]> {
+        logger.info('Requisição recebida: Listar avaliações de restaurante');
         const restaurantRating = await this.getListByRestaurant.execute(Number(restaurantId));
         if (!restaurantRating) {
             res.status(404).json({
@@ -68,6 +70,7 @@ export class RestaurantRatingController {
     async getRatingByRestaurantAndUser(
         @Param('userId') userId: string,
         @Res() res: Response){
+            logger.info(`Requisição recebida: Buscar avaliação de restaurante por usuário: ${userId}`);
             const restaurantRating = await this.getByRestaurantAndUserService.execute(Number(userId));
         if (!restaurantRating) {
             res.status(404).json({
@@ -93,6 +96,7 @@ export class RestaurantRatingController {
         description: 'Erro ao criar avaliação',
     })
     async create(@Body() restaurantRating: RestaurantRatingEntityInterface, @Res() res: Response){
+        logger.info(`Requisição recebida: Criar avaliação de restaurante - Dados: ${JSON.stringify(restaurantRating)}`);
         const { restaurantId, userId, rating, description } = restaurantRating;
         if(!(restaurantId && userId && rating && description)){
             res.status(400).json({

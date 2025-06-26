@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res, NotFoundException } from '@nestjs/common';
+import logger from 'src/infrastructure/utils/logger';
 
 import { GetRestaurantByIdService } from '../../../application/use-cases/get-restaurant-byid.use-cases'
 import { CreateRestaurantService } from '../../../application/use-cases/create-restaurant.use-cases';
@@ -56,6 +57,7 @@ export class RestaurantController {
     description: 'Erro interno do servidor',
   })
   async list(): Promise<RestaurantInterface[]> {
+    logger.info('Requisição recebida: Listar restaurantes');
     const restaurantList = await this.listRestaurantService.execute();
     return restaurantList;
   }
@@ -76,6 +78,7 @@ export class RestaurantController {
     type: Http404,
   })
   async getById(@Param('id') id: string, @Res() res: Response): Promise<RestaurantInterface> {
+    logger.info(`Requisição recebida: Buscar restaurante por ID: ${id}`);
     const product = await this.getRestaurantByIdService.execute(Number(id));
     if (!product) {
       res.status(404).json({
@@ -105,6 +108,7 @@ export class RestaurantController {
   })
   create(
     @Body() restaurant: RestaurantInterface, @Res() res: Response) {
+    logger.info(`Requisição recebida: Criar restaurante - Dados: ${JSON.stringify(restaurant)}`);
     const { userId, name, cnpj, cep, number} = restaurant;
     if(!(userId && name && cnpj && cep && number)) {
       res.status(400).json({

@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
+import logger from 'src/infrastructure/utils/logger';
 
 import { GetDishByIdService } from '../../../application/use-cases/get-dish-byid.use-cases';
 import { DishInterface } from 'src/domain/models/dish.model';
@@ -45,6 +46,7 @@ export class DishController {
     description: 'Erro interno do servidor',
   })
   async list(): Promise<DishEmployeeEntityInterface[]> {
+    logger.info('Requisição recebida: Listar pratos');
     const dishList = await this.listDishesService.execute();
 
     return dishList;
@@ -66,6 +68,7 @@ export class DishController {
     type: Http404,
   })
   async getById(@Param('id') id: string, @Res() res: Response): Promise<DishInterface> {
+    logger.info(`Requisição recebida: Buscar prato por ID: ${id}`);
     const dish = await this.getDishByIdService.execute(Number(id));
     if (!dish) {
       res.status(404).json({
@@ -95,6 +98,7 @@ export class DishController {
   })
   create(
     @Body() dish: DishInterface, @Res() res: Response) {
+    logger.info(`Requisição recebida: Criar prato - Dados: ${JSON.stringify(dish)}`);
     const { restaurantId, name, description, price, image } = dish;
     if(!(restaurantId && name && description && price && image)){
       res.status(400).json({

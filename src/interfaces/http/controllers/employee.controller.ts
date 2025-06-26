@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Res } from '@nestjs/common';
+import logger from 'src/infrastructure/utils/logger';
 
 import { GetEmployeeByIdService } from '../../../application/use-cases/get-employee-byid.use-cases';
 import { EmployeeInterface } from 'src/domain/models/employee.model';
@@ -37,6 +38,7 @@ export class EmployeeController {
     description: 'Erro interno do servidor',
   })
   async list(): Promise<EmployeeEntityInterface[]> {
+    logger.info('Requisição recebida: Listar funcionários');
     const employeeList = await this.listEmployeesService.execute();
 
     return employeeList;
@@ -57,6 +59,7 @@ export class EmployeeController {
     description: 'Funcionário não encontrado',
   })
   async getById(@Param('id') id: string, @Res() res: Response): Promise<EmployeeEntityInterface> {
+    logger.info(`Requisição recebida: Buscar funcionário por ID: ${id}`);
     const employee = await this.getEmployeeByIdService.execute(Number(id));
     if (!employee) {
       res.status(404).json({
@@ -86,6 +89,7 @@ export class EmployeeController {
   })
   async create(
     @Body() employee: EmployeeInterface, @Res() res: Response) {
+      logger.info(`Requisição recebida: Criar funcionário - Dados: ${JSON.stringify(employee)}`);
       const expectedFields = ['userId', 'companyId', 'name', 'cpf', 'birthDate', 'vacation', 'profileImage'];
       const receivedFields = Object.keys(employee);
       const invalidFields = receivedFields.filter(field => !expectedFields.includes(field));

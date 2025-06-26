@@ -22,6 +22,7 @@ import { GetUserByEmailService } from "../../../application/use-cases/get-byemai
 import { UserLoginEntityInterface } from "src/domain/repositories/user-login.repository.interface";
 import { UpdateUserImageDto } from "../dtos/request/updateUserImage.dto";
 import { UpdateUserPasswordDto } from "../dtos/request/updateUserPassword.dto";
+import logger from 'src/infrastructure/utils/logger';
 
 @ApiTags('User API')
 @Controller('user')
@@ -49,6 +50,7 @@ export class UserController {
         description: 'Não autorizado',
     })
     async list(): Promise<UserLoginEntityInterface[]> {
+        logger.info('Requisição recebida: Listar usuários');
         return await this.listUsersService.execute();
     }
 
@@ -76,6 +78,7 @@ export class UserController {
         description: 'Não autorizado',
     })
     async getById(@Param('id') id: number): Promise<UserLoginEntityInterface> {
+        logger.info(`Requisição recebida: Buscar usuário por ID: ${id}`);
         return await this.getUserByIdService.execute(id);
     }
 
@@ -235,6 +238,7 @@ export class UserController {
         type: Http400,
     })
     async create(@Body() user: UserInterface,@Res() res: Response): Promise<void> {
+        logger.info(`Requisição recebida: Criar usuário - Dados: ${JSON.stringify(user)}`);
         const { email, password, userType} = user;
         if (!(email && password && userType)) {
             throw new Error('Todos os campos são obrigatórios');
