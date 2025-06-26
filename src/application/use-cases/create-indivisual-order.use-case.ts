@@ -5,12 +5,12 @@ import { CompanyRepository } from '../../infrastructure/database/repositories/co
 import { RestaurantRepository } from '../../infrastructure/database/repositories/restaurant.repository';
 import { EmployeeRepository } from '../../infrastructure/database/repositories/employee.repository';
 import { DishRepository } from '../../infrastructure/database/repositories/dish.repository';
-import { CreateCompanyOrderDto } from '../../interfaces/http/dtos/request/create-company-order.dto';
+import { CreateCompanyOrderDto, CreateIndividualOrderDto } from '../../interfaces/http/dtos/request/create-company-order.dto';
 import { CompanyOrderStatus } from '../../domain/repositories/company-order.repository.interface';
 import { IndividualOrderStatus } from '../../domain/repositories/individual-order.repository.interface';
 
 @Injectable()
-export class CreateCompanyOrderUseCase {
+export class CreateIndividualOrderUseCase {
   constructor(
     @Inject('COMPANY_ORDER_REPOSITORY')
     private readonly companyOrderRepository: CompanyOrderRepository,
@@ -26,63 +26,57 @@ export class CreateCompanyOrderUseCase {
     private readonly dishRepository: DishRepository,
   ) {}
 
-  async execute(companyId: number): Promise<{message: string, id: number}> {
-    console.log('companyId', companyId);
-    const createOrderDto = await this.individualOrderRepository.listByCompanyOrderIdNull(companyId);
-    console.log('createOrderDto', createOrderDto);
+  async execute(createOrderDto: CreateIndividualOrderDto): Promise<{message: string}> {
     // Validar se a empresa existe
-    const company = await this.companyRepository.getById(createOrderDto[0].companyId);
-    console.log('company', company);
+    const company = await this.companyRepository.getById(createOrderDto.companyId);
     if (!company) {
       throw new NotFoundException('Empresa não encontrada');
     }
 
     // Validar se o restaurante existe
-    const restaurant = await this.restaurantRepository.getById(createOrderDto[0].restaurantId);
-    console.log('restaurant', restaurant);
+    const restaurant = await this.restaurantRepository.getById(createOrderDto.restaurantId);
     if (!restaurant) {
       throw new NotFoundException('Restaurante não encontrado');
     }
 
     // Validar se todos os funcionários existem
-    for (const order of createOrderDto) {
-      const employee = await this.employeeRepository.getById(order.employeeId);
-      console.log('employee', employee);
+    // for (const order of createOrderDto.individualOrders) {
+      const employee = await this.employeeRepository.getById(createOrderDto.employeeId);
       if (!employee) {
-        throw new NotFoundException(`Funcionário com ID ${order.employeeId} não encontrado`);  
+        throw new NotFoundException(`Funcionário com ID ${createOrderDto.employeeId} não encontrado`);
       }
-    }
+    // }
 
     // Validar se todos os pratos existem
-    for (const order of createOrderDto) {
-      const dish = await this.dishRepository.getById(order.dishId);
-      console.log('dish', dish);
+    // for (const order of createOrderDto.individualOrders) {
+      const dish = await this.dishRepository.getById(createOrderDto.dishId);
       if (!dish) {
-        throw new NotFoundException(`Prato com ID ${order.dishId} não encontrado`);
+        throw new NotFoundException(`Prato com ID ${createOrderDto.dishId} não encontrado`);
       }
-    }
+    // }
 
     // Criar o pedido da empresa
-    const companyOrder = await this.companyOrderRepository.create({
-      companyId: createOrderDto[0].companyId,
-      restaurantId: createOrderDto[0].restaurantId,
-      status: CompanyOrderStatus.PENDING,
-    });
-    console.log('companyOrderUpdate', companyOrder);
+    // const companyOrder = await this.companyOrderRepository.create({
+    //   companyId: createOrderDto.companyId,
+    //   restaurantId: createOrderDto.restaurantId,
+    //   status: CompanyOrderStatus.PENDING,
+    // });
+
     // Criar os pedidos individuais dos funcionários
-    for (const order of createOrderDto) {
-      await this.individualOrderRepository.update({
-        id: order.id,
-        companyOrderId: companyOrder.id,
+    // for (const order of createOrderDto.individualOrders) {
+      await this.individualOrderRepository.create({
+        // companyOrderId: companyOrder.id,
+        companyId: createOrderDto.companyId,
+        employeeId: createOrderDto.employeeId,
+        restaurantId: createOrderDto.restaurantId,
+        dishId: createOrderDto.dishId,
         status: IndividualOrderStatus.PREPARING,
       });
-    }
-    console.log('companyOrder', companyOrder);
-    console.log('companyOrderId', companyOrder.id);
+    // }
 
     return {
-      id: companyOrder.id,
+      // id: companyOrder.id,
       message: 'Pedido criado com sucesso',
     };
   }
-} 
+}

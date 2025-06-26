@@ -17,8 +17,8 @@ import { ListOrdersByRestaurantUseCase } from 'src/application/use-cases/list-or
 import { ICompanyOrder } from 'src/domain/models/company-order.model';
 import { SendOrdersUseCase } from 'src/application/use-cases/send-orders.use-case';
 import { SendOrdersDto } from 'src/interfaces/http/dtos/request/send-orders.dto';
-import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
-import { CreateCompanyOrderDto } from 'src/interfaces/http/dtos/request/create-company-order.dto';
+import { CreateIndividualOrderUseCase } from 'src/application/use-cases/create-indivisual-order.use-case';
+import { CreateCompanyOrderDto, CreateIndividualOrderDto } from 'src/interfaces/http/dtos/request/create-company-order.dto';
 import { UpdateIndividualOrderStatusUseCase } from 'src/application/use-cases/update-individual-order-status.use-case';
 import { UpdateCompanyOrderStatusUseCase } from 'src/application/use-cases/update-company-order-status.use-case';
 import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-progress.use-case';
@@ -38,7 +38,7 @@ export class RestaurantController {
     private deleteRestaurantService: DeleteRestaurantService,
     private listOrdersByRestaurantUseCase: ListOrdersByRestaurantUseCase,
     private sendOrdersUseCase: SendOrdersUseCase,
-    private createCompanyOrderUseCase: CreateCompanyOrderUseCase,
+    private createCompanyOrderUseCase: CreateIndividualOrderUseCase,
     private updateIndividualOrderStatusUseCase: UpdateIndividualOrderStatusUseCase,
     private updateCompanyOrderStatusUseCase: UpdateCompanyOrderStatusUseCase,
     private getOrderProgressUseCase: GetOrderProgressUseCase,
@@ -251,7 +251,7 @@ export class RestaurantController {
     description: 'ID do restaurante',
   })
   @ApiBody({
-    type: CreateCompanyOrderDto,
+    type: CreateIndividualOrderDto,
     description: 'Dados do pedido a ser criado',
   })
   @ApiResponse({
@@ -270,7 +270,7 @@ export class RestaurantController {
   })
   async createOrder(
     @Param('id') restaurantId: string,
-    @Body() createOrderDto: CreateCompanyOrderDto,
+    @Body() createOrderDto: CreateIndividualOrderDto,
     @Res() res: Response,
   ): Promise<void> {
     try {
@@ -287,7 +287,7 @@ export class RestaurantController {
       res.status(201).json({
         success: true,
         message: result.message,
-        orderId: result.id,
+        // orderId: result.id,
       });
     } catch (error) {
       if (error instanceof NotFoundException) {
@@ -446,11 +446,7 @@ export class RestaurantController {
     }
   }
 
-  @Get(':restaurantId/orders/:orderId/progress')
-  @ApiParam({
-    name: 'restaurantId',
-    description: 'ID do restaurante',
-  })
+  @Get('orders/:orderId/progress')
   @ApiParam({
     name: 'orderId',
     description: 'ID do pedido da empresa',
@@ -466,7 +462,7 @@ export class RestaurantController {
     type: Http404,
   })
   async getOrderProgress(
-    @Param('restaurantId') restaurantId: string,
+    // @Param('restaurantId') restaurantId: string,
     @Param('orderId') orderId: string,
     @Res() res: Response,
   ): Promise<void> {

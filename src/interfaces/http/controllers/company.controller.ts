@@ -14,6 +14,9 @@ import { Http400 } from 'src/interfaces/http/dtos/response/http400';
 import { CreateCompanyDto } from 'src/interfaces/http/dtos/request/createCompany.dto';
 import { ListEmployeesByCompanyService } from '../../../application/use-cases/list-employees-by-company.use-cases';
 import { ListEmployeeWithProfileImageDto } from 'src/interfaces/http/dtos/response/listEmployeeWithProfileImage.dto';
+import { ListIndividualOrderByCompanyUseCase } from 'src/application/use-cases/list-individual-order-by-company.use-case';
+import { IndividualOrderEntityInterface } from 'src/domain/repositories/individual-order.repository.interface';
+import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
 
 @ApiTags('Company API')
 @Controller('company')
@@ -24,7 +27,9 @@ export class CompanyController {
     private createCompanyService: CreateCompanyService,
     private updateCompanyService: UpdateCompanyService,
     private deleteCompanyService: DeleteCompanyService,
-    private listEmployeesByCompanyService: ListEmployeesByCompanyService
+    private listEmployeesByCompanyService: ListEmployeesByCompanyService,
+    private listIndividualOrderByCompanyUseCase: ListIndividualOrderByCompanyUseCase,
+    private createCompanyOrderUseCase: CreateCompanyOrderUseCase
   ) {}
 
    @Get()
@@ -223,5 +228,41 @@ export class CompanyController {
 
     const employees = await this.listEmployeesByCompanyService.execute(Number(id));
     res.status(200).json(employees);
+  }
+
+  @Get(':id/orders')
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Pedidos da empresa encontrados',
+    isArray: true,
+    // type: ListIndividualOrderDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Empresa não encontrada',
+    type: Http404,
+  })
+  async getOrdersByCompany(@Param('id') id: string, @Res() res: Response): Promise<IndividualOrderEntityInterface[]> {
+    const orders = await this.listIndividualOrderByCompanyUseCase.execute(Number(id));
+    res.status(200).json(orders);
+    return;
+  }
+
+  @Post(':id/orders')
+  @ApiParam({
+    name: 'id',
+    description: 'ID da empresa',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Pedido da empresa criado com sucesso',
+  })  
+  async createOrder(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    const result = await this.createCompanyOrderUseCase.execute(Number(id));
+    res.status(200).json(result);
   }
 }
