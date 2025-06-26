@@ -16,11 +16,17 @@ import { ListRestaurantService } from 'src/application/use-cases/list-restaurant
 import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';
 import { ListOrdersByRestaurantUseCase } from 'src/application/use-cases/list-orders-by-restaurant.use-case';
 import { SendOrdersUseCase } from 'src/application/use-cases/send-orders.use-case';
-import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
+import { CreateIndividualOrderUseCase } from 'src/application/use-cases/create-indivisual-order.use-case';
 import { individualOrderProvider } from 'src/infrastructure/providers/individual-order.provider';
 import { UpdateIndividualOrderStatusUseCase } from 'src/application/use-cases/update-individual-order-status.use-case';
 import { UpdateCompanyOrderStatusUseCase } from 'src/application/use-cases/update-company-order-status.use-case';
 import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-progress.use-case';
+import { companyOrderProvider } from 'src/infrastructure/providers/company-order.provider';
+import { companyProvider } from 'src/infrastructure/providers/company.provider';
+import { employeeProvider } from 'src/infrastructure/providers/employee.provider';
+import { CompanyRepository } from 'src/infrastructure/database/repositories/company.repository';
+import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
+import { DishRepository } from 'src/infrastructure/database/repositories/dish.repository';
 
 @Module({
   imports: [DatabaseModule],
@@ -31,8 +37,14 @@ import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-pro
     ...restaurantRatingProvider,
     ...dishRatingProvider,
     ...individualOrderProvider,
+    ...companyOrderProvider,
+    ...companyProvider,
+    ...employeeProvider,
     RestaurantRepository,
     RestaurantRatingRepository,
+    CompanyRepository,
+    EmployeeRepository,
+    DishRepository,
     ListRestaurantService,
     GetRestaurantByIdService, 
     CreateRestaurantService, 
@@ -41,7 +53,7 @@ import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-pro
     ListDishesByRestaurantService,
     ListOrdersByRestaurantUseCase,
     SendOrdersUseCase,
-    CreateCompanyOrderUseCase,
+    CreateIndividualOrderUseCase,
     UpdateIndividualOrderStatusUseCase,
     UpdateCompanyOrderStatusUseCase,
     GetOrderProgressUseCase
@@ -57,7 +69,7 @@ import { GetOrderProgressUseCase } from 'src/application/use-cases/get-order-pro
     ListDishesByRestaurantService,
     ListOrdersByRestaurantUseCase,
     SendOrdersUseCase,
-    CreateCompanyOrderUseCase,
+    CreateIndividualOrderUseCase,
     UpdateIndividualOrderStatusUseCase,
     UpdateCompanyOrderStatusUseCase,
     GetOrderProgressUseCase
