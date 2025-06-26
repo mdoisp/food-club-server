@@ -17,7 +17,6 @@ export class GetListByDishService{
         const ratingsWithEmployeeName = await Promise.all(dishRating.map(async r => {
             let employeeName = 'Usuário';
             if (r.userId) {
-                console.log('r.userId', r.userId);
               const employee = await this.employeeRepository.findByUserId(r.userId);
               if (employee && employee.name) employeeName = employee.name;
             }

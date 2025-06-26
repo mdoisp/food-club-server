@@ -14,7 +14,6 @@ export class IndividualOrderRepository {
   }
 
   async update(order: Partial<IndividualOrderEntityInterface>): Promise<number | null> {
-    console.log('order', order);
     const result = await this.individualOrderEntity.update(order, { where: { id: order.id } });
     return result[0];
   }

@@ -17,6 +17,16 @@ import { ListIndividualOrderByCompanyUseCase } from 'src/application/use-cases/l
 import { individualOrderProvider } from 'src/infrastructure/providers/individual-order.provider';
 import { IndividualOrderRepository } from 'src/infrastructure/database/repositories/individual-order.repository';
 import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
+import { ListWeeklyOrdersByCompanyService } from 'src/application/use-cases/list-weekly-orders-by-company.use-cases';
+import { CreateOrdersFromWeeklyOrdersUseCase } from 'src/application/use-cases/create-orders-from-weekly-orders.use-case';
+import { employeeWeeklyOrdersProvider } from 'src/infrastructure/providers/employee-weekly-orders.provider';
+import { EmployeeWeeklyOrdersRepository } from 'src/infrastructure/database/repositories/employee-weekly-orders.repository';
+import { orderItemProvider } from 'src/infrastructure/providers/order-item.provider';
+import { OrderItemRepository } from 'src/infrastructure/database/repositories/order-item.repository';
+import { dishProvider } from 'src/infrastructure/providers/dish.provider';
+import { DishRepository } from 'src/infrastructure/database/repositories/dish.repository';
+import { companyOrderProvider } from 'src/infrastructure/providers/company-order.provider';
+import { CompanyOrderRepository } from 'src/infrastructure/database/repositories/company-order.repository';
 
 @Module({
   imports: [DatabaseModule],
@@ -26,10 +36,18 @@ import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-comp
     ...userProvider,
     ...employeeProvider,
     ...individualOrderProvider,
+    ...employeeWeeklyOrdersProvider,
+    ...orderItemProvider,
+    ...dishProvider,
+    ...companyOrderProvider,
     CompanyRepository,
     UserRepository,
     EmployeeRepository,
     IndividualOrderRepository,
+    EmployeeWeeklyOrdersRepository,
+    OrderItemRepository,
+    DishRepository,
+    CompanyOrderRepository,
     ListCompaniesService,
     GetCompanyByIdService, 
     CreateCompanyService, 
@@ -37,7 +55,9 @@ import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-comp
     DeleteCompanyService,
     ListEmployeesByCompanyService,
     ListIndividualOrderByCompanyUseCase,
-    CreateCompanyOrderUseCase
+    CreateCompanyOrderUseCase,
+    ListWeeklyOrdersByCompanyService,
+    CreateOrdersFromWeeklyOrdersUseCase
   ],
   exports: [
     ListCompaniesService,
@@ -47,7 +67,9 @@ import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-comp
     DeleteCompanyService,
     ListEmployeesByCompanyService,
     ListIndividualOrderByCompanyUseCase,
-    CreateCompanyOrderUseCase
+    CreateCompanyOrderUseCase,
+    ListWeeklyOrdersByCompanyService,
+    CreateOrdersFromWeeklyOrdersUseCase
   ]
 })
 export class CompanyModule {}
