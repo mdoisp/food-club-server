@@ -16,6 +16,20 @@ export class CreateIndividualOrderDto {
   })
   @IsNumber()
   dishId: number;
+
+  @ApiProperty({
+    description: 'ID da empresa',
+    example: 1,
+  })
+  @IsNumber()
+  companyId?: number;
+
+  @ApiProperty({
+    description: 'ID do restaurante',
+    example: 1,
+  })
+  @IsNumber()
+  restaurantId?: number;
 }
 
 export class CreateCompanyOrderDto {

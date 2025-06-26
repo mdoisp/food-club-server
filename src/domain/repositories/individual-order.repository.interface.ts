@@ -7,8 +7,10 @@ export enum IndividualOrderStatus {
 
 export interface IndividualOrderEntityInterface {
   id: number;
-  companyOrderId: number;
+  companyOrderId?: number;
+  companyId?: number;
   employeeId: number;
   dishId?: number;
+  restaurantId?: number;
   status: IndividualOrderStatus;
 }

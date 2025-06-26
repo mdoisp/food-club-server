@@ -13,12 +13,22 @@ export class IndividualOrderRepository {
     return await this.individualOrderEntity.create(order);
   }
 
+  async update(order: Partial<IndividualOrderEntityInterface>): Promise<number | null> {
+    console.log('order', order);
+    const result = await this.individualOrderEntity.update(order, { where: { id: order.id } });
+    return result[0];
+  }
+
   async getById(id: number): Promise<IndividualOrderEntityInterface | null> {
     return await this.individualOrderEntity.findByPk(id);
   }
 
   async listByCompanyOrder(companyOrderId: number): Promise<IndividualOrderEntityInterface[]> {
     return await this.individualOrderEntity.findAll({ where: { companyOrderId } });
+  }
+
+  async listByCompanyOrderIdNull(companyId: number): Promise<IndividualOrderEntityInterface[]> {
+    return await this.individualOrderEntity.findAll({ where: { companyOrderId: null, companyId } });
   }
 
   async listByEmployee(employeeId: number): Promise<IndividualOrderEntityInterface[]> {

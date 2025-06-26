@@ -11,7 +11,7 @@ module.exports = {
       },
       companyOrderId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'company_order',
           key: 'id',
@@ -24,6 +24,26 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'employee',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      companyId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'company',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      restaurantId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'restaurant',
           key: 'id',
         },
         onUpdate: 'CASCADE',

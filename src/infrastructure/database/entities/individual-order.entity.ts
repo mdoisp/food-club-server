@@ -21,7 +21,7 @@ export class IndividualOrderEntity extends Model {
   @ForeignKey(() => CompanyOrderEntity)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: 'companyOrderId',
   })
   companyOrderId: number;
@@ -48,6 +48,20 @@ export class IndividualOrderEntity extends Model {
     defaultValue: 'preparing',
   })
   status: IndividualOrderStatus;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    field: 'companyid',
+  })
+  companyId: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    field: 'restaurantid',
+  })
+  restaurantId: number;
 
   @BelongsTo(() => CompanyOrderEntity)
   companyOrder: CompanyOrderEntity;

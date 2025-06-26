@@ -13,6 +13,10 @@ import { UpdateCompanyService } from 'src/application/use-cases/update-company.u
 import { ListEmployeesByCompanyService } from 'src/application/use-cases/list-employees-by-company.use-cases';
 import { EmployeeRepository } from 'src/infrastructure/database/repositories/employee.repository';
 import { employeeProvider } from 'src/infrastructure/providers/employee.provider';
+import { ListIndividualOrderByCompanyUseCase } from 'src/application/use-cases/list-individual-order-by-company.use-case';
+import { individualOrderProvider } from 'src/infrastructure/providers/individual-order.provider';
+import { IndividualOrderRepository } from 'src/infrastructure/database/repositories/individual-order.repository';
+import { CreateCompanyOrderUseCase } from 'src/application/use-cases/create-company-order.use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -21,15 +25,19 @@ import { employeeProvider } from 'src/infrastructure/providers/employee.provider
     ...companyProvider,
     ...userProvider,
     ...employeeProvider,
+    ...individualOrderProvider,
     CompanyRepository,
     UserRepository,
     EmployeeRepository,
+    IndividualOrderRepository,
     ListCompaniesService,
     GetCompanyByIdService, 
     CreateCompanyService, 
     UpdateCompanyService, 
     DeleteCompanyService,
-    ListEmployeesByCompanyService
+    ListEmployeesByCompanyService,
+    ListIndividualOrderByCompanyUseCase,
+    CreateCompanyOrderUseCase
   ],
   exports: [
     ListCompaniesService,
@@ -37,7 +45,9 @@ import { employeeProvider } from 'src/infrastructure/providers/employee.provider
     CreateCompanyService,
     UpdateCompanyService,
     DeleteCompanyService,
-    ListEmployeesByCompanyService
+    ListEmployeesByCompanyService,
+    ListIndividualOrderByCompanyUseCase,
+    CreateCompanyOrderUseCase
   ]
 })
 export class CompanyModule {}
