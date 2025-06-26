@@ -166,7 +166,7 @@ export class RestaurantDetailDtoResponse {
         description: 'URL da imagem do restaurante',
         example: 'https://www.tripadvisor.com.br/Restaurant_Review-g303235-d12083289-Reviews-Sabores_do_Chef_Picanharia-Manaus_Amazon_River_State_of_Amazonas.html',
     })
-    image: string;
+    profileImage: string;
 
     @ApiProperty({
         type: 'array',
