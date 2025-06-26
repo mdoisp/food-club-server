@@ -27,19 +27,19 @@ export class CreateCompanyOrderUseCase {
   ) {}
 
   async execute(companyId: number): Promise<{message: string, id: number}> {
-    console.log('companyId', companyId);
+
     const createOrderDto = await this.individualOrderRepository.listByCompanyOrderIdNull(companyId);
-    console.log('createOrderDto', createOrderDto);
+
     // Validar se a empresa existe
     const company = await this.companyRepository.getById(createOrderDto[0].companyId);
-    console.log('company', company);
+
     if (!company) {
       throw new NotFoundException('Empresa não encontrada');
     }
 
     // Validar se o restaurante existe
     const restaurant = await this.restaurantRepository.getById(createOrderDto[0].restaurantId);
-    console.log('restaurant', restaurant);
+
     if (!restaurant) {
       throw new NotFoundException('Restaurante não encontrado');
     }
@@ -47,7 +47,7 @@ export class CreateCompanyOrderUseCase {
     // Validar se todos os funcionários existem
     for (const order of createOrderDto) {
       const employee = await this.employeeRepository.getById(order.employeeId);
-      console.log('employee', employee);
+
       if (!employee) {
         throw new NotFoundException(`Funcionário com ID ${order.employeeId} não encontrado`);  
       }
@@ -56,7 +56,6 @@ export class CreateCompanyOrderUseCase {
     // Validar se todos os pratos existem
     for (const order of createOrderDto) {
       const dish = await this.dishRepository.getById(order.dishId);
-      console.log('dish', dish);
       if (!dish) {
         throw new NotFoundException(`Prato com ID ${order.dishId} não encontrado`);
       }
@@ -68,7 +67,6 @@ export class CreateCompanyOrderUseCase {
       restaurantId: createOrderDto[0].restaurantId,
       status: CompanyOrderStatus.PENDING,
     });
-    console.log('companyOrderUpdate', companyOrder);
     // Criar os pedidos individuais dos funcionários
     for (const order of createOrderDto) {
       await this.individualOrderRepository.update({
@@ -77,8 +75,6 @@ export class CreateCompanyOrderUseCase {
         status: IndividualOrderStatus.PREPARING,
       });
     }
-    console.log('companyOrder', companyOrder);
-    console.log('companyOrderId', companyOrder.id);
 
     return {
       id: companyOrder.id,
