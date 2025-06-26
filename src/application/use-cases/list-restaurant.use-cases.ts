@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { RestaurantInterface } from '../../domain/models/restaurant.model';
 import { RestaurantRepository } from 'src/infrastructure/database/repositories/restaurant.repository';
 import { RestaurantRatingRepository } from 'src/infrastructure/database/repositories/restaurant-rating.repository';
+import { UserRepository } from 'src/infrastructure/database/repositories/user.repository';
+import { use } from 'passport';
 
 @Injectable()
 export class ListRestaurantService {
   constructor(
     private restaurantRepository: RestaurantRepository,
-    private restaurantRatingRepository: RestaurantRatingRepository
+    private restaurantRatingRepository: RestaurantRatingRepository,
+    private userRepository: UserRepository
   ){}
   async execute(): Promise<RestaurantInterface[]> {
     const restaurants = await this.restaurantRepository.list();
@@ -18,7 +21,9 @@ export class ListRestaurantService {
         averageRating: averageRating
       };
       }));
-    const restaurantsWithAverageRating = restaurants.map((restaurant: RestaurantInterface, index: number) => ({
+    const restaurantsWithAverageRating = await Promise.all(restaurants.map(async (restaurant: RestaurantInterface, index: number) => {
+      const user = await this.userRepository.getById(restaurant.userId);
+      return {
       id: restaurant.id,
       name: restaurant.name,
       userId: restaurant.userId,
@@ -29,9 +34,10 @@ export class ListRestaurantService {
       cidade: restaurant.cidade,
       estado: restaurant.estado,
       complemento: restaurant.complemento,
-      profileImage: restaurant.profileImage,
-      averageRating: restaurantRatings[index].averageRating
-    }));
+      profileImage: user.profileImage,
+      averageRating: restaurantRatings[index].averageRating,
+    }}));
+
     return restaurantsWithAverageRating;
   }
 }
