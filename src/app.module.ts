@@ -4,10 +4,8 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 import { DishController } from './interfaces/http/controllers/dish.controller';
 import { CompanyModule } from './interfaces/http/company.module';
 import { EmployeeModule } from './interfaces/http/employee.module';
-// import { OrderModule } from './use-cases/order/order.module';
 import { RestaurantModule } from './interfaces/http/restaurant.module';
 import { EmployeeController } from './interfaces/http/controllers/employee.controller';
-// import { OrderController } from './use-cases/order/order.controller';
 import { RestaurantController } from './interfaces/http/controllers/restaurant.controller';
 import { CompanyController } from './interfaces/http/controllers/company.controller';
 import { UserController } from './interfaces/http/controllers/user.controller';
@@ -20,6 +18,7 @@ import { RestaurantRatingModule } from './interfaces/http/restaurant-rating.modu
 import { RestaurantRatingController } from './interfaces/http/controllers/restaurant-rating.controller';
 import { EmployeeWeeklyOrdersModule } from './interfaces/http/employee-weekly-orders.module';
 import { HealthCheckModule} from './interfaces/http/health-check.module';
+import { HealthCheckController} from './interfaces/http/controllers/health-check.controller';
 
 @Module({
   imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule,
@@ -27,7 +26,7 @@ import { HealthCheckModule} from './interfaces/http/health-check.module';
             RestaurantRatingModule, HealthCheckModule],
   controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller,
                 RestaurantController,UserController, EmployeeWeeklyOrdersController,
-                RestaurantRatingController],
+                RestaurantRatingController, HealthCheckController],
   providers: [],
 })
 export class AppModule {}
