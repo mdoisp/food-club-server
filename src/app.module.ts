@@ -18,7 +18,6 @@ import { RestaurantRatingModule } from './interfaces/http/restaurant-rating.modu
 import { RestaurantRatingController } from './interfaces/http/controllers/restaurant-rating.controller';
 import { EmployeeWeeklyOrdersModule } from './interfaces/http/employee-weekly-orders.module';
 import { HealthCheckModule} from './interfaces/http/health-check.module';
-import { HealthCheckController} from './interfaces/http/controllers/health-check.controller';
 
 @Module({
   imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule,
@@ -26,7 +25,7 @@ import { HealthCheckController} from './interfaces/http/controllers/health-check
             RestaurantRatingModule, HealthCheckModule],
   controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller,
                 RestaurantController,UserController, EmployeeWeeklyOrdersController,
-                RestaurantRatingController, HealthCheckController],
+                RestaurantRatingController],
   providers: [],
 })
 export class AppModule {}
