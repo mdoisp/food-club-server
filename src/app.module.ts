@@ -18,11 +18,12 @@ import { RestaurantRatingModule } from './interfaces/http/restaurant-rating.modu
 import { RestaurantRatingController } from './interfaces/http/controllers/restaurant-rating.controller';
 import { EmployeeWeeklyOrdersModule } from './interfaces/http/employee-weekly-orders.module';
 import { HealthCheckModule} from './interfaces/http/health-check.module';
+import { StorageModule } from './interfaces/http/storage.module';
 
 @Module({
   imports: [CompanyModule, DishModule, DatabaseModule, EmployeeModule, DishRatingModule,
             RestaurantModule, UserModule, AuthModule, EmployeeWeeklyOrdersModule,
-            RestaurantRatingModule, HealthCheckModule],
+            RestaurantRatingModule, HealthCheckModule, StorageModule],
   controllers: [CompanyController, DishController, EmployeeController, DishRatingControlller,
                 RestaurantController,UserController, EmployeeWeeklyOrdersController,
                 RestaurantRatingController],
