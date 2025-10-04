@@ -28,9 +28,10 @@ export class ListRestaurantService {
     const restaurantsWithAverageRating = await Promise.all(restaurants.map(async (restaurant: RestaurantInterface, index: number) => {
       const user = await this.userRepository.getById(restaurant.userId);
       
-      // Buscar pratos do restaurante para calcular o menor preço
+      // Buscar pratos do restaurante para calcular o menor preço e contagem
       const dishes = await this.dishRepository.listByRestaurant(restaurant.id);
       const minPrice = dishes.length > 0 ? Math.min(...dishes.map(dish => dish.price)) : null;
+      const dishCount = dishes.length;
       
       return {
         id: restaurant.id,
@@ -46,6 +47,7 @@ export class ListRestaurantService {
         profileImage: user.profileImage,
         averageRating: restaurantRatings[index].averageRating,
         minPrice: minPrice,
+        dishCount: dishCount,
       };
     }));
 

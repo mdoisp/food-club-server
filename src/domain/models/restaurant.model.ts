@@ -16,6 +16,7 @@ export interface RestaurantInterface {
     profileImage?: string;
     averageRating?: number;
     minPrice?: number;
+    dishCount?: number;
     dishes?: DishEntityInterface[];
     companyOrders?: CompanyOrderEntityInterface[];
     restaurantRatings?: RestaurantRatingInterface[];

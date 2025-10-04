@@ -94,4 +94,11 @@ export class ListRestaurantDtoResponse {
         nullable: true,
     })
     minPrice?: number;
+
+    @ApiProperty({
+        type: 'number',
+        description: 'Quantidade de pratos cadastrados no restaurante',
+        example: 15,
+    })
+    dishCount?: number;
 }
