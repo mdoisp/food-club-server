@@ -87,5 +87,11 @@ export class ListRestaurantDtoResponse {
     })
     averageRating?: number;
 
-
+    @ApiProperty({
+        type: 'number',
+        description: 'Menor preço dos pratos do restaurante',
+        example: 10.50,
+        nullable: true,
+    })
+    minPrice?: number;
 }
